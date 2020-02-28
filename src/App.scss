@@ -19,4 +19,25 @@ body {
     margin: 0;
     padding: 0;
   }
+
+  button {
+    cursor: pointer;
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: unset;
+  }
+
+  input {
+    outline: none;
+  }
+
+  .card-btn-link {
+    color: $gh-red;
+    font-size: 9px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

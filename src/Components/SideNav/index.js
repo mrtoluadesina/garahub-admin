@@ -19,6 +19,7 @@ export default props => {
       if (item.childNodes[1]) {
         item.childNodes[1].hidden = !item.childNodes[1].hidden;
       }
+      
     });
 
     // add active class on the current li item

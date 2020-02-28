@@ -7,6 +7,7 @@ import SideNav from '../Components/SideNav';
 import Dashboard from '../Views/Dashboard';
 import AllOrder from '../Views/AllOrders';
 import Products from '../Views/Products';
+import AddProducts from '../Views/Products/add';
 
 import './styles.scss';
 
@@ -22,6 +23,7 @@ export default props => {
               <Route path="/" component={Dashboard} exact></Route>
               <Route path="/orders" component={AllOrder} exact></Route>
               <Route exact path="/products" component={Products}></Route>
+              <Route exact path="/products/add" component={AddProducts}></Route>
             </Switch>
           </div>
         </Router>
