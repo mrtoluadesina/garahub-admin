@@ -1,38 +1,38 @@
-import React from 'react';
-import Icon from '@mdi/react';
+import React from "react";
+import Icon from "@mdi/react";
 
-import { mdiMapMarker } from '@mdi/js';
+import { mdiMapMarker } from "@mdi/js";
 
-import OrderButton from '../../Components/OrderButton/index';
-import Dropdown from '../../Components/Dropdown/index';
-import Card from '../../Components/Card';
-import AllOrderTab from '../../Components/CardTab';
-import FilterBar from '../../Components/FilterBar';
-import Button from '../../Components/Button';
-import Table from '../../Components/Table';
-import TableData from '../../utils/tabledata';
+import OrderButton from "../../Components/OrderButton/index";
+import Dropdown from "../../Components/Dropdown/index";
+import Card from "../../Components/Card";
+import AllOrderTab from "../../Components/CardTab";
+import FilterBar from "../../Components/FilterBar";
+import Button from "../../Components/Button";
+import Table from "../../Components/Table";
+import TableData from "../../utils/tabledata";
 
-import './index.scss';
+import "./index.scss";
 
 export default props => {
   return (
-    <div>
-      <div className="order-header">
-        <h4 className="order">Orders</h4>
-        <div className="orderBtn">
-          <OrderButton value="Create Order" />
+    <div className="order-row">
+      <div className="container">
+        <div className="order-header">
+          <h4 className="order">Orders</h4>
+          <div className="orderBtn">
+            <OrderButton value="Create Order" />
+          </div>
         </div>
-      </div>
-      <ul className="order-ul">
-        <li className="export">Export</li>
-        <li>
-          <Dropdown>
-            <option>More Actions</option>
-            <option>Open</option>
-          </Dropdown>
-        </li>
-      </ul>
-      <div>
+        <ul className="order-ul">
+          <li className="export">Export</li>
+          <li>
+            <Dropdown>
+              <option>More Actions</option>
+              <option>Open</option>
+            </Dropdown>
+          </li>
+        </ul>
         <Card>
           <div className="all-order">
             <AllOrderTab>
@@ -79,14 +79,14 @@ export default props => {
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
                   </th>
-                  {TableData.allOrderData.map(item => (
-                    <th scope="col">{item.title}</th>
+                  {TableData.allOrderData.map((item, index) => (
+                    <th key={index} scope="col">{item.title}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {TableData.allOrderData.map(item => (
-                  <tr>
+                {TableData.allOrderData.map((item, index) => (
+                  <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
@@ -94,7 +94,7 @@ export default props => {
                     <td className="Date">{item.date}</td>
                     <td className="Customer">{item.customer}</td>
                     <td className="Payment">
-                      {item.payment === 'Paid' ? (
+                      {item.payment === "Paid" ? (
                         <div className="paid">
                           <div className="paid-circle"></div>
                           Paid
@@ -107,7 +107,7 @@ export default props => {
                       )}
                     </td>
                     <td className="Fulfilment">
-                      {item.fulfilment === 'Fulfilled' ? (
+                      {item.fulfilment === "Fulfilled" ? (
                         <div className="fulfilled">
                           <div className="fulfilled-circle"></div>
                           Fulfilled
