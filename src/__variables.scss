@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'Jost';
+  src: url('/assets/fonts/Jost-400-Book.otf') format('opentype');
+  src: url('/assets/fonts/Jost-400-Book.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Aktiv-Grotesk';
+  src: url('/assets/fonts/Aktiv-Grotesk-W06-Regular.otf') format('opentype');
+  src: url('/assets/fonts/Aktiv-Grotesk-W06-Regular.ttf') format('truetype');
+}
+
+$light-grey: #fafafa;
+$medium-grey: #eaeaea;
+$dark-grey: #ccc;
+$x-dark-grey: #4d4d4d;
+$xx-dark-grey: #707070;
+$md-dark-grey: #969696;
+$another-grey: #dfe3e8;
+$white-grey: #f9fafb;
+$grey: #c2c7c9;
+$white: #ffffff;
+$black: #111111;
+$gh-orange: #ffe6c9;
+$gh-blue: #021782;
+$gh-light-blue: #e0f3ff;
+$gh-aqua: #eef9fc;
+$gh-pink: #faeaf1;
+$gh-light-pink: #fdf5f5;
+$gh-dark-pink: #f7dfdf;
+$gh-bg: #f9f9fc;
+$gh-red: #f71735;
+$gh-pink-red: #ffa0a0;
+$red: #ff4746;
+$prim: #e2d4e4;
+$quartz: #dbdbeb;
+$hawkes-blue: #dae1ea;
+$swans-down: #dbede2;
+$fair-pink: #ebe1db;
+$rating: #ffbf01;
+$green: #7db27d;
+
+$default-font-family: 'Jost', 'Open-Sans', 'sans-serif';
+$default-font-size: 16px;
+
+$mobile-breakpoint: 414px;
+$mobile-b-breakpoint: 415px;
+$tablet-breakpoint: 768px;
+$tablet-b-breakpoint: 769px;
+$desktop-breakpoint: 1028px;
+$desktop-b-breakpoint: 1029px;

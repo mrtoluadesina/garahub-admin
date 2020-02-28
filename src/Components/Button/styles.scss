@@ -1,0 +1,36 @@
+@import '../../_variables';
+
+.btn {
+  width: auto;
+  height: 100%;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+.redSolidBtn {
+  background-color: $red;
+  color: $white;
+}
+
+.greySolidBtn {
+  background-color: $md-dark-grey;
+}
+
+.redOutline {
+  border: 1px solid $red;
+  color: $red;
+}
+
+.btnOutline {
+  border: 1px solid $grey;
+  background: transparent;
+  text-decoration: none;
+}
+
+.blueLineBtn {
+  color: $gh-blue;
+}

@@ -1,0 +1,50 @@
+@import '../../_variables';
+
+.side {
+  flex: 0 0 15%;
+  border-right: 1px solid $grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  width: 15%;
+  height: calc(100% - 3rem);
+
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: $black;
+    font-size: 14px;
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: #919eac;
+      margin-right: 1rem;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 1rem;
+    li {
+      margin: 0.5rem 1rem;
+      a {
+        justify-content: space-between;
+        .nav-item {
+          display: flex;
+        }
+        .count {
+          font-size: 8px;
+          background-color: $another-grey;
+          padding: 0.1rem 0.5rem;
+          border-radius: 40%;
+        }
+      }
+    }
+  }
+
+  .bottom-link {
+    margin: 1.5rem 1rem;
+  }
+}

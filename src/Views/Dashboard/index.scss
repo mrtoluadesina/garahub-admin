@@ -1,0 +1,170 @@
+@import '../../_variables';
+
+.row {
+  display: flex;
+  .dashboard {
+    flex: 0 0 75%;
+    display: flex;
+    justify-content: center;
+    padding: 2% 10%;
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      margin: 0 2rem;
+      .intro {
+        font-size: 12px;
+        opacity: 0.65;
+      }
+      .summary-caption {
+        display: flex;
+        padding: 1.56rem 0.75rem;
+        margin: 1rem 0;
+        align-items: center;
+        background-color: $white-grey;
+        border: 1px solid $dark-grey;
+        width: 100%;
+        border-radius: 5px;
+
+        .icon {
+          width: 25px;
+          height: 25px;
+          margin-right: 1.2rem;
+          fill: $dark-grey;
+        }
+
+        .caption {
+          display: flex;
+          flex-direction: column;
+          opacity: 0.8;
+
+          h2 {
+            font-size: 16px;
+          }
+
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+      .card {
+        padding: 1rem;
+        margin: 1.5rem 0;
+        width: 100%;
+        border-radius: 4px;
+        flex-direction: column;
+        .card-item {
+          display: flex;
+          align-items: center;
+          position: relative;
+          width: 100%;
+          padding: 0.65rem 0;
+          border-bottom: 1px solid $medium-grey;
+          &:last-child {
+            border-bottom: 0;
+          }
+          &::after {
+            content: '\0203A';
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 28px;
+            color: $grey;
+          }
+          .icon {
+            width: 20px;
+            height: 20px;
+            fill: $gh-blue;
+            margin-right: 1.5rem;
+          }
+          p {
+            opacity: 0.75;
+            span {
+              opacity: 1;
+              font-weight: 800;
+            }
+          }
+        }
+        &.information {
+          align-items: center;
+          padding: 0.75rem 1.5rem;
+
+          .iContent {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+
+            img {
+              width: 30%;
+              margin-bottom: 1.5rem;
+            }
+
+            h4 {
+              font-size: 16px;
+              letter-spacing: 0.2px;
+            }
+
+            p {
+              opacity: 0.5;
+              font-size: 14px;
+              line-height: 1;
+              margin: 1rem 2rem;
+            }
+
+            .btn-group {
+              display: flex;
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+  .notification-sidebar {
+    border-left: 1px solid $grey;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: calc(100% - 3rem);
+    width: 21%;
+    right: 0;
+
+    .card {
+      .notification-filter {
+        padding: 1.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &.notification-item {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 1rem;
+
+        .item-date {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          font-size: 12px;
+          opacity: 0.65;
+        }
+
+        h2 {
+          font-size: 14px;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 12px;
+          opacity: 0.65;
+        }
+      }
+    }
+  }
+}
