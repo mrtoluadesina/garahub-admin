@@ -4,3 +4,40 @@
   display: flex;
   padding: 1.5rem 3rem;
 }
+
+.add-product-section {
+  display: flex;
+  justify-content: center;
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 980px;
+    padding: 1rem;
+    align-items: flex-start;
+    .row {
+      display: flex;
+      width: 100%;
+      .col {
+        &._big {
+          flex: 0 0 60%
+        }
+        &._small {
+          flex: 0 0 40%;
+        }
+        .form {
+          .card {
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 4px;
+            .form-group {
+              display: flex;
+              flex-direction: column;
+              margin: 1rem 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
