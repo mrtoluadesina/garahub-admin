@@ -4,6 +4,7 @@ import Card from "../../Components/Card";
 import "./styles.scss";
 import Input from "../../Components/Input";
 import TextArea from "../../Components/TextArea";
+import Button from '../../Components/Button';
 
 export default props => {
   return (
@@ -51,8 +52,17 @@ export default props => {
               </Card>
             </div>
             <div className="col _small">
-              <Card></Card>
+              <Card>
+                <h4>Categories</h4>
+                <div className="form-group">
+                  <label>select category</label>
+                  <Input type="text" placeholder="Enter Category" />
+                </div>
+              </Card>
             </div>
+          </div>
+          <div className="row">
+            <Button className="btn redSolidBtn" value="Save" />
           </div>
         </form>
       </div>

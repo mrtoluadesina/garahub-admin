@@ -27,6 +27,9 @@
           &._small {
             flex: 0 0 36.5%;
             margin-left: 3.5%;
+            .card {
+              background-color: $light-grey;
+            }
           }
           .card {
             margin: 1rem 0;
@@ -47,6 +50,11 @@
               }
             }
           }
+        }
+        &:last-child {
+          justify-content: flex-end;
+          border-top: 1px solid $grey;
+          padding: 1rem;
         }
       }
     }
