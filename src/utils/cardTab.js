@@ -43,4 +43,7 @@ export default {
       path: '/completed',
     }
   ],
+  abandoned: [
+    {name: 'All'}
+  ]
 };
