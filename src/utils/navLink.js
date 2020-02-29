@@ -51,6 +51,10 @@ export default {
         { 
           title: "Edit Product",
           link: "/products/edit" 
+        },
+        { 
+          title: "Gift Cards",
+          link: "/products/gift" 
         }
       ]
     },
