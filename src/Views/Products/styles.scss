@@ -60,3 +60,40 @@
     }
   }
 }
+
+.product-row{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  .container{
+    flex-direction: column;
+    max-width: 1180px;
+    width: 100%;
+    .product-header{
+      display: flex;
+      width: 100%;
+      margin-bottom: 1rem;
+      .product {
+        font-size: 2rem;
+        color: #454b4d;
+        padding: 1rem 1rem 0;
+      }
+      .productbtn{
+        margin-left: auto;
+        position: relative;
+        top: 2rem;
+      }
+    }
+    .product-ul {
+      padding-left: 2.5rem;
+      font-size: 0.8rem;
+      color: #454b4d;
+      font-weight: 600;
+      .export {
+        padding-right: 3rem;
+        float: left;
+      }
+    }
+  }
+}
