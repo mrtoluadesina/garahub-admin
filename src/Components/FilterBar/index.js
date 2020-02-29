@@ -8,7 +8,7 @@ export default props => {
       <form>
         <input
           type="text"
-          className="filterbar"
+          className={props.className}
           placeholder={props.placeholder}
           name="filter"
         ></input>
