@@ -179,5 +179,109 @@ export default {
       status: 'Open',
       total: '480, 000'
     },
+  ],
+  abondonedData: [
+    {
+      title: 'Checkout',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      title: 'Date',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      title: 'Placed by',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      title: 'Email status',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      title: 'Recovery status',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      title: 'Total',
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    },
+    {
+      checkout: '#1345678908765',
+      date: 'Jan 3, 12: 51 am EST',
+      placedBy: 'nathan javines',
+      emailStatus: 'Not Sent',
+      recoverStatus: 'Not Recovered',
+      total: '480, 000'
+    }
   ]
 };
