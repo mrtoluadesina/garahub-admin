@@ -66,7 +66,7 @@ export default props => {
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
-                    <td className="order">{item.draft}</td>
+                    <td className="order-item">{item.draft}</td>
                     <td>{item.date}</td>
                     <td>{item.customer}</td>
                     <td>
