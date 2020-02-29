@@ -8,6 +8,8 @@
   }
   .orderBtn {
     margin-left: auto;
+    position: relative;
+    top: 2rem;
   }
 }
 
@@ -46,6 +48,16 @@
   display: flex;
   height: 6vh;
   margin: 2rem 0;
+  .allorder-filterbar {
+    height: 6vh;
+    padding-left: 2rem;
+    color: #a4a8a8;
+    border: 1px solid #cccccc;
+    width: 28rem;
+    margin-left: 1rem;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
   .status {
     border: 1px solid #cccccc;
     color: #454b4d;

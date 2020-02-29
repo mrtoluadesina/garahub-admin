@@ -48,7 +48,7 @@ export default props => {
             </AllOrderTab>
           </div>
           <div className="filter">
-            <FilterBar placeholder="Filter Orders"></FilterBar>
+            <FilterBar placeholder="Filter Orders" className="allorder-filterbar"></FilterBar>
             <div className="status">
               <Dropdown>
                 <option>Status</option>
