@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 
 export default props => {
   return (
-    <Card>
+    <Card className="data-card">
       <div className="data-card-header">
         <h3 className="title">Total Sales</h3>
         <a href="/" className="data-card-link">
