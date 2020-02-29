@@ -95,6 +95,9 @@
         float: left;
       }
     }
+    .gift-card{
+      margin: 4rem!important;
+    }
     .product-card {
       margin: 1rem;
       .all-product {
@@ -129,7 +132,16 @@
           border-bottom-right-radius: 3px;
         }
       }
+      .color-blue{
+        color: #0672BC;
+      }
 
+      .gift-footer{
+        text-align: center;
+        margin: 2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
     }
   }
 }
