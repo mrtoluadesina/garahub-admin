@@ -9,6 +9,7 @@ import AllOrder from '../Views/Orders';
 import Products from '../Views/Products';
 import AddProducts from '../Views/Products/add';
 import AbandonedCheckouts from '../Views/Orders/abandonedCheckout'
+import Analytics from '../Views/Analytics';
 
 import './styles.scss';
 
@@ -26,6 +27,7 @@ export default props => {
               <Route exact path="/orders/abandoned" component={AbandonedCheckouts}></Route>
               <Route exact path="/products" component={Products}></Route>
               <Route exact path="/products/add" component={AddProducts}></Route>
+              <Route exact path="/analytics" component={Analytics} />
             </Switch>
           </div>
         </Router>

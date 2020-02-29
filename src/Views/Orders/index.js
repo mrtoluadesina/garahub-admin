@@ -79,9 +79,12 @@ export default props => {
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
                   </th>
-                  {TableData.allOrderData.map((item, index) => (
-                    <th key={index} scope="col">{item.title}</th>
-                  ))}
+                    <th scope="col">Order</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Fulfilment</th>
+                    <th scope="col">Total</th>
                 </tr>
               </thead>
               <tbody>

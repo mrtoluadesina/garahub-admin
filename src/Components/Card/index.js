@@ -4,6 +4,6 @@ import './styles.scss';
 
 export default props => {
   return (
-    <div className={`main-card ${props.className || ''}`}>{props.children}</div>
+    <div className={`card ${props.className || ''}`}>{props.children}</div>
   );
 };
