@@ -11,8 +11,6 @@ import Input from "../../Components/Input";
 import TableData from "../../utils/tabledata";
 import AbandonedTab from "../../Components/AbandonedTab";
 
-import "../Drafts/index.scss";
-import "./index.scss";
 import "./index.scss";
 
 export default props => {
@@ -44,7 +42,7 @@ export default props => {
           </div>
           <div>
             <Table>
-              <thead>
+              <thead className="th-color">
                 <tr>
                   <th className="checkbox checkbox-border" scope="col">
                     <input type="checkbox"></input>
@@ -53,8 +51,8 @@ export default props => {
                     <th scope="col">Checkout</th>
                     <th scope="col">Date</th>
                     <th scope="col">Place by</th>
-                    <th scope="col">email Status</th>
-                    <th scope="col">Recovery Status</th>
+                    <th scope="col">Email status</th>
+                    <th scope="col">Recovery status</th>
                     <th scope="col">Total</th>
                 </tr>
               </thead>
@@ -65,8 +63,8 @@ export default props => {
                       <input type="checkbox"></input>
                     </td>
                     <td className="order-item">{item.checkout}</td>
-                    <td>{item.date}</td>
-                    <td>{item.placedBy}</td>
+                    <td className="color-lgray">{item.date}</td>
+                    <td className="color-dgray">{item.placedBy}</td>
                     <td>
                       {item.emailStatus === "Not Sent" ? (
                         <div className="recovery">Not Sent</div>
@@ -81,7 +79,7 @@ export default props => {
                         <div className="paid">Recovered</div>
                       )}
                     </td>
-                    <td>{item.total}</td>
+                    <td className="color-dgray">{item.total}</td>
                   </tr>
                 ))}
               </tbody>

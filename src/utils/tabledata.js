@@ -1,3 +1,7 @@
+import {
+  mdiImage 
+} from "@mdi/js";
+
 export default {
   allOrderData: [
     {
@@ -277,5 +281,80 @@ export default {
       recoverStatus: 'Not Recovered',
       total: '480, 000'
     }
+  ],
+  products: [
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+    {
+      image: mdiImage ,
+      product: 'aSD',
+      number: '0',
+      inventory: 'in stock for 4 Variants',
+      type: 'T-shirts',
+      vendor: 'akeneo-shop'
+    },
+
   ]
 };
