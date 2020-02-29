@@ -42,7 +42,7 @@ export default props => {
             </div>
             <Input placeholder="Search customers"
               className="customer-filterbar" />
-            <p>Sort by</p>
+            <p className="sortBy">Sort by</p>
             <div className="update-status">
               <Dropdown>
                 <option>Newest update</option>
