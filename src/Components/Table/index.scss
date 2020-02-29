@@ -1,13 +1,17 @@
 .table {
   overflow-x: auto;
+
   .responsive-table {
     width: 100%;
     border-collapse: collapse;
-    .th-color{
+
+    .th-color {
       color: #454B4D;
     }
+
     tr {
       border-bottom: 1px solid #cccccc;
+
       th,
       td {
         text-align: left;
@@ -15,17 +19,23 @@
         height: 4rem;
       }
 
-      .color-orange{
+      .customer-padding{
+        padding-right: 1rem;
+      }
+
+      .color-orange {
         color: #E85D12;
       }
-      .color-lgray{
+
+      .color-lgray {
         color: #7E8384;
       }
-      .color-dgray{
+
+      .color-dgray {
         color: #4E4A47;
       }
 
-      .checkbox-border{
+      .checkbox-border {
         align-items: center;
         display: flex;
         border: 1px solid #CCCCCC;
@@ -33,39 +43,43 @@
         height: 25px;
         margin-top: 1rem;
         margin-left: 0.5rem;
-        padding-left: 0.5rem!important;
-    }
-    .checkbox {
-      padding-left: 1rem;
-    }
-    .chevron-icon{
-      width: 20px;
-      height: 20px;
-      fill: #707070;
-  }
-  .product-chevron{
-    display: flex;
-    align-items: center;
-  }
+        padding-left: 0.5rem !important;
+      }
 
-  .product-image{
-    background-color: #F4F6F8;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    .product-icon{
-      width: 20px;
-      height: 20px;
-      fill: #707070;
-      margin: auto;
-  }
-  }
+      .checkbox {
+        padding-left: 1rem;
+      }
+
+      .chevron-icon {
+        width: 20px;
+        height: 20px;
+        fill: #707070;
+      }
+
+      .product-chevron {
+        display: flex;
+        align-items: center;
+      }
+
+      .product-image {
+        background-color: #F4F6F8;
+        width: 50px;
+        height: 50px;
+        display: flex;
+
+        .product-icon {
+          width: 20px;
+          height: 20px;
+          fill: #707070;
+          margin: auto;
+        }
+      }
 
       .order-item {
         color: #0672bc;
       }
 
-      .recovery{
+      .recovery {
         display: flex;
         background-color: #ffc68b;
         color: #5c4531;
@@ -73,7 +87,7 @@
         border-radius: 30px;
         font-size: 0.9rem;
         justify-content: center;
-    }
+      }
 
       .paid {
         display: flex;
@@ -84,6 +98,7 @@
         padding: 0 10px;
         color: #7e8384;
         font-size: 0.9rem;
+
         .paid-circle {
           width: 12px;
           height: 12px;
@@ -94,6 +109,7 @@
           margin-right: 2px;
         }
       }
+
       .pending {
         display: flex;
         width: 70%;
@@ -103,6 +119,7 @@
         border-radius: 30px;
         padding: 0 10px;
         font-size: 0.9rem;
+
         .pending-circle {
           width: 12px;
           height: 12px;
@@ -123,6 +140,7 @@
         padding: 0 8px;
         color: #7e8384;
         font-size: 0.9rem;
+
         .fulfilled-circle {
           width: 12px;
           height: 12px;
@@ -133,6 +151,7 @@
           margin-right: 2px;
         }
       }
+
       .unfulfilled {
         display: flex;
         width: 70%;
@@ -142,6 +161,7 @@
         border-radius: 30px;
         padding: 0 8px;
         font-size: 0.9rem;
+
         .unfulfilled-circle {
           width: 12px;
           height: 12px;
@@ -152,6 +172,7 @@
           margin-right: 2px;
         }
       }
+
       .Customer {
         padding-left: 2rem;
         width: 13rem;
