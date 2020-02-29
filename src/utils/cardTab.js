@@ -45,5 +45,16 @@ export default {
   ],
   abandoned: [
     {name: 'All'}
+  ],
+  customerTab: [
+    {name: 'All'},
+    {name: 'New'},
+    {name: 'Returning'},
+    {name: 'Abandoned checkouts'},
+    {name: 'Email subscribers'},
+    {name: 'From India'},
+    {name: 'all @gmail'},
+    {name: 'all @amazon.com'},
+    {name: 'test'},
   ]
 };
