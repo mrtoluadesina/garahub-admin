@@ -43,7 +43,7 @@ export default props => {
                 <option>Filter</option>
               </Dropdown>
             </div>
-            <Input placeholder="Search checkouts"
+            <Input placeholder="Search products"
               className="product-filterbar" />
           </div>
           <Table>
@@ -64,8 +64,8 @@ export default props => {
                 </tr>
               </thead>
               <tbody>
-                {TableData.products.map(item => (
-                  <tr>
+                {TableData.products.map((item, index) => (
+                  <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
