@@ -40,9 +40,18 @@ export default {
       link: "/products",
       icon: mdiTagOutline,
       subNav: [
-        { title: "All Products" },
-        { title: "Add Products" },
-        { title: "Edit Product" }
+        { 
+          title: "All Products",
+          link: "/products"
+         },
+        { 
+          title: "Add Products",
+          link: "/products/add-products"
+         },
+        { 
+          title: "Edit Product",
+          link: "/products/edit-products" 
+        }
       ]
     },
     {
