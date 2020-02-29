@@ -21,11 +21,23 @@ export default {
       link: "/orders",
       icon: mdiFolderDownloadOutline,
       subNav: [
-        { title: "Create Order" },
-        { title: "All Orders" },
-        { title: "Drafts" },
-        { title: "Abandoned" }
-      ]
+        { 
+          title: 'Create Order',
+          link: '/orders/create-order'
+        },
+        { 
+          title: 'All Orders',
+          link: '/orders'
+        },
+        { 
+          title: 'Drafts',
+          link: '/orders/drafts'
+        },
+        { 
+          title: 'Abandoned',
+          link: '/orders/abandoned' 
+        },
+      ],
     },
     {
       title: "Products",

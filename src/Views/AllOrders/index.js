@@ -33,7 +33,7 @@ export default props => {
             </Dropdown>
           </li>
         </ul>
-        <Card>
+        <Card className="order-card">
           <div className="all-order">
             <AllOrderTab>
               <div className="location">
@@ -48,7 +48,7 @@ export default props => {
             </AllOrderTab>
           </div>
           <div className="filter">
-            <FilterBar placeholder="Filter Orders"></FilterBar>
+            <FilterBar placeholder="Filter Orders" className="allorder-filterbar"></FilterBar>
             <div className="status">
               <Dropdown>
                 <option>Status</option>
@@ -90,7 +90,7 @@ export default props => {
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
-                    <td className="order">{item.order}</td>
+                    <td className="order-item">{item.order}</td>
                     <td className="Date">{item.date}</td>
                     <td className="Customer">{item.customer}</td>
                     <td className="Payment">
