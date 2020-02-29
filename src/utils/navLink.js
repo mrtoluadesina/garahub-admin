@@ -30,10 +30,6 @@ export default {
           link: '/orders'
         },
         { 
-          title: 'Drafts',
-          link: '/orders/drafts'
-        },
-        { 
           title: 'Abandoned',
           link: '/orders/abandoned' 
         },

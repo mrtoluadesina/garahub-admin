@@ -15,7 +15,7 @@ import TableData from '../../utils/tabledata';
 import DraftTab from '../../Components/DraftTab'
 
 import './index.scss';
-import '../AllOrders/index.scss';
+import '../Orders/index.scss';
 
 export default props => {
   return (
