@@ -103,4 +103,81 @@ export default {
       total: '120.00',
     },
   ],
+  draftsData: [
+    {
+      title: 'Draft',
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      title: 'Date',
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      title: 'Customer',
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      title: 'Status',
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      title: 'Total',
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+    {
+      draft: '#D28',
+      date: 'Nov 5, 12: 51 am EST',
+      customer: 'nathan javines',
+      status: 'Open',
+      total: '480, 000'
+    },
+  ]
 };
