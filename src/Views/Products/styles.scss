@@ -95,5 +95,13 @@
         float: left;
       }
     }
+    .product-card {
+      margin: 1rem;
+      .all-product {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+      }
+      
+    }
   }
 }
