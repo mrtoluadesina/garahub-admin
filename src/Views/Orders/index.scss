@@ -19,6 +19,19 @@
     max-width: 1180px;
     width: 100%;
 
+    .chevron-icon{
+      width: 20px;
+      height: 20px;
+      fill: #707070;
+  }
+
+  .previous{
+    display: flex;
+    margin-left: 1rem;
+    margin-top: 3rem;
+    color: #454B4D;
+}
+
     .order-header {
       display: flex;
       width: 100%;
@@ -29,6 +42,11 @@
         color: #454b4d;
         padding: 1rem 1rem 0;
       }
+
+      .draftbtn{
+          margin-left: auto;
+      }
+
       .orderBtn {
         margin-left: auto;
       }
@@ -81,7 +99,21 @@
         margin-left: 1rem;
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
       }
+      .filter-status{
+        border: 1px solid #cccccc;
+        color: #454B4D;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        border-right: none;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
       .status {
         border: 1px solid #cccccc;
         color: #454b4d;
@@ -89,9 +121,23 @@
         display: flex;
         align-items: center;
         padding: 0 1rem;
+      }
+      .status-radius{
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
       }
+      .draft-filterbar{
+        height: 6vh;
+        padding-left: 2rem;
+        color: #a4a8a8;
+        border: 1px solid #cccccc;
+        width: 70vw;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+    
       .savebtn {
         border: 1px solid #ccc;
         margin-left: 1rem;
@@ -108,113 +154,6 @@
       }
     }
 
-    tr {
-      border-bottom: 1px solid #cccccc;
-      th,
-      td {
-        text-align: left;
-        padding: 8px;
-        height: 4rem;
-      }
-      .checkbox {
-        padding-left: 1rem;
-      }
-
-      .order-item {
-        color: #0672bc;
-      }
-
-      .recovery{
-        display: flex;
-        background-color: #ffc68b;
-        color: #5c4531;
-        border: 1px solid #ffc68b;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        justify-content: center;
-    }
-
-      .paid {
-        display: flex;
-        background-color: #cccccc;
-        border: 1px solid #cccccc;
-        border-radius: 30px;
-        width: 50%;
-        padding: 0 10px;
-        color: #7e8384;
-        font-size: 0.9rem;
-        .paid-circle {
-          width: 12px;
-          height: 12px;
-          background-color: #707070;
-          border-radius: 50px;
-          display: flex;
-          align-self: center;
-          margin-right: 2px;
-        }
-      }
-      .pending {
-        display: flex;
-        width: 70%;
-        background-color: #ffc68b;
-        color: #5c4531;
-        border: 1px solid #ffc68b;
-        border-radius: 30px;
-        padding: 0 10px;
-        font-size: 0.9rem;
-        .pending-circle {
-          width: 12px;
-          height: 12px;
-          border: 1px solid #c05717;
-          border-radius: 50px;
-          display: flex;
-          align-self: center;
-          margin-right: 2px;
-        }
-      }
-
-      .fulfilled {
-        display: flex;
-        background-color: #cccccc;
-        border: 1px solid #cccccc;
-        border-radius: 30px;
-        width: 60%;
-        padding: 0 8px;
-        color: #7e8384;
-        font-size: 0.9rem;
-        .fulfilled-circle {
-          width: 12px;
-          height: 12px;
-          background-color: #707070;
-          border-radius: 50px;
-          display: flex;
-          align-self: center;
-          margin-right: 2px;
-        }
-      }
-      .unfulfilled {
-        display: flex;
-        width: 70%;
-        background-color: #ffea8a;
-        color: #7e8384;
-        border: 1px solid #ffc68b;
-        border-radius: 30px;
-        padding: 0 8px;
-        font-size: 0.9rem;
-        .unfulfilled-circle {
-          width: 12px;
-          height: 12px;
-          border: 1px solid #c05717;
-          border-radius: 50px;
-          display: flex;
-          align-self: center;
-          margin-right: 2px;
-        }
-      }
-      .Customer {
-        padding-left: 2rem;
-        width: 13rem;
-      }
-    }
+    
   }
 }
