@@ -19,17 +19,16 @@
     max-width: 1180px;
     width: 100%;
 
-    .chevron-icon{
-      width: 20px;
-      height: 20px;
-      fill: #707070;
-  }
-
   .previous{
     display: flex;
     margin-left: 1rem;
     margin-top: 3rem;
     color: #454B4D;
+    .chevron-icon{
+      width: 20px;
+      height: 20px;
+      fill: #707070;
+  }
 }
 
     .order-header {

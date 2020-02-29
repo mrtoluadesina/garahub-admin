@@ -74,7 +74,7 @@ export default props => {
           </div>
           <div>
             <Table>
-              <thead>
+              <thead className="th-color">
                 <tr>
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
@@ -91,8 +91,8 @@ export default props => {
                       <input type="checkbox"></input>
                     </td>
                     <td className="order-item">{item.order}</td>
-                    <td className="Date">{item.date}</td>
-                    <td className="Customer">{item.customer}</td>
+                    <td className="color-lgray">{item.date}</td>
+                    <td className="color-lgray">{item.customer}</td>
                     <td className="Payment">
                       {item.payment === "Paid" ? (
                         <div className="paid">
@@ -119,7 +119,7 @@ export default props => {
                         </div>
                       )}
                     </td>
-                    <td>{item.total}</td>
+                    <td className="color-dgray">{item.total}</td>
                   </tr>
                 ))}
               </tbody>
