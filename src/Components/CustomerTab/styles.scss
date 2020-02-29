@@ -1,0 +1,33 @@
+.card-tab {
+  width: 100%;
+
+  ul {
+    width: 100%;
+
+    .tab-li {
+      padding: 1rem 2rem;
+
+      .tab-link {
+        text-decoration: none;
+        color: #7e8384;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: #616fc6;
+      }
+    }
+  }
+
+  .card-tab-ul {
+    display: flex;
+  }
+
+  .customer-ul {
+    font-size: 1rem;
+
+    .customer-li {
+      padding: 1rem 1rem;
+    }
+  }
+}

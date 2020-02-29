@@ -349,6 +349,49 @@ export default {
       type: 'T-shirts',
       vendor: 'akeneo-shop'
     },
-
+  ],
+  customerData: [
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
+    {
+      title: 'Test Test',
+      name: 'Test, TW',
+      order: '2 orders',
+      payment: '360, 000 spent'
+    },
   ]
 };

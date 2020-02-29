@@ -8,6 +8,7 @@ import Dashboard from '../Views/Dashboard';
 import AllOrder from '../Views/Orders';
 import Products from '../Views/Products';
 import AddProducts from '../Views/Products/add';
+import Customers from '../Views/Customers';
 import AbandonedCheckouts from '../Views/Orders/abandonedCheckout'
 import Analytics from '../Views/Analytics';
 
@@ -27,6 +28,7 @@ export default props => {
               <Route exact path="/orders/abandoned" component={AbandonedCheckouts}></Route>
               <Route exact path="/products" component={Products}></Route>
               <Route exact path="/products/add" component={AddProducts}></Route>
+              <Route exact path="/customers" component={Customers}></Route>
               <Route exact path="/analytics" component={Analytics} />
             </Switch>
           </div>
