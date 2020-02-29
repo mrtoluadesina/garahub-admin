@@ -25,4 +25,22 @@ export default {
       path: '/new',
     },
   ],
+  drafts: [
+    {
+      name: 'Draft Orders',
+      path: '/',
+    },
+    {
+      name: 'Open',
+      path: '/open',
+    },
+    {
+      name: 'Invoice sent',
+      path: '/invoice-sent',
+    },
+    {
+      name: 'Completed',
+      path: '/completed',
+    }
+  ],
 };
