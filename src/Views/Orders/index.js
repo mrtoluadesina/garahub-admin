@@ -64,7 +64,7 @@ export default props => {
                 <option>Fulfilment Status</option>
               </Dropdown>
             </div>
-            <div className="status">
+            <div className="status status-radius">
               <Dropdown>
                 <option>More Filters</option>
               </Dropdown>
