@@ -46,7 +46,7 @@
     }
 
     .order-card {
-      margin: 1rem 3rem;
+      margin: 1rem;
       .all-order {
         width: 100%;
         border-bottom: 1px solid #ccc;
@@ -71,7 +71,7 @@
     .filter {
       display: flex;
       height: 6vh;
-      margin: 2rem 0;
+      margin: 2rem 1rem;
       .allorder-filterbar {
         height: 6vh;
         padding-left: 2rem;
@@ -123,6 +123,16 @@
       .order-item {
         color: #0672bc;
       }
+
+      .recovery{
+        display: flex;
+        background-color: #ffc68b;
+        color: #5c4531;
+        border: 1px solid #ffc68b;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        justify-content: center;
+    }
 
       .paid {
         display: flex;
