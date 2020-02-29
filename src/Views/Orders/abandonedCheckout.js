@@ -11,8 +11,6 @@ import Input from "../../Components/Input";
 import TableData from "../../utils/tabledata";
 import AbandonedTab from "../../Components/AbandonedTab";
 
-import "../Drafts/index.scss";
-import "./index.scss";
 import "./index.scss";
 
 export default props => {
@@ -53,8 +51,8 @@ export default props => {
                     <th scope="col">Checkout</th>
                     <th scope="col">Date</th>
                     <th scope="col">Place by</th>
-                    <th scope="col">email Status</th>
-                    <th scope="col">Recovery Status</th>
+                    <th scope="col">Email status</th>
+                    <th scope="col">Recovery status</th>
                     <th scope="col">Total</th>
                 </tr>
               </thead>
