@@ -30,6 +30,12 @@ body {
     color: unset;
   }
 
+  select {
+    border: 0;
+    background: transparent;
+    outline: 0;
+  }
+
   input {
     outline: none;
   }
