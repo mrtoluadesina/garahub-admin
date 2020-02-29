@@ -1,4 +1,4 @@
-.order-header {
+.order-row {
   display: flex;
   width: 100%;
   .order {
@@ -24,25 +24,55 @@
   }
 }
 
-.all-order {
-  width: 100%;
-  border-bottom: 1px solid #ccc;
-  .location {
-    display: flex;
-    margin-left: auto;
-    .location-li {
-      padding: 1rem 2rem;
-      color: #7e8384;
+    .order-header {
       display: flex;
-      margin-left: auto;
+      width: 100%;
+      margin-bottom: 1rem;
+
+      .order {
+        font-size: 2rem;
+        color: #454b4d;
+        padding: 1rem 1rem 0;
+      }
+      .orderBtn {
+        margin-left: auto;
+      }
     }
-    .icon {
-      width: 20px;
-      height: 20px;
-      fill: #7e8384;
+  
+    .order-ul {
+      padding-left: 2.5rem;
+      font-size: 0.8rem;
+      color: #454b4d;
+      font-weight: 600;
+      .export {
+        padding-right: 3rem;
+        float: left;
+      }
     }
-  }
-}
+    
+    .order-card{
+      margin: 1rem 3rem;
+      .all-order {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        .location {
+          display: flex;
+          margin-left: auto;
+          .location-li {
+            padding: 1rem 2rem;
+            color: #7e8384;
+            display: flex;
+            margin-left: auto;
+          }
+          .icon {
+            width: 20px;
+            height: 20px;
+            fill: #7e8384;
+          }
+        }
+      }
+    }
+
 
 .filter {
   display: flex;
@@ -96,7 +126,7 @@ tr {
     padding-left: 1rem;
   }
 
-  .order {
+  .order-item {
     color: #0672bc;
   }
 
@@ -108,6 +138,7 @@ tr {
     width: 50%;
     padding: 0 10px;
     color: #7e8384;
+    font-size: 0.9rem;
     .paid-circle {
       width: 12px;
       height: 12px;
@@ -126,6 +157,7 @@ tr {
     border: 1px solid #ffc68b;
     border-radius: 30px;
     padding: 0 10px;
+    font-size: 0.9rem;
     .pending-circle {
       width: 12px;
       height: 12px;
@@ -145,6 +177,7 @@ tr {
     width: 60%;
     padding: 0 8px;
     color: #7e8384;
+    font-size: 0.9rem;
     .fulfilled-circle {
       width: 12px;
       height: 12px;
@@ -163,6 +196,7 @@ tr {
     border: 1px solid #ffc68b;
     border-radius: 30px;
     padding: 0 8px;
+    font-size: 0.9rem;
     .unfulfilled-circle {
       width: 12px;
       height: 12px;

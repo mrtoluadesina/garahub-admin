@@ -34,7 +34,7 @@ export default props => {
         <li className="draft-export">Export</li>
       </ul>
       <div>
-        <Card>
+        <Card className="order-card">
           <div className="all-order">
             <DraftTab/>
           </div>

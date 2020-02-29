@@ -5,20 +5,20 @@ import {
   mdiAccountOutline,
   mdiGoogleAnalytics,
   mdiBullhornOutline,
-  mdiSale,
-} from '@mdi/js';
+  mdiSale
+} from "@mdi/js";
 
 export default {
   admin: [
     {
-      title: 'Home',
-      link: '/',
+      title: "Home",
+      link: "/",
       icon: mdiHome,
-      subNav: [],
+      subNav: []
     },
     {
-      title: 'Orders',
-      link: '/orders',
+      title: "Orders",
+      link: "/orders",
       icon: mdiFolderDownloadOutline,
       subNav: [
         { 
@@ -40,34 +40,38 @@ export default {
       ],
     },
     {
-      title: 'Products',
-      link: '/products',
+      title: "Products",
+      link: "/products",
       icon: mdiTagOutline,
-      subNav: [],
+      subNav: [
+        { title: "All Products" },
+        { title: "Add Products" },
+        { title: "Edit Product" }
+      ]
     },
     {
-      title: 'Customers',
-      link: '/customers',
+      title: "Customers",
+      link: "/customers",
       icon: mdiAccountOutline,
-      subNav: [],
+      subNav: []
     },
     {
-      title: 'Analytics',
-      link: '/analytics',
+      title: "Analytics",
+      link: "/analytics",
       icon: mdiGoogleAnalytics,
-      subNav: [],
+      subNav: []
     },
     {
-      title: 'Marketing',
-      link: '/marketing',
+      title: "Marketing",
+      link: "/marketing",
       icon: mdiBullhornOutline,
-      subNav: [],
+      subNav: []
     },
     {
-      title: 'Discounts',
-      link: '/discounts',
+      title: "Discounts",
+      link: "/discounts",
       icon: mdiSale,
-      subNav: [],
-    },
-  ],
+      subNav: []
+    }
+  ]
 };
