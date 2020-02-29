@@ -5,7 +5,6 @@ import {
 export default {
   allOrderData: [
     {
-      title: 'Order',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',
@@ -14,7 +13,6 @@ export default {
       total: '120.00',
     },
     {
-      title: 'Date',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',
@@ -23,7 +21,6 @@ export default {
       total: '120.00',
     },
     {
-      title: 'Customer',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',
@@ -32,7 +29,6 @@ export default {
       total: '120.00',
     },
     {
-      title: 'Payment',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',
@@ -41,7 +37,6 @@ export default {
       total: '120.00',
     },
     {
-      title: 'Fulfilment',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',
@@ -50,7 +45,6 @@ export default {
       total: '120.00',
     },
     {
-      title: 'Total',
       order: '#1035',
       date: 'Tuesday at 06: 09pm',
       customer: 'Test Test',

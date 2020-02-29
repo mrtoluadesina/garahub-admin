@@ -1,0 +1,31 @@
+@import "../../_variables";
+
+.admin-row {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+
+  .container {
+    flex-direction: column;
+    max-width: 1180px;
+    width: 100%;
+    padding: 1rem 0;
+
+    .admin-header {
+      display: flex;
+      .title {
+        font-size: 20px;
+      }
+    }
+
+    .filter-data {
+      display: flex;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1.5rem 0;
+    }
+  }
+}

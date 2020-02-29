@@ -25,7 +25,7 @@ export default function Dashboard() {
               <p>Your sales, orders, and sessions will show here.</p>
             </div>
           </div>
-          <Card>
+          <Card className="main-card">
             <div className="card-item">
               <Icon className="icon" path={mdiBriefcaseDownloadOutline} />
               <p>
