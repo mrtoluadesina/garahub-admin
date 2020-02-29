@@ -20,13 +20,22 @@ export default props => {
         <div className="product-header">
           <h4 className="product">Products</h4>
           <div className="productbtn">
-            <OrderButton value="Export" />
+            <OrderButton value="View products" />
           </div>
         </div>
         <ul className="product-ul">
           <li className="export">Export</li>
           <li className="export">Manage gift card products</li>
         </ul>
+        <Card className="gift-alert">
+            <p className="alert-exclamation">
+                <div className="exclamation">!</div>
+                You don't have any gift card products.
+            </p>
+            <p className="create-gift">
+                <span className="color-blue">Create one</span> to sell it in your store.
+            </p>
+        </Card>
         <Card className="gift-card product-card">
           <div className="all-product">
             <GiftTab />
