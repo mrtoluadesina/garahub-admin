@@ -46,11 +46,11 @@ export default {
          },
         { 
           title: "Add Products",
-          link: "/products/add-products"
+          link: "/products/add"
          },
         { 
           title: "Edit Product",
-          link: "/products/edit-products" 
+          link: "/products/edit" 
         }
       ]
     },
