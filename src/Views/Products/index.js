@@ -33,7 +33,21 @@ export default props => {
             </Dropdown>
           </li>
         </ul>
-        
+        <Card className="product-card">
+          <div className="all-product">
+            <ProductTab />
+          </div>
+          <div className="filter">
+            <div className="filter-status">
+              <Dropdown>
+                <option>Filter</option>
+              </Dropdown>
+            </div>
+            <Input placeholder="Search checkouts"
+              className="product-filterbar" />
+          </div>
+          
+        </Card>
       </div>
     </div>
   );
