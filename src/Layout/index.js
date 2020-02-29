@@ -11,6 +11,7 @@ import AddProducts from '../Views/Products/add';
 import Customers from '../Views/Customers';
 import AbandonedCheckouts from '../Views/Orders/abandonedCheckout'
 import Analytics from '../Views/Analytics';
+import GiftCard from '../Views/Products/gift';
 
 import './styles.scss';
 
@@ -28,6 +29,7 @@ export default props => {
               <Route exact path="/orders/abandoned" component={AbandonedCheckouts}></Route>
               <Route exact path="/products" component={Products}></Route>
               <Route exact path="/products/add" component={AddProducts}></Route>
+              <Route exact path="/products/gift" component={GiftCard}></Route>
               <Route exact path="/customers" component={Customers}></Route>
               <Route exact path="/analytics" component={Analytics} />
             </Switch>

@@ -393,5 +393,16 @@ export default {
       order: '2 orders',
       payment: '360, 000 spent'
     },
+  ],
+  giftData: [
+    {
+      pin: '.... .... ....',
+      token: '8b6f',
+      status: 'Disabled',
+      customer: '__',
+      expires: '__',
+      initialValue: 'Rs. 10.00',
+      balance: 'Rs. 100.00'
+    }
   ]
 };

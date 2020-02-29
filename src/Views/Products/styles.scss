@@ -85,6 +85,37 @@
         top: 2rem;
       }
     }
+    .gift-alert{
+      background-color: #FDF7E3;
+      border-top: 10px solid #EEC202;
+      margin: 5rem 4rem;
+      padding: 2rem;
+      .alert-exclamation{
+        display: flex;
+        color: #454B4D;
+        font-size: 0.9rem;
+        font-weight: 600;
+        .exclamation{
+          width: 20px;
+          height: 20px;
+          color: #EEC202;
+          font-size: 0.8rem;
+          border: 2px solid #EEC202;
+          border-radius: 50px;
+          margin-right: 1rem;
+          text-align: center;
+        }
+      }
+      .create-gift{
+        padding-left: 2rem;
+        font-size: 0.8rem;
+        color: #454B4D;
+        font-weight: 500;
+        .color-blue{
+          color: #0672BC;
+        }
+      }
+    }
     .product-ul {
       padding-left: 2.5rem;
       font-size: 0.8rem;
@@ -94,6 +125,9 @@
         padding-right: 3rem;
         float: left;
       }
+    }
+    .gift-card{
+      margin: 4rem!important;
     }
     .product-card {
       margin: 1rem;
@@ -129,7 +163,16 @@
           border-bottom-right-radius: 3px;
         }
       }
+      .color-blue{
+        color: #0672BC;
+      }
 
+      .gift-footer{
+        text-align: center;
+        margin: 2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
     }
   }
 }

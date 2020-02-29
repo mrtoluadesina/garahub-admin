@@ -56,5 +56,12 @@ export default {
     {name: 'all @gmail'},
     {name: 'all @amazon.com'},
     {name: 'test'},
+  ],
+  giftTab: [
+    {name: 'All'},
+    {name: 'New'},
+    {name: 'Partially used'},
+    {name: 'Used'},
+    {name: 'Diabled'}
   ]
 };
