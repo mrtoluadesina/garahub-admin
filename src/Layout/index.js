@@ -5,11 +5,10 @@ import Header from '../Components/Header';
 import SideNav from '../Components/SideNav';
 
 import Dashboard from '../Views/Dashboard';
-import AllOrder from '../Views/AllOrders';
+import AllOrder from '../Views/Orders';
 import Products from '../Views/Products';
-import Drafts from '../Views/Drafts';
 import AddProducts from '../Views/Products/add';
-import AbandonedCheckouts from '../Views/AbandonedCheckouts'
+import AbandonedCheckouts from '../Views/Orders/abandonedCheckout'
 
 import './styles.scss';
 
@@ -24,7 +23,6 @@ export default props => {
             <Switch>
               <Route path="/" component={Dashboard} exact></Route>
               <Route path="/orders" component={AllOrder} exact></Route>
-              <Route exact path="/orders/drafts" component={Drafts}></Route>
               <Route exact path="/orders/abandoned" component={AbandonedCheckouts}></Route>
               <Route exact path="/products" component={Products}></Route>
               <Route exact path="/products/add" component={AddProducts}></Route>
