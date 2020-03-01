@@ -12,7 +12,7 @@ export default props => {
         {CardTab.giftTab.map((item, index) => {
           return (
             <li key={index} className="tab-li">
-              <Link to={item.path} className="tab-link">
+              <Link to={item.path || ''} className="tab-link">
                 <div>{item.name}</div>
               </Link>
             </li>
