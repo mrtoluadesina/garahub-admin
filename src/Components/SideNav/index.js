@@ -1,30 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import NavLink from '../../utils/navLink';
-import Icon from '@mdi/react';
+import React from "react";
+import { Link } from "react-router-dom";
+import NavLink from "../../utils/navLink";
+import Icon from "@mdi/react";
 
-import './index.scss';
-import { mdiSettings } from '@mdi/js';
+import "./index.scss";
+import { mdiSettings } from "@mdi/js";
 
 export default props => {
   const handleActive = e => {
     e.preventDefault();
+    let menu = e.currentTarget;
 
-    // check if the current item subNav is open close it
-    let el = e.currentTarget.children[1];
-    const allLi = document.getElementsByClassName('li-item');
-
-    // remove all active li
-    Array.from(allLi).map(item => {
-      if (item.childNodes[1]) {
-        item.childNodes[1].hidden = !item.childNodes[1].hidden;
-      }
-      
-    });
-
-    // add active class on the current li item
-    if (el) {
-      return (el.hidden = false);
+    let activeMenu = document.getElementsByClassName("active-sidebar-item")[0];
+    if (
+      activeMenu &&
+      menu.getAttribute("id") !== activeMenu.getAttribute("id")
+    ) {
+      activeMenu.classList.remove("active-sidebar-item");
+      menu.classList.add("active-sidebar-item");
+    } else {
+      menu.classList.toggle("active-sidebar-item");
     }
   };
 
@@ -33,7 +28,12 @@ export default props => {
       <ul>
         {NavLink.admin.map((item, index) => {
           return (
-            <li key={index} onClick={handleActive} className="li-item">
+            <li
+              key={index}
+              onClick={handleActive}
+              className="li-item"
+              id={`menu-item-${index}`}
+            >
               <Link to={item.link}>
                 <div className="nav-item">
                   <Icon className="icon" path={item.icon} />
@@ -46,16 +46,13 @@ export default props => {
               {item.subNav.length > 0 && (
                 <ul
                   style={{
-                    marginTop: '0.5rem',
+                    marginTop: "0.5rem"
                   }}
-                  hidden
                 >
                   {item.subNav.length > 1
                     ? item.subNav.map((subItem, index) => (
                         <li key={index}>
-                          <Link to={subItem.link}>
-                            {subItem.title}
-                          </Link>
+                          <Link to={subItem.link}>{subItem.title}</Link>
                         </li>
                       ))
                     : null}

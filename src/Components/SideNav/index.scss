@@ -1,4 +1,4 @@
-@import '../../_variables';
+@import "../../_variables";
 
 .side {
   flex: 0 0 15%;
@@ -29,6 +29,15 @@
     margin-top: 1rem;
     li {
       margin: 0.5rem 1rem;
+
+      &.active-sidebar-item ul {
+        display: block;
+      }
+
+      ul {
+        display: none;
+      }
+
       a {
         justify-content: space-between;
         .nav-item {
