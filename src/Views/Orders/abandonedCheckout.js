@@ -57,7 +57,7 @@ export default props => {
                 </tr>
               </thead>
               <tbody>
-                {TableData.abondonedData.map((index, item) => (
+                {TableData.abondonedData.map((item, index) => (
                   <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>

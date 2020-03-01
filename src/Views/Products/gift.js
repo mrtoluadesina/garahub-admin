@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "@mdi/react";
 
-import { mdiChevronLeft, mdiChevronDown } from "@mdi/js";
+import { mdiChevronDown } from "@mdi/js";
 
 import OrderButton from "../../Components/OrderButton/index";
 import Dropdown from "../../Components/Dropdown/index";
@@ -29,7 +29,7 @@ export default props => {
         </ul>
         <Card className="gift-alert">
             <p className="alert-exclamation">
-                <div className="exclamation">!</div>
+                <span className="exclamation">!</span>
                 You don't have any gift card products.
             </p>
             <p className="create-gift">
