@@ -51,7 +51,7 @@ export default props => {
                 >
                   {item.subNav.length > 1
                     ? item.subNav.map((subItem, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={e => e.stopPropagation()}>
                           <Link to={subItem.link}>{subItem.title}</Link>
                         </li>
                       ))
