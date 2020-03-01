@@ -1,16 +1,16 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import "./index.scss";
 
-import Card from '../../Components/Card';
-import Icon from '@mdi/react';
+import Card from "../../Components/Card";
+import Icon from "@mdi/react";
 import {
   mdiStorefront,
   mdiBriefcaseDownloadOutline,
-  mdiCreditCardSettingsOutline,
-} from '@mdi/js';
-import Button from '../../Components/Button';
+  mdiCreditCardSettingsOutline
+} from "@mdi/js";
+import Button from "../../Components/Button";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   return (
     <div className="row">
       <div className="dashboard">

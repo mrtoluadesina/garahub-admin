@@ -4,9 +4,12 @@ import NavLink from "../../utils/navLink";
 import Icon from "@mdi/react";
 
 import "./index.scss";
-import { mdiSettings } from "@mdi/js";
+import { mdiLogout } from "@mdi/js";
+import { useDispatch } from "react-redux";
+import { authLogout } from "../../actions/loginActions";
 
-export default props => {
+export default function({ props }) {
+  let dispatch = useDispatch();
   const handleActive = e => {
     e.preventDefault();
     let menu = e.currentTarget;
@@ -22,7 +25,10 @@ export default props => {
       menu.classList.toggle("active-sidebar-item");
     }
   };
-
+  const handleLogout = () => {
+    dispatch(authLogout());
+    props.history.push("/login");
+  };
   return (
     <div className="side">
       <ul>
@@ -62,10 +68,10 @@ export default props => {
           );
         })}
       </ul>
-      <Link className="bottom-link" to="/">
-        <Icon className="icon" path={mdiSettings} />
-        Settings
+      <Link className="bottom-link" to="" onClick={handleLogout}>
+        <Icon className="icon" path={mdiLogout} />
+        Logout
       </Link>
     </div>
   );
-};
+}
