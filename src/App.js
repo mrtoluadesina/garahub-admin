@@ -5,7 +5,7 @@ import "./App.scss";
 import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import { PersistGate } from "redux-persist/integration/react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Views/Login";
 export const { store, persistor } = getStore();
 
@@ -17,6 +17,8 @@ const App = () => (
           <Switch>
             <Route path="/dashboard" component={Layout}></Route>
             <Route path="/login" component={Login} exact></Route>
+
+            <Redirect exact from="/" to="/dashboard" />
           </Switch>
         </BrowserRouter>
       </HelmetProvider>
