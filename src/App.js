@@ -15,7 +15,7 @@ const App = () => (
       <HelmetProvider>
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={Layout} exact></Route>
+            <Route path="/dashboard" component={Layout}></Route>
             <Route path="/login" component={Login} exact></Route>
           </Switch>
         </BrowserRouter>

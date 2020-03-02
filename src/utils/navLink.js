@@ -12,73 +12,73 @@ export default {
   admin: [
     {
       title: "Home",
-      link: "/",
+      link: "/dashboard",
       icon: mdiHome,
       subNav: []
     },
     {
       title: "Orders",
-      link: "/orders",
+      link: "/dashboard/orders",
       icon: mdiFolderDownloadOutline,
       subNav: [
         { 
           title: 'Create Order',
-          link: '/orders/create-order'
+          link: '/dashboard/orders/create-order'
         },
         { 
           title: 'All Orders',
-          link: '/orders'
+          link: '/dashboard/orders'
         },
         { 
           title: 'Abandoned',
-          link: '/orders/abandoned' 
+          link: '/dashboard/orders/abandoned' 
         },
       ],
     },
     {
       title: "Products",
-      link: "/products",
+      link: "/dashboard/products",
       icon: mdiTagOutline,
       subNav: [
         { 
           title: "All Products",
-          link: "/products"
+          link: "/dashboard/products"
          },
         { 
           title: "Add Products",
-          link: "/products/add"
+          link: "/dashboard/products/add"
          },
         { 
           title: "Edit Product",
-          link: "/products/edit" 
+          link: "/dashboard/products/edit" 
         },
         { 
           title: "Gift Cards",
-          link: "/products/gift" 
+          link: "/dashboard/products/gift" 
         }
       ]
     },
     {
       title: "Customers",
-      link: "/customers",
+      link: "/dashboard/customers",
       icon: mdiAccountOutline,
       subNav: []
     },
     {
       title: "Analytics",
-      link: "/analytics",
+      link: "/dashboard/analytics",
       icon: mdiGoogleAnalytics,
       subNav: []
     },
     {
       title: "Discounts",
-      link: "/discounts",
+      link: "/dashboard/discounts",
       icon: mdiSale,
       subNav: []
     },
     {
       title: "Settings",
-      link: "/settings",
+      link: "/dashboard/settings",
       icon: mdiSettings,
       subNav: []
     },

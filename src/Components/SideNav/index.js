@@ -26,8 +26,10 @@ export default function({ props }) {
     }
   };
   const handleLogout = () => {
+    console.log(props.history);
     dispatch(authLogout());
-    props.history.push("/login");
+    // props.history.push("/login");
+    window.location.replace('/login')
   };
   return (
     <div className="side">

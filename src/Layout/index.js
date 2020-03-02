@@ -13,6 +13,7 @@ import AbandonedCheckouts from "../Views/Orders/abandonedCheckout";
 import Analytics from "../Views/Analytics";
 import GiftCard from "../Views/Products/gift";
 
+
 import "./styles.scss";
 import { useSelector } from "react-redux";
 
@@ -31,18 +32,18 @@ export default props => {
           <SideNav props={props} />
           <div className="main">
             <Switch>
-              <Route path="/" component={Dashboard} exact></Route>
-              <Route path="/orders" component={AllOrder} exact></Route>
+              <Route path="/dashboard" component={Dashboard} exact></Route>
+              <Route path="/dashboard/orders" component={AllOrder} exact></Route>
               <Route
                 exact
-                path="/orders/abandoned"
+                path="/dashboard/orders/abandoned"
                 component={AbandonedCheckouts}
               ></Route>
-              <Route exact path="/products" component={Products}></Route>
-              <Route exact path="/products/add" component={AddProducts}></Route>
-              <Route exact path="/products/gift" component={GiftCard}></Route>
-              <Route exact path="/customers" component={Customers}></Route>
-              <Route exact path="/analytics" component={Analytics} />
+              <Route exact path="/dashboard/products" component={Products}></Route>
+              <Route exact path="/dashboard/products/add" component={AddProducts}></Route>
+              <Route exact path="/dashboard/products/gift" component={GiftCard}></Route>
+              <Route exact path="/dashboard/customers" component={Customers}></Route>
+              <Route exact path="/dashboard/analytics" component={Analytics} />
             </Switch>
           </div>
         </Router>

@@ -41,7 +41,6 @@ export default (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        info: action.payload,
         success: false,
         error: ""
       };
