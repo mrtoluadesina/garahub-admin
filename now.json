@@ -1,0 +1,8 @@
+{
+  "name": "Garahub-admin",
+  "build": {
+    "env": {
+      "REACT_APP_BASE_URL": "REACT_APP_BASE_URL"
+    }
+  }
+}
