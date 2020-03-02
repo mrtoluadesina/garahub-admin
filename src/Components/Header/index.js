@@ -1,15 +1,15 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import "./index.scss";
 
 export default props => {
   return (
     <div className="header">
-      <div>
-        <h2 className="logo">
-          eMall
-          <span className="admin"> Admin</span>
-        </h2>
-      </div>
+      <a className="logo-section" href="/">
+        <div className="logo">
+          <img src="/assets/images/logo.png" alt="emall admin" />
+        </div>
+        <span className="admin"> Admin</span>
+      </a>
       <div className="search">
         <i className="fas fa-search"></i>
         <input
