@@ -15,6 +15,7 @@ import TableData from "../../utils/tabledata";
 import "./index.scss";
 
 export default props => {
+  console.log("I am here")
   return (
     <div className="order-row">
       <div className="container">

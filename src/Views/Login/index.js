@@ -25,7 +25,7 @@ export default function Index(props) {
   };
   const authenticate = (success, error) => {
     if (success === true) {
-      props.history.push("/");
+      props.history.push("/dashboard");
     } else if (error.length > 0) {
       izitoast.show({
         messageColor: "white",
