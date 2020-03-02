@@ -2,7 +2,7 @@
   "name": "Garahub-admin",
   "build": {
     "env": {
-      "REACT_APP_DATA_BASE_URL": "@react_app_base_url"
+      "REACT_APP_BASE_URL": "@react_app_base_url"
     }
   }
 }
