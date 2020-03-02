@@ -4,8 +4,8 @@ import {
   mdiTagOutline,
   mdiAccountOutline,
   mdiGoogleAnalytics,
-  mdiBullhornOutline,
-  mdiSale
+  mdiSale,
+  mdiSettings
 } from "@mdi/js";
 
 export default {
@@ -71,16 +71,16 @@ export default {
       subNav: []
     },
     {
-      title: "Marketing",
-      link: "/marketing",
-      icon: mdiBullhornOutline,
-      subNav: []
-    },
-    {
       title: "Discounts",
       link: "/discounts",
       icon: mdiSale,
       subNav: []
-    }
+    },
+    {
+      title: "Settings",
+      link: "/settings",
+      icon: mdiSettings,
+      subNav: []
+    },
   ]
 };
