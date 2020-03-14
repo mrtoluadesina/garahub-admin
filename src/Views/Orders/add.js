@@ -38,7 +38,7 @@ export default props => {
   let costOfGoods =0
   let [totalCost, setTotalCost] = useState(0)
   useEffect(() => {
-    console.log(orderSuccess);
+    
     
     if (customer) {
       createOrder({
@@ -87,7 +87,7 @@ export default props => {
     try {
       dispatch(fetchACustomer(order.email));
     } catch (err) {
-      console.log(err);
+      
     }
   };
   const handleCalculation = (e)=>{
@@ -107,7 +107,7 @@ export default props => {
   const handleProductNumber = ({ target }) => {
     order.cartItems.map((selected) => {
       if (selected.value === target.name) {
-        console.log(selected);
+        
         
         if (target.value==="" || target.value==="0"){
           selected["quantity"]=0

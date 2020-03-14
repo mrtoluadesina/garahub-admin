@@ -4,7 +4,21 @@
   display: flex;
   padding: 1.5rem 3rem;
 }
-
+.d-flex{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.flex-4{
+  flex-grow: 4;
+}
+.flex-1{
+  flex-grow: 1;
+}
+.add{
+  background-color:#228B22;
+  color: #fff;
+}
 .add-product-section {
   display: flex;
   justify-content: center;
@@ -20,6 +34,16 @@
       .row {
         display: flex;
         width: 100%;
+        .between{
+          justify-content: space-between;
+      }
+      .__small{
+          flex-basis: 10;
+      }
+      .img-fluid{
+        width: 60px;
+        height: auto;
+      }
         .col {
           &._big {
             flex: 0 0 60%;
