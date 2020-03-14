@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icon from "@mdi/react";
 
 import { mdiMapMarker } from "@mdi/js";
@@ -11,11 +11,21 @@ import FilterBar from "../../Components/FilterBar";
 import Button from "../../Components/Button";
 import Table from "../../Components/Table";
 import TableData from "../../utils/tabledata";
-
+import {fetchOrders} from "../../actions/orderAction"
 import "./index.scss";
+import { useSelector, useDispatch } from "react-redux";
 
 export default props => {
-  console.log("I am here")
+
+  const {
+    orders: {orders }
+  } = useSelector(state => state);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchOrders())
+  },[])  
+
   return (
     <div className="order-row">
       <div className="container">

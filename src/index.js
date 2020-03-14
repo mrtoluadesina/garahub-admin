@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from "./store";
-
+import "izitoast/dist/js/iziToast.min";
+import "izitoast/dist/css/iziToast.min.css";
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
 

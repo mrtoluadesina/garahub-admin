@@ -12,10 +12,10 @@ import Customers from "../Views/Customers";
 import AbandonedCheckouts from "../Views/Orders/abandonedCheckout";
 import Analytics from "../Views/Analytics";
 import GiftCard from "../Views/Products/gift";
-
-
+import CreateOrder from "../Views/Orders/add"
 import "./styles.scss";
 import { useSelector } from "react-redux";
+import Edit from "../Views/Products/edit";
 
 export default props => {
   const {
@@ -34,6 +34,7 @@ export default props => {
             <Switch>
               <Route path="/dashboard" component={Dashboard} exact></Route>
               <Route path="/dashboard/orders" component={AllOrder} exact></Route>
+              <Route path="/dashboard/orders/create-order" component={CreateOrder} exact></Route>
               <Route
                 exact
                 path="/dashboard/orders/abandoned"
@@ -41,6 +42,7 @@ export default props => {
               ></Route>
               <Route exact path="/dashboard/products" component={Products}></Route>
               <Route exact path="/dashboard/products/add" component={AddProducts}></Route>
+              <Route exact path="/dashboard/products/edit/:id" component={Edit}></Route>
               <Route exact path="/dashboard/products/gift" component={GiftCard}></Route>
               <Route exact path="/dashboard/customers" component={Customers}></Route>
               <Route exact path="/dashboard/analytics" component={Analytics} />
