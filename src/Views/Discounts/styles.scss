@@ -1,0 +1,47 @@
+@import "../../_variables";
+
+input {
+  color: #000;
+}
+
+label {
+  color: #000;
+}
+
+// button:hover {
+//   cursor: not-allowed;
+// }
+
+#msg {
+  color: $green;
+  display: none;
+}
+
+#msgna {
+  color: $red;
+  display: none;
+}
+
+.submit {
+  float: right;
+}
+
+.layer-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 1rem auto;
+}
+
+.checkbox-border {
+  align-items: center;
+  display: flex;
+  border: 1px solid #cccccc;
+  width: 50px;
+  height: 25px;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem !important;
+}
