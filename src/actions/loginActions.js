@@ -26,7 +26,7 @@ export const authLogin = body => {
     try {
       dispatch(authStart());
       const res = await request.post("/api/v1/admin/login", body);
-      dispatch(authSuccess(res));
+      dispatch(authSuccess(res.data));
       dispatch(authEnd(false));
     } catch (error) {
       dispatch(authFail(retrieveMessage(error)));
@@ -36,7 +36,7 @@ export const authLogin = body => {
 };
 
 export const authLogout = () => {
-  console.log("gnnen");
+  
 
   return async dispatch => {
     dispatch({

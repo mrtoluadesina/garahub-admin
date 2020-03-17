@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icon from "@mdi/react";
 
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
@@ -8,12 +8,23 @@ import Dropdown from "../../Components/Dropdown/index";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import Input from "../../Components/Input";
-import TableData from "../../utils/tabledata";
 import ProductTab from "../../Components/AbandonedTab";
 
 import "./styles.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../actions/productAction";
+import { Link } from "react-router-dom";
 
 export default props => {
+  const {
+    products: {products }
+  } = useSelector(state => state);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchProducts())
+  },[])  
+  
   return (
     <div className="product-row">
       <div className="container">
@@ -64,20 +75,21 @@ export default props => {
                 </tr>
               </thead>
               <tbody>
-                {TableData.products.map((item, index) => (
+                {products.map((item, index) => (
                   <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
                     <td>
                       <div className="product-image">
-                        <Icon path={item.image} className="product-icon"></Icon>
+                        {item.images?<img src={item.images[0]} alt="product" />:<Icon path={item.images[0]} className="product-icon"></Icon>}
+                        
                       </div>
                     </td>
-                    <td className="order-item">{item.product}</td>
+                    <td className="order-item"><Link to={`/dashboard/products/edit/${item._id}`}>{item.name}</Link>  </td>
                     <td>
-                      <span className="color-orange">{item.number} </span>
-                      <span className="color-lgray">{item.inventory}</span>
+                      <span className="color-orange">{item.quantity} </span>
+                      {/* <span className="color-lgray">{item.inventory}</span> */}
                       </td>
                     <td className="color-dgray">{item.type}</td>
                     <td className="color-dgray">{item.vendor}</td>
