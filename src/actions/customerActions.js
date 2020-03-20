@@ -1,8 +1,8 @@
 import {
   FETCHING_CUSTOMER_END,
   FETCHING_CUSTOMER_START,
-//   FETCH_ALL_CUSTOMERS_FAILED,
-//   FETCH_ALL_CUSTOMERS_SUCCESS,
+  FETCH_ALL_CUSTOMERS_FAILED,
+  FETCH_ALL_CUSTOMERS_SUCCESS,
   FETCH_A_CUSTOMERS_FAILED,
   FETCH_A_CUSTOMERS_SUCCESS
 } from "./types";
@@ -11,6 +11,14 @@ import { retrieveMessage } from "../utils/helperFunc";
 
 const fetchStart = payload=>({
     type:FETCHING_CUSTOMER_START,
+    payload
+})
+const fetchCustomersSuccess = payload => ({
+    type: FETCH_ALL_CUSTOMERS_SUCCESS,
+    payload
+})
+const fetchCustomersFail = payload => ({
+    type: FETCH_ALL_CUSTOMERS_FAILED,
     payload
 })
 const fetchACustomerSuccess = payload=>({
@@ -25,6 +33,22 @@ const fetchEnd = payload=>({
     type:FETCHING_CUSTOMER_END,
     payload
 })
+
+export const fetchAllCustomers = () => {
+    return async dispatch => {
+        try {
+            dispatch(fetchStart(true))
+            const res = await request.get('/api/v1/user')
+
+            console.log(res.data)
+            dispatch(fetchCustomersSuccess(res.data))
+            dispatch(fetchEnd(false))
+        } catch(error) {
+            dispatch(fetchCustomersFail(retrieveMessage(error)))
+            dispatch(fetchEnd(false))
+        }
+    }
+}
 
 export const fetchACustomer = data =>{
     return async dispatch =>{
