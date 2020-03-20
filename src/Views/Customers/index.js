@@ -1,16 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import OrderButton from "../../Components/OrderButton/index";
 import Dropdown from "../../Components/Dropdown/index";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import Input from "../../Components/Input";
-import TableData from "../../utils/tabledata";
 import CustomersTab from "../../Components/CustomerTab";
 
 import "./styles.scss";
 
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllCustomers } from "../../actions/customerActions";
+
 export default props => {
+  const {customer: {customers}} = useSelector(state => state);
+  console.log(customers)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    const data = dispatch(fetchAllCustomers())
+    console.log(data)
+  },[])  
+
   return (
     <div className="customer-row">
       <div className="container">
@@ -55,23 +66,23 @@ export default props => {
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
                   </th>
-                  <th scope="col">Showing 5,890 customers</th>
+                  <th scope="col">Showing {customers.length} customers</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                {TableData.customerData.map((item, index) => (
+                {customers.map((item, index) => (
                   <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>
                     </td>
                     <td>
-                      <span className="color-dgray customer-padding">{item.title}</span>
-                      <span className="color-lgray"> {item.name}</span>
+                      <span className="color-dgray customer-padding">{item.firstName} {item.lastName}</span>
+                      <span className="color-lgray"> {item.email}</span>
                     </td>
-                    <td className="color-lgray">{item.order}</td>
-                    <td className="color-lgray">{item.payment}</td>
+                    <td className="color-lgray">{item.phone}</td>
+                    <td className="color-lgray">{(item.isGuest ? 'guest' : 'member')}</td>
                   </tr>
                 ))}
               </tbody>
