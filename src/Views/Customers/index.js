@@ -5,7 +5,6 @@ import Dropdown from "../../Components/Dropdown/index";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import Input from "../../Components/Input";
-import TableData from "../../utils/tabledata";
 import CustomersTab from "../../Components/CustomerTab";
 
 import "./styles.scss";

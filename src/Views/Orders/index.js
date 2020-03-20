@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 export default props => {
 
   const {
-    orders: {orders }
+    orders: { orders }
   } = useSelector(state => state);
   const dispatch = useDispatch()
 
@@ -99,7 +99,8 @@ export default props => {
                 </tr>
               </thead>
               <tbody>
-                {TableData.allOrderData.map((item, index) => (
+                {orders > 0 ? (
+                  orders.map((item, index) => (
                   <tr key={index}>
                     <td className="checkbox">
                       <input type="checkbox"></input>
@@ -135,7 +136,11 @@ export default props => {
                     </td>
                     <td className="color-dgray">{item.total}</td>
                   </tr>
-                ))}
+                ))) : (
+                  <tr>
+                    <p>No Orders Yet</p>
+                  </tr>
+                )}
               </tbody>
             </Table>
           </div>
