@@ -1,5 +1,6 @@
 import {
   AUTH_START,
+  AUTH_USER,
   AUTH_SUCCESS,
   AUTH_FAIL,
   AUTH_END,
@@ -7,6 +8,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
+  user: {},
   info: {},
   error: "",
   loading: false,
@@ -30,6 +32,13 @@ export default (state = initialState, action) => {
         ...state,
         error: action.error,
         info: {}
+      };
+    case AUTH_USER:
+      return {
+        ...state,
+        user: action.payload,
+        success: true,
+        error: ""
       };
     case AUTH_SUCCESS:
       return {

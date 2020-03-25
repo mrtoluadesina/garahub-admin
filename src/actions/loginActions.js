@@ -1,11 +1,16 @@
 import request from "../request";
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, AUTH_END, LOGOUT } from "./types";
+import { AUTH_START, AUTH_USER, AUTH_SUCCESS, AUTH_FAIL, AUTH_END, LOGOUT } from "./types";
 import { retrieveMessage } from "../utils/helperFunc";
 
 export const authStart = () => ({
   type: AUTH_START,
   payload: true
 });
+
+export const authUser = payload => ({
+  type: AUTH_USER,
+  payload
+})
 
 export const authSuccess = payload => ({
   type: AUTH_SUCCESS,
@@ -26,6 +31,8 @@ export const authLogin = body => {
     try {
       dispatch(authStart());
       const res = await request.post("/api/v1/admin/login", body);
+      console.log(res.data.payload);
+      dispatch(authUser(res.data.payload));
       dispatch(authSuccess(res.data));
       dispatch(authEnd(false));
     } catch (error) {
