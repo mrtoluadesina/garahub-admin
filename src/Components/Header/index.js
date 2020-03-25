@@ -23,7 +23,7 @@ export default props => {
         <div className="avatar"></div>
         <div className="profile">
           <p className="name">Administrator</p>
-          <span className="account">-----</span>
+          <span className="account">{props.admin}</span>
         </div>
       </div>
     </div>
