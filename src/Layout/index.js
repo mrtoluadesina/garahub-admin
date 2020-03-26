@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "../Components/Header";
 import SideNav from "../Components/SideNav";
 
-import Dashboard from "../Views/Dashboard";
+import Discounts from "../Views/Discounts";
 import AllOrder from "../Views/Orders";
 import Products from "../Views/Products";
 import AddProducts from "../Views/Products/add";
 import Customers from "../Views/Customers";
 import AbandonedCheckouts from "../Views/Orders/abandonedCheckout";
 import Analytics from "../Views/Analytics";
+import Settings from "../Views/Settings";
 import GiftCard from "../Views/Products/gift";
 import CreateOrder from "../Views/Orders/add";
 import "./styles.scss";
@@ -78,7 +79,8 @@ export default props => {
                 path="/dashboard/customers"
                 component={Customers}
               ></Route>
-              <Route exact path="/dashboard/analytics" component={Analytics} />
+              <Route exact path="/dashboard/discounts" component={Discounts} />
+              <Route exact path="/dashboard/settings" component={Settings} />
             </Switch>
           </div>
         </Router>
