@@ -29,10 +29,10 @@ export default {
           title: "All Orders",
           link: "/dashboard/orders"
         },
-        {
-          title: "Abandoned",
-          link: "/dashboard/orders/abandoned"
-        }
+        // {
+        //   title: "Abandoned",
+        //   link: "/dashboard/orders/abandoned"
+        // }
       ]
     },
     {
@@ -56,12 +56,12 @@ export default {
       icon: mdiAccountOutline,
       subNav: []
     },
-    {
-      title: "Analytics",
-      link: "/dashboard/analytics",
-      icon: mdiGoogleAnalytics,
-      subNav: []
-    },
+    // {
+    //   title: "Analytics",
+    //   link: "/dashboard/analytics",
+    //   icon: mdiGoogleAnalytics,
+    //   subNav: []
+    // },
     {
       title: "Discounts",
       link: "/dashboard/discounts",
