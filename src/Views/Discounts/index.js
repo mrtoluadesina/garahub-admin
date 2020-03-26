@@ -290,7 +290,7 @@ const Discount = ({ data, ...props }) => {
 };
 
 const mapStateToProps = ({ LoginReducer }) => ({
-  data: LoginReducer?.info.data.token
+  data: LoginReducer?.info.token
 });
 
 export default connect(mapStateToProps)(Discount);
