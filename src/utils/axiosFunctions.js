@@ -8,8 +8,8 @@ export const checkCode = async (url, data) => {
       return statusCode;
     })
     .catch(error => {
-      const statusCode = error.response.status;
-      return statusCode;
+      const statusCode = error.response !== undefined ? error.response.status : '';
+      return {error, statusCode};
     });
 
   return resp;
