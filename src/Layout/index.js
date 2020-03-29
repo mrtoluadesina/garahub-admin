@@ -79,7 +79,7 @@ export default props => {
                 path="/dashboard/customers"
                 component={Customers}
               ></Route>
-              <Route exact path="/dashboard/discounts" component={Discounts} />
+              <Route exact path="/dashboard/discounts/add" component={Discounts} />
               <Route exact path="/dashboard/settings" component={Settings} />
             </Switch>
           </div>
