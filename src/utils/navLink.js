@@ -22,12 +22,12 @@ export default {
       icon: mdiFolderDownloadOutline,
       subNav: [
         {
-          title: "Create Order",
-          link: "/dashboard/orders/create-order"
-        },
-        {
           title: "All Orders",
           link: "/dashboard/orders"
+        },
+        {
+          title: "Create Order",
+          link: "/dashboard/orders/create-order"
         },
         // {
         //   title: "Abandoned",
@@ -41,13 +41,13 @@ export default {
       icon: mdiTagOutline,
       subNav: [
         {
+          title: "All Products",
+          link: "/dashboard/products"
+        },
+        {
           title: "Add Products",
           link: "/dashboard/products/add"
         },
-        {
-          title: "All Products",
-          link: "/dashboard/products"
-        }
       ]
     },
     {
@@ -68,13 +68,13 @@ export default {
       icon: mdiSale,
       subNav: [
         {
+          title: "All Discounts",
+          link: "/dashboard/discounts"
+        },
+        {
           title: "Add Discounts",
           link: "/dashboard/discounts/add"
         },
-        {
-          title: "All Discounts",
-          link: "/dashboard/discounts"
-        }
       ]
     },
     {
