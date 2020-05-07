@@ -1,46 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { LoginContainer, LoginBox, LoginForm } from "./style";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { authLogin } from "../../actions/loginActions";
+import {
+  authSuccess,
+  authUser,
+  authStart,
+  authEnd,
+  authFail,
+} from "../../actions/loginActions";
+import axios from "axios";
 import izitoast from "izitoast";
 import { BeatLoader } from "react-spinners";
+import { retrieveMessage } from "../../utils/helperFunc";
 
 export default function Index(props) {
   const dispatch = useDispatch();
   const {
-    LoginReducer: { error, loading, success }
-  } = useSelector(state => state);
+    LoginReducer: { loading },
+  } = useSelector((state) => state);
 
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
-  useEffect(() => {}, []);
-
-  const handleChange = ({ target }) => {
-    setFormData({ ...formData, [target.name]: target.value });
-  };
-  const authenticate = (success, error) => {
-    if (success === true) {
-      props.history.push("/dashboard");
-    } else if (error.length > 0) {
-      izitoast.show({
-        messageColor: "white",
-        title: "Login Error",
-        backgroundColor: "red",
-        titleColor: "white",
-        timeout: 5000,
-        message: error
-      });
-    }
-  };
-
-  const handleSubmit = e => {
+  const handleChange = (e) => {
     e.preventDefault();
-    dispatch(authLogin(formData));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(authStart());
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/login`, formData)
+      .then((res) => {
+        dispatch(authUser(res.data.payload));
+        dispatch(authSuccess(res.data));
+        props.history.push("/dashboard");
+      })
+      .catch((error) => {
+        dispatch(authFail(retrieveMessage(error)));
+        izitoast.show({
+          messageColor: "white",
+          backgroundColor: "red",
+          titleColor: "white",
+          timeout: 5000,
+          message: error.response && error.response.data.message,
+        });
+      })
+      .finally(() => {
+        dispatch(authEnd(false));
+      });
   };
 
   return (
@@ -71,7 +84,6 @@ export default function Index(props) {
           />
         </LoginForm>
       </LoginBox>
-      {authenticate(success, error)}
     </LoginContainer>
   );
 }

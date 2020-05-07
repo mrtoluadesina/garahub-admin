@@ -1,11 +1,4 @@
-import {
-  AUTH_START,
-  AUTH_USER,
-  AUTH_SUCCESS,
-  AUTH_FAIL,
-  AUTH_END,
-  LOGOUT
-} from "../actions/types";
+import * as actions from "../actions/types";
 
 const initialState = {
   user: {},
@@ -17,37 +10,37 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_START:
+    case actions.AUTH_START:
       return {
         ...state,
         loading: action.payload
       };
-    case AUTH_END:
+    case actions.AUTH_END:
       return {
         ...state,
         loading: action.payload
       };
-    case AUTH_FAIL:
+    case actions.AUTH_FAIL:
       return {
         ...state,
         error: action.error,
         info: {}
       };
-    case AUTH_USER:
+    case actions.AUTH_USER:
       return {
         ...state,
         user: action.payload,
         success: true,
         error: ""
       };
-    case AUTH_SUCCESS:
+    case actions.AUTH_SUCCESS:
       return {
         ...state,
         info: action.payload,
         success: true,
         error: ""
       };
-    case LOGOUT:
+    case actions.LOGOUT:
       return {
         ...state,
         success: false,
