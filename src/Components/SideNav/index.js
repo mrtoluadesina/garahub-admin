@@ -8,9 +8,9 @@ import { mdiLogout } from "@mdi/js";
 import { useDispatch } from "react-redux";
 import { authLogout } from "../../actions/loginActions";
 
-export default function({ props }) {
+export default function ({ props }) {
   let dispatch = useDispatch();
-  const handleActive = e => {
+  const handleActive = (e) => {
     e.preventDefault();
     let menu = e.currentTarget;
 
@@ -26,10 +26,9 @@ export default function({ props }) {
     }
   };
   const handleLogout = () => {
-    
     dispatch(authLogout());
     // props.history.push("/login");
-    window.location.replace('/login')
+    window.location.replace("/login");
   };
   return (
     <div className="side">
@@ -48,18 +47,29 @@ export default function({ props }) {
                   {item.title}
                 </div>
                 {item.subNav.length > 1 ? (
-                  <span className="count">{item.subNav.length}</span>
+                  <span className="count">
+                    <svg
+                      style={{ width: "20px", height: "24px" }}
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+                      />
+                    </svg>
+                  </span>
                 ) : null}
               </Link>
               {item.subNav.length > 0 && (
                 <ul
                   style={{
-                    marginTop: "0.5rem"
+                    marginTop: "0.5rem",
+                    paddingLeft: "1.3rem",
                   }}
                 >
                   {item.subNav.length > 1
                     ? item.subNav.map((subItem, index) => (
-                        <li key={index} onClick={e => e.stopPropagation()}>
+                        <li key={index} onClick={(e) => e.stopPropagation()}>
                           <Link to={subItem.link}>{subItem.title}</Link>
                         </li>
                       ))
