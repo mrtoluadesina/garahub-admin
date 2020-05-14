@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./styles.scss";
 import DataCard from "../../Components/DataCard";
 import MasonryLayout from "../../Components/MasonryLayout";
-import axios from "axios";
 
 export default props => {
     const [state, setState] = useState({
