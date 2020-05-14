@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import SideNav from "../Components/SideNav";
 
 import Discounts from "../Views/Discounts";
+import AllTransactions from "../Views/Transactions";
 import AllOrder from "../Views/Orders";
 import Products from "../Views/Products";
 import AddProducts from "../Views/Products/add";
@@ -39,6 +40,11 @@ export default props => {
           <div className="main">
             <Switch>
               <Route path="/dashboard" component={Analytics} exact></Route>
+              <Route
+                path="/dashboard/transactions"
+                component={AllTransactions}
+                exact
+              ></Route>
               <Route
                 path="/dashboard/orders"
                 component={AllOrder}
