@@ -10,7 +10,6 @@ import AllOrderTab from "../../Components/CardTab";
 import FilterBar from "../../Components/FilterBar";
 import Button from "../../Components/Button";
 import Table from "../../Components/Table";
-import TableData from "../../utils/tabledata";
 import {fetchOrders} from "../../actions/orderAction"
 import "./index.scss";
 import { useSelector, useDispatch } from "react-redux";
