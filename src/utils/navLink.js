@@ -3,7 +3,7 @@ import {
   mdiFolderDownloadOutline,
   mdiTagOutline,
   mdiAccountOutline,
-  // mdiGoogleAnalytics,
+  mdiGoogleAnalytics,
   mdiSale,
   mdiSettings
 } from "@mdi/js";
@@ -14,6 +14,12 @@ export default {
       title: "Home",
       link: "/dashboard",
       icon: mdiHome,
+      subNav: []
+    },
+    {
+      title: "Transactions",
+      link: "/dashboard/transactions",
+      icon: mdiGoogleAnalytics,
       subNav: []
     },
     {
