@@ -1,26 +1,25 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 
 import OrderButton from "../../Components/OrderButton/index";
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
 
-import './index.scss';
+import "./index.scss";
 
-import {fetchTransactions} from "../../actions/transactionAction";
+import { fetchTransactions } from "../../actions/transactionAction";
 import { useSelector, useDispatch } from "react-redux";
 
-export default props => {
+export default (props) => {
 
   const {
-    transactions: { transactions }
-  } = useSelector(state => state);
-  const dispatch = useDispatch()
+    transactions: { transactions },
+  } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(fetchTransactions())
-  },[]) 
+  useEffect(() => {
+    dispatch(fetchTransactions());
+  }, []);
 
-  console.log(transactions);
   return (
     <div className="order-row">
       <div className="container">
@@ -38,53 +37,28 @@ export default props => {
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
                   </th>
-                    <th scope="col">Order</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Payment</th>
-                    <th scope="col">Fulfilment</th>
-                    <th scope="col">Total</th>
+                  <th scope="col">Transaction Id</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Transaction Quantity</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Total</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.length > 0 ? (
                   transactions.map((item, index) => (
-                  <tr key={index}>
-                    <td className="checkbox">
-                      <input type="checkbox"></input>
-                    </td>
-                    <td className="order-item">{item.order}</td>
-                    <td className="color-lgray">{item.date}</td>
-                    <td className="color-lgray">{item.customer}</td>
-                    <td className="Payment">
-                      {item.payment === "Paid" ? (
-                        <div className="paid">
-                          <div className="paid-circle"></div>
-                          Paid
-                        </div>
-                      ) : (
-                        <div className="pending">
-                          <div className="pending-circle"></div>
-                          Pending
-                        </div>
-                      )}
-                    </td>
-                    <td className="Fulfilment">
-                      {item.fulfilment === "Fulfilled" ? (
-                        <div className="fulfilled">
-                          <div className="fulfilled-circle"></div>
-                          Fulfilled
-                        </div>
-                      ) : (
-                        <div className="unfulfilled">
-                          <div className="unfulfilled-circle"></div>
-                          Unfulfilled
-                        </div>
-                      )}
-                    </td>
-                    <td className="color-dgray">{item.total}</td>
-                  </tr>
-                ))) : (
+                    <tr key={index}>
+                      <td className="checkbox">
+                        <input type="checkbox"></input>
+                      </td>
+                      <td className="order-item">{item._id}</td>
+                      <td className="color-lgray">{item.createdAt}</td>
+                      <td className="color-dgray">{item.items.length}</td>
+                      <td className="color-lgray">{`${item.user.firstName} ${item.user.lastName}`}</td>
+                      <td className="color-dgray">{item.chargedAmount}</td>
+                    </tr>
+                  ))
+                ) : (
                   <tr>
                     <p>No Transactions Yet</p>
                   </tr>
@@ -96,4 +70,4 @@ export default props => {
       </div>
     </div>
   );
-}
+};
