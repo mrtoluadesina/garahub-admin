@@ -27,8 +27,8 @@ export const fetchDiscounts = () => {
   return async dispatch => {
     try {
       dispatch(fetchDiscountStart(true));
-      const res = await request.get("/api/v1/transaction");
-      dispatch(fetchDiscountSuccess(res.data.payload));
+      const res = await request.get("/api/v1/discount");
+      dispatch(fetchDiscountSuccess(res.data));
       dispatch(fetchDiscountEnd(false));
     } catch (error) {
       dispatch(fetchDiscountFail(retrieveMessage(error)));
