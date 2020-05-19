@@ -48,7 +48,7 @@ export const fetchOrders = () => {
   return async dispatch => {
     try {
       dispatch(fetchOrderStart(true));
-      const res = await request.get("/api/v1/order");
+      const res = await request.get("/api/v1/transaction");
       dispatch(fetchOrderSuccess(res.data.payload));
       dispatch(fetchOrderEnd(false));
     } catch (error) {
