@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 
 import { mdiMapMarker } from "@mdi/js";
@@ -10,28 +11,33 @@ import AllOrderTab from "../../Components/CardTab";
 import FilterBar from "../../Components/FilterBar";
 import Button from "../../Components/Button";
 import Table from "../../Components/Table";
-import {fetchOrders} from "../../actions/orderAction"
+import { fetchOrders } from "../../actions/orderAction";
 import "./index.scss";
 import { useSelector, useDispatch } from "react-redux";
 
-export default props => {
-
+export default (props) => {
   const {
-    orders: { orders }
-  } = useSelector(state => state);
-  const dispatch = useDispatch()
+    orders: { orders },
+  } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(fetchOrders())
-  },[])  
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, []);
 
+  const formattedDate = (ISOString) => {
+    let newDate = new Date(ISOString);
+    return newDate.toDateString();
+  };
   return (
     <div className="order-row">
       <div className="container">
         <div className="order-header">
           <h4 className="order">Orders</h4>
           <div className="orderBtn">
-            <OrderButton value="Create Order" />
+            <Link to="/dashboard/orders/create-order" className="btn orderbtn">
+              Create Order
+            </Link>
           </div>
         </div>
         <ul className="order-ul">
@@ -58,7 +64,10 @@ export default props => {
             </AllOrderTab>
           </div>
           <div className="filter">
-            <FilterBar placeholder="Filter Orders" className="allorder-filterbar"></FilterBar>
+            <FilterBar
+              placeholder="Filter Orders"
+              className="allorder-filterbar"
+            ></FilterBar>
             <div className="status">
               <Dropdown>
                 <option>Status</option>
@@ -89,55 +98,60 @@ export default props => {
                   <th className="checkbox" scope="col">
                     <input type="checkbox"></input>
                   </th>
-                    <th scope="col">Order</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Payment</th>
-                    <th scope="col">Fulfilment</th>
-                    <th scope="col">Total</th>
+                  <th scope="col">Order</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Payment</th>
+                  <th scope="col">Fulfilment</th>
+                  <th scope="col">Total</th>
                 </tr>
               </thead>
               <tbody>
-                {orders > 0 ? (
+                {orders.length > 0 ? (
                   orders.map((item, index) => (
-                  <tr key={index}>
-                    <td className="checkbox">
-                      <input type="checkbox"></input>
-                    </td>
-                    <td className="order-item">{item.order}</td>
-                    <td className="color-lgray">{item.date}</td>
-                    <td className="color-lgray">{item.customer}</td>
-                    <td className="Payment">
-                      {item.payment === "Paid" ? (
-                        <div className="paid">
-                          <div className="paid-circle"></div>
-                          Paid
-                        </div>
-                      ) : (
-                        <div className="pending">
-                          <div className="pending-circle"></div>
-                          Pending
-                        </div>
-                      )}
-                    </td>
-                    <td className="Fulfilment">
-                      {item.fulfilment === "Fulfilled" ? (
-                        <div className="fulfilled">
-                          <div className="fulfilled-circle"></div>
-                          Fulfilled
-                        </div>
-                      ) : (
-                        <div className="unfulfilled">
-                          <div className="unfulfilled-circle"></div>
-                          Unfulfilled
-                        </div>
-                      )}
-                    </td>
-                    <td className="color-dgray">{item.total}</td>
-                  </tr>
-                ))) : (
+                    <tr key={index}>
+                      <td className="checkbox">
+                        <input type="checkbox"></input>
+                      </td>
+                      <td className="order-item">{item.order}</td>
+                      <td className="color-lgray">
+                        {formattedDate(item.createdAt)}
+                      </td>
+                      <td className="color-lgray">
+                        {item.user.firstName + " " + item.user.lastName}
+                      </td>
+                      <td className="Payment">
+                        {item.payment === "Paid" ? (
+                          <div className="paid">
+                            <div className="paid-circle"></div>
+                            Paid
+                          </div>
+                        ) : (
+                          <div className="pending">
+                            <div className="pending-circle"></div>
+                            Pending
+                          </div>
+                        )}
+                      </td>
+                      <td className="Fulfilment">
+                        {item.fulfilment === "Fulfilled" ? (
+                          <div className="fulfilled">
+                            <div className="fulfilled-circle"></div>
+                            Fulfilled
+                          </div>
+                        ) : (
+                          <div className="unfulfilled">
+                            <div className="unfulfilled-circle"></div>
+                            Unfulfilled
+                          </div>
+                        )}
+                      </td>
+                      <td className="color-dgray">{item.actualAmount}</td>
+                    </tr>
+                  ))
+                ) : (
                   <tr>
-                    <p>No Orders Yet</p>
+                    <td>No Orders Yet</td>
                   </tr>
                 )}
               </tbody>
