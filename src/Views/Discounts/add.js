@@ -154,7 +154,7 @@ const Discount = ({ data, ...props }) => {
     <div className="customer-row">
       <div className="container">
         <div className="customer-header">
-          <h4 className="customer">Discounts</h4>
+          <h4 className="customer">Create Discounts</h4>
           <span id="toast"></span>
         </div>
 
