@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import SideNav from "../Components/SideNav";
 
 import Discounts from "../Views/Discounts";
+import CreateDiscounts from "../Views/Discounts/add";
 import AllTransactions from "../Views/Transactions";
 import AllOrder from "../Views/Orders";
 import Products from "../Views/Products";
@@ -85,7 +86,8 @@ export default props => {
                 path="/dashboard/customers"
                 component={Customers}
               ></Route>
-              <Route exact path="/dashboard/discounts/add" component={Discounts} />
+              <Route exact path="/dashboard/discounts" component={Discounts} />
+              <Route exact path="/dashboard/discounts/add" component={CreateDiscounts} />
               <Route exact path="/dashboard/settings" component={Settings} />
             </Switch>
           </div>

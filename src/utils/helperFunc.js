@@ -88,4 +88,7 @@ export const pricePrepared = obj=>{
  })   
  return objs
  }
-
+export const formattedDate = (ISOString) => {
+  let newDate = new Date(ISOString);
+  return newDate.toDateString();
+};

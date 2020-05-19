@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
-import OrderButton from "../../Components/OrderButton/index";
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
+
+import {formattedDate} from "../../utils/helperFunc";
 
 import "./index.scss";
 
@@ -26,7 +27,6 @@ export default (props) => {
         <div className="order-header">
           <h4 className="order">Transactions</h4>
           <div className="orderBtn">
-            <OrderButton value="Create Order" />
           </div>
         </div>
         <Card className="order-card">
@@ -52,7 +52,7 @@ export default (props) => {
                         <input type="checkbox"></input>
                       </td>
                       <td className="order-item">{item._id}</td>
-                      <td className="color-lgray">{item.createdAt}</td>
+                      <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.items.length}</td>
                       <td className="color-lgray">{`${item.user.firstName} ${item.user.lastName}`}</td>
                       <td className="color-dgray">{item.chargedAmount}</td>
