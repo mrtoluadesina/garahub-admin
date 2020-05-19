@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
 
+import {formattedDate} from "../../utils/helperFunc";
+
 import "./index.scss";
 
 import { fetchTransactions } from "../../actions/transactionAction";
@@ -50,7 +52,7 @@ export default (props) => {
                         <input type="checkbox"></input>
                       </td>
                       <td className="order-item">{item._id}</td>
-                      <td className="color-lgray">{item.createdAt}</td>
+                      <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.items.length}</td>
                       <td className="color-lgray">{`${item.user.firstName} ${item.user.lastName}`}</td>
                       <td className="color-dgray">{item.chargedAmount}</td>

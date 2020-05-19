@@ -10,7 +10,6 @@ import { fetchAllCustomers } from "../../actions/customerActions";
 
 export default props => {
   const {customer: {customers}} = useSelector(state => state);
-  console.log(customers)
   const dispatch = useDispatch()
 
   useEffect(()=>{

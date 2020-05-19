@@ -4,6 +4,8 @@ import OrderButton from "../../Components/OrderButton/index";
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
 
+import {formattedDate} from "../../utils/helperFunc";
+
 import "./styles.scss";
 
 import { fetchDiscounts } from "../../actions/discountAction";
@@ -48,7 +50,7 @@ export default (props) => {
                     <tr key={index}>
                       <td className="color-lgray">{index + 1}</td>
                       <td className="order-item">{item._id}</td>
-                      <td className="color-lgray">{item.createdAt}</td>
+                      <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.name}</td>
                       <td className="color-lgray">{item.type}</td>
                       <td className="color-dgray">{item.discount}</td>

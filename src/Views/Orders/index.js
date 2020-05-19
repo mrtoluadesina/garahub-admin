@@ -1,19 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Icon from "@mdi/react";
-
-import { mdiMapMarker } from "@mdi/js";
-
-import OrderButton from "../../Components/OrderButton/index";
-import Dropdown from "../../Components/Dropdown/index";
 import Card from "../../Components/Card";
-import AllOrderTab from "../../Components/CardTab";
-import FilterBar from "../../Components/FilterBar";
-import Button from "../../Components/Button";
 import Table from "../../Components/Table";
 import { fetchOrders } from "../../actions/orderAction";
 import "./index.scss";
 import { useSelector, useDispatch } from "react-redux";
+import {formattedDate} from "../../utils/helperFunc";
 
 export default (props) => {
   const {
@@ -21,14 +13,13 @@ export default (props) => {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  console.log(orders);
+
   useEffect(() => {
     dispatch(fetchOrders());
   }, []);
 
-  const formattedDate = (ISOString) => {
-    let newDate = new Date(ISOString);
-    return newDate.toDateString();
-  };
+  
   return (
     <div className="order-row">
       <div className="container">
@@ -41,29 +32,10 @@ export default (props) => {
           </div>
         </div>
         <ul className="order-ul">
-          <li className="export">Export</li>
-          <li>
-            <Dropdown>
-              <option>More Actions</option>
-              <option>Open</option>
-            </Dropdown>
-          </li>
+         
         </ul>
         <Card className="order-card">
-          <div className="all-order">
-            <AllOrderTab>
-              <div className="location">
-                <li className="location-li">
-                  <Icon path={mdiMapMarker} className="icon"></Icon>
-                  <Dropdown>
-                    <option>All Locations</option>
-                    <option>Nigeria</option>
-                  </Dropdown>
-                </li>
-              </div>
-            </AllOrderTab>
-          </div>
-          <div className="filter">
+          {/* <div className="filter">
             <FilterBar
               placeholder="Filter Orders"
               className="allorder-filterbar"
@@ -90,15 +62,12 @@ export default (props) => {
             </div>
             <Button value="Saved" className="savebtn"></Button>
             <Button value="Sort" className="sortbtn"></Button>
-          </div>
+          </div> */}
           <div>
             <Table>
               <thead className="th-color">
                 <tr>
-                  <th className="checkbox" scope="col">
-                    <input type="checkbox"></input>
-                  </th>
-                  <th scope="col">Order</th>
+                  <th scope="col">S/N</th>
                   <th scope="col">Date</th>
                   <th scope="col">Customer</th>
                   <th scope="col">Payment</th>
@@ -110,10 +79,7 @@ export default (props) => {
                 {orders.length > 0 ? (
                   orders.map((item, index) => (
                     <tr key={index}>
-                      <td className="checkbox">
-                        <input type="checkbox"></input>
-                      </td>
-                      <td className="order-item">{item.order}</td>
+                      <td className="checkbox">{index + 1}</td>
                       <td className="color-lgray">
                         {formattedDate(item.createdAt)}
                       </td>
