@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 import Card from "../../Components/Card";
-import izitoast from "izitoast"
+import izitoast from "izitoast";
 import "./styles.scss";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -11,14 +11,14 @@ import { createOrders } from "../../actions/orderAction";
 import { getActualPrice } from "../../utils/helperFunc";
 import { BeatLoader } from "react-spinners";
 
-export default props => {
+export default (props) => {
   const {
     products: { products },
-    customer: { customer, error,loading },
-    orders:{orderError,orderSuccess},
-  } = useSelector(state => state);
-  const [uploadSuccess,setSuccess] = useState(false)
-  const [uploadError,setUploadError] = useState(false)
+    customer: { customer, error, loading },
+    orders: { orderError, orderSuccess },
+  } = useSelector((state) => state);
+  const [uploadSuccess, setSuccess] = useState(false);
+  const [uploadError, setUploadError] = useState(false);
   const dispatch = useDispatch();
 
   const [order, createOrder] = useState({
@@ -28,25 +28,29 @@ export default props => {
     phone: "",
     userId: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
   });
   const [productList] = useState(
-    products.map(state => {
-      return { productId:state._id,quantities:state.quantity,price:state.price, value: state._id, label: state.name };
+    products.map((state) => {
+      return {
+        productId: state._id,
+        quantities: state.quantity,
+        price: state.price,
+        value: state._id,
+        label: state.name,
+      };
     })
   );
-  let costOfGoods =0
-  let [totalCost, setTotalCost] = useState(0)
+  let costOfGoods = 0;
+  let [totalCost, setTotalCost] = useState(0);
   useEffect(() => {
-    
-    
     if (customer) {
       createOrder({
         ...order,
         phone: customer.phone,
         userId: customer._id,
         firstName: customer.firstName,
-        lastName: customer.lastName
+        lastName: customer.lastName,
       });
     }
     if (error.length > 1) {
@@ -55,12 +59,12 @@ export default props => {
         phone: "",
         userId: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
       });
     }
-  }, [customer, error, order.cartItems, createOrder,costOfGoods,totalCost]);
+  }, [customer, error, order.cartItems, createOrder, costOfGoods, totalCost]);
 
-  const handleSelectChange = product => {
+  const handleSelectChange = (product) => {
     if (product) {
       createOrder({ ...order, cartItems: [...product] });
       return;
@@ -71,59 +75,67 @@ export default props => {
   const handleChange = ({ target }) => {
     createOrder({ ...order, [target.name]: target.value });
   };
-  const handleSubmit =async  e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const productIds = order.cartItems.map(elements=>{
-      return {quantity:elements.quantity,productId:elements.productId,cost:elements.cost}
-    })
-    let postOrder = {productIds:[...productIds],userDetails:{email:order.email,firstName:order.firstName,lastName:order.lastName,address:order.userId?order.address.address1:order,phone:order.phone},userId:order.userId}
+    const productIds = order.cartItems.map((elements) => {
+      return {
+        quantity: elements.quantity,
+        productId: elements.productId,
+      };
+    });
+
+    let postOrder = {
+      id: order.userId,
+      productIds: [...productIds],
+      userDetails: {
+        email: order.email,
+        firstName: order.firstName,
+        lastName: order.lastName,
+        address: order.userId ? order.address.address1 : order.address,
+        phone: order.phone,
+      },
+      chargedAmount: totalCost,
+    };
     dispatch(createOrders(postOrder));
-    setSuccess(orderError)
-    setUploadError(orderSuccess)
+    setSuccess(orderError);
+    setUploadError(orderSuccess);
   };
 
-  const handleEmailCheck = async e => {
+  const handleEmailCheck = async (e) => {
     e.preventDefault();
     try {
       dispatch(fetchACustomer(order.email));
-    } catch (err) {
-      
-    }
+    } catch (err) {}
   };
-  const handleCalculation = (e)=>{
-    e.preventDefault()
+  const handleCalculation = (e) => {
+    e.preventDefault();
     let cost = 0;
-    order.cartItems.map(element=>{
-      cost +=element.cost
+    order.cartItems.map((element) => {
+      cost += element.cost;
       return;
-    })
-    setTotalCost(cost)
+    });
+    setTotalCost(cost);
     return;
-    
-  }
-  const handleAddrChange = address=>{
-      createOrder({...order,address})
-  }
+  };
+  const handleAddrChange = (address) => {
+    createOrder({ ...order, address });
+  };
   const handleProductNumber = ({ target }) => {
     order.cartItems.map((selected) => {
       if (selected.value === target.name) {
-        
-        
-        if (target.value==="" || target.value==="0"){
-          selected["quantity"]=0
+        if (target.value === "" || target.value === "0") {
+          selected["quantity"] = 0;
           selected["cost"] = 0;
-          selected["productDetailsId"]=selected._id
-          createOrder({ ...order }); 
+          selected["productDetailsId"] = selected._id;
+          createOrder({ ...order });
+        } else {
+          let price = getActualPrice(parseInt(target.value), selected.price);
+          let cost = price * parseInt(target.value);
+          selected["quantity"] = parseInt(target.value);
+          selected["cost"] = cost;
+          selected["productDetailsId"] = selected._id;
+          createOrder({ ...order });
         }
-        else{
-         let price = getActualPrice(parseInt(target.value),selected.price)
-        let cost = price * parseInt(target.value)        
-        selected["quantity"] = parseInt(target.value);
-        selected["cost"] = cost;
-        selected["productDetailsId"]=selected._id
-        createOrder({ ...order }); 
-        }
-        
       }
       return;
     });
@@ -147,11 +159,11 @@ export default props => {
                   ></Select>
                   {order.cartItems ? (
                     <div className="lists">
-                      {order.cartItems.map(product => (
+                      {order.cartItems.map((product) => (
                         <li className="cart-item" key={product.value}>
                           <span className="label">{product.label}</span>
                           <input
-                          className="small"
+                            className="small"
                             type="number"
                             name={product.value}
                             max={product.quantities}
@@ -159,17 +171,22 @@ export default props => {
                             placeholder="number"
                             onChange={handleProductNumber}
                           />
-                          <span className="small">&#8358;{product.cost?product.cost:0}</span>
+                          <span className="small">
+                            &#8358;{product.cost ? product.cost : 0}
+                          </span>
                         </li>
-                      ))
-                      
-                      }
-                    <div className="calculate">
-                      {
-                      <button  className="button" onClick={handleCalculation}>calculate</button>} 
-                      <p>Total Cost:&#8358; {totalCost}</p>
-                    </div>
-                    
+                      ))}
+                      <div className="calculate">
+                        {
+                          <button
+                            className="button"
+                            onClick={handleCalculation}
+                          >
+                            calculate
+                          </button>
+                        }
+                        <p>Total Cost:&#8358; {totalCost}</p>
+                      </div>
                     </div>
                   ) : null}
                 </div>
@@ -193,7 +210,8 @@ export default props => {
                       type=""
                       onClick={handleEmailCheck}
                     >
-                      {(loading && <BeatLoader color="#fff" size={5} />) || "Check"}
+                      {(loading && <BeatLoader color="#fff" size={5} />) ||
+                        "Check"}
                     </button>
                   </div>
                   {error ? (
@@ -222,23 +240,21 @@ export default props => {
                 </div>
                 <div className="form-group">
                   <label>Mailing Address</label>
-                  {customer.address?
-                  <Select
-                  options={customer.address}
-                  onChange={handleAddrChange}
-                  name="address"
-                  value={order.address}
-                ></Select>
-                  :
-                  <Input
-                    type="text"
-                    name="address"
-                    onChange={handleChange}
-                    placeholder="Mailing Address"
-                  />
-                }
-                  
-                  
+                  {customer.address ? (
+                    <Select
+                      options={customer.address}
+                      onChange={handleAddrChange}
+                      name="address"
+                      value={order.address}
+                    ></Select>
+                  ) : (
+                    <Input
+                      type="text"
+                      name="address"
+                      onChange={handleChange}
+                      placeholder="Mailing Address"
+                    />
+                  )}
                 </div>
                 <div className="form-group">
                   <label>Phone Number</label>
@@ -259,26 +275,26 @@ export default props => {
         </form>
       </div>
       {uploadSuccess
-          ? izitoast.show({
-              messageColor: "white",
-              title: "Order Created",
-              backgroundColor: "#00FF00",
-              titleColor: "white",
-              timeout: 5000,
-              message:`order created Successfully`,
-              onClosed:()=>setSuccess(false)
-            })
-          : uploadError
-          ? izitoast.show({
-              messageColor: "white",
-              title: "Order Error",
-              backgroundColor: "red",
-              titleColor: "white",
-              timeout: 5000,
-              message: error,
-              onClosed:()=>setUploadError(false)
-            })
-          : null}
+        ? izitoast.show({
+            messageColor: "white",
+            title: "Order Created",
+            backgroundColor: "#00FF00",
+            titleColor: "white",
+            timeout: 5000,
+            message: `order created Successfully`,
+            onClosed: () => setSuccess(false),
+          })
+        : uploadError
+        ? izitoast.show({
+            messageColor: "white",
+            title: "Order Error",
+            backgroundColor: "red",
+            titleColor: "white",
+            timeout: 5000,
+            message: error,
+            onClosed: () => setUploadError(false),
+          })
+        : null}
     </div>
   );
 };
