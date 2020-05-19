@@ -6,18 +6,18 @@ import Card from "../../Components/Card";
 
 import "./styles.scss";
 
-import { fetchTransactions } from "../../actions/transactionAction";
+import { fetchDiscounts } from "../../actions/discountAction";
 import { useSelector, useDispatch } from "react-redux";
 
 export default (props) => {
 
   const {
-    transactions: { transactions },
+    discounts: { discounts },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTransactions());
+    dispatch(fetchDiscounts());
   }, []);
 
   return (
@@ -34,33 +34,29 @@ export default (props) => {
             <Table>
               <thead className="th-color">
                 <tr>
-                  <th className="checkbox" scope="col">
-                    <input type="checkbox"></input>
-                  </th>
+                  <th scope="col">S/N</th>
                   <th scope="col">Transaction Id</th>
                   <th scope="col">Date</th>
-                  <th scope="col">Transaction Quantity</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Total</th>
+                  <th scope="col">Discount Name</th>
+                  <th scope="col">Discount Type</th>
+                  <th scope="col">Discount</th>
                 </tr>
               </thead>
               <tbody>
-                {transactions.length > 0 ? (
-                  transactions.map((item, index) => (
+                {discounts.length > 0 ? (
+                  discounts.map((item, index) => (
                     <tr key={index}>
-                      <td className="checkbox">
-                        <input type="checkbox"></input>
-                      </td>
+                      <td className="color-lgray">{index + 1}</td>
                       <td className="order-item">{item._id}</td>
                       <td className="color-lgray">{item.createdAt}</td>
-                      <td className="color-dgray">{item.items.length}</td>
-                      <td className="color-lgray">{`${item.user.firstName} ${item.user.lastName}`}</td>
-                      <td className="color-dgray">{item.chargedAmount}</td>
+                      <td className="color-dgray">{item.name}</td>
+                      <td className="color-lgray">{item.type}</td>
+                      <td className="color-dgray">{item.discount}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <p>No Transactions Yet</p>
+                    <p>No Discounts Yet</p>
                   </tr>
                 )}
               </tbody>
