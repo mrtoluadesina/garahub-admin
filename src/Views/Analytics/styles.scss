@@ -20,6 +20,17 @@
 
     .filter-data {
       display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+
+      .metrics-card {
+        min-width: 280px;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     .content {
