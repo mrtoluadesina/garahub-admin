@@ -23,11 +23,11 @@ const fetchTransactionEnd = payload => ({
   payload
 });
 
-export const fetchTransactions = () => {
+export const fetchTransactions = (query) => {
   return async dispatch => {
     try {
       dispatch(fetchTransactionStart(true));
-      const res = await request.get("/api/v1/transaction");
+      const res = await request.get(`/api/v1/transaction?${query}`);
       dispatch(fetchTransactionSuccess(res.data.payload));
       dispatch(fetchTransactionEnd(false));
     } catch (error) {
