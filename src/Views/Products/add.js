@@ -34,7 +34,7 @@ export default (props) => {
     brands: { brands },
   } = useSelector((state) => state);
 
-  console.log("add brand heree", brands);
+
   const latestBrands = brands.map((brand) => {
     return { ...brand, label: brand.name, value: brand._id };
   });
@@ -64,7 +64,7 @@ export default (props) => {
         ]
       : [],
     sku: generateSku(),
-    // brandId:""
+
   });
 
   const handleChange = ({ target }) => {
@@ -73,7 +73,7 @@ export default (props) => {
 
   let [images, createImages] = useState({});
 
-  // let listOfArray=[]
+
 
   useEffect(() => {
     dispatch(fetchCategories());
