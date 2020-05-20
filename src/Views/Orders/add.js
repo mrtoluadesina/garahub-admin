@@ -91,14 +91,38 @@ export default (props) => {
         email: order.email,
         firstName: order.firstName,
         lastName: order.lastName,
-        address: order.userId ? order.address.address1 : order.address,
+        address: order.userId
+          ? order.address.address1 || "no address1"
+          : order.address || "no address",
         phone: order.phone,
       },
       chargedAmount: totalCost,
     };
+
     dispatch(createOrders(postOrder));
     setSuccess(orderError);
     setUploadError(orderSuccess);
+    if (orderSuccess) {
+      izitoast.show({
+        messageColor: "white",
+        title: "Order Created",
+        backgroundColor: "#00FF00",
+        titleColor: "white",
+        timeout: 5000,
+        message: `order created Successfully`,
+        onClosed: () => setSuccess(false),
+      });
+    } else if (orderError) {
+      izitoast.show({
+        messageColor: "white",
+        title: "Order Error",
+        backgroundColor: "red",
+        titleColor: "white",
+        timeout: 5000,
+        message: error,
+        onClosed: () => setUploadError(false),
+      });
+    }
   };
 
   const handleEmailCheck = async (e) => {
@@ -271,31 +295,15 @@ export default (props) => {
             </div>
           </div>
           <div className="row">
-            <Button className="btn redSolidBtn" value="Save" />
+            <Button
+              className="btn redSolidBtn"
+              value={
+                (loading && <BeatLoader color="#fff" size={5} />) || "Save"
+              }
+            />
           </div>
         </form>
       </div>
-      {uploadSuccess
-        ? izitoast.show({
-            messageColor: "white",
-            title: "Order Created",
-            backgroundColor: "#00FF00",
-            titleColor: "white",
-            timeout: 5000,
-            message: `order created Successfully`,
-            onClosed: () => setSuccess(false),
-          })
-        : uploadError
-        ? izitoast.show({
-            messageColor: "white",
-            title: "Order Error",
-            backgroundColor: "red",
-            titleColor: "white",
-            timeout: 5000,
-            message: error,
-            onClosed: () => setUploadError(false),
-          })
-        : null}
     </div>
   );
 };
