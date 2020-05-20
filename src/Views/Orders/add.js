@@ -104,7 +104,8 @@ export default (props) => {
   const handleEmailCheck = async (e) => {
     e.preventDefault();
     try {
-      dispatch(fetchACustomer(order.email));
+      const email = order.email.toLowerCase();
+      dispatch(fetchACustomer(email));
     } catch (err) {}
   };
   const handleCalculation = (e) => {

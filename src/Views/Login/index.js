@@ -28,9 +28,10 @@ export default function Index(props) {
 
   const handleChange = (e) => {
     e.preventDefault();
+    const value = e.target.value.toLowerCase();
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value.toLowerCase(),
+      [e.target.name]: value,
     });
   };
 
