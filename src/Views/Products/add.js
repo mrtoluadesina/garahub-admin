@@ -26,10 +26,6 @@ export default (props) => {
   const [uploadSuccess, setSuccess] = useState(false);
   const [updateError, setUpdateError] = useState(false);
 
-  const brandStructure = {
-    value: "_id",
-    label: "name",
-  };
 
   const dispatch = useDispatch();
   const {
