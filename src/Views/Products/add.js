@@ -25,7 +25,7 @@ export default (props) => {
   const { method, object = { categoryId: [] } } = props;
   const [uploadSuccess, setSuccess] = useState(false);
   const [updateError, setUpdateError] = useState(false);
-
+  const [btnLoading, setBtnloading] = useState(false);
 
   const dispatch = useDispatch();
   const {
@@ -33,7 +33,6 @@ export default (props) => {
     products: { success, error, productObj, fetching, updated },
     brands: { brands },
   } = useSelector((state) => state);
-
 
   const latestBrands = brands.map((brand) => {
     return { ...brand, label: brand.name, value: brand._id };
@@ -64,7 +63,6 @@ export default (props) => {
         ]
       : [],
     sku: generateSku(),
-
   });
 
   const handleChange = ({ target }) => {
@@ -72,8 +70,6 @@ export default (props) => {
   };
 
   let [images, createImages] = useState({});
-
-
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -140,6 +136,12 @@ export default (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // set loading to true
+    setBtnloading(true);
+    // disable the button
+    const docs = document.activeElement;
+    docs.setAttribute("disabled", "true");
+
     let imagesArray = [];
     let editPricing = {};
     if (method === "edit") {
@@ -174,7 +176,37 @@ export default (props) => {
     //
     if (method !== "edit") {
       dispatch(createPoductActions(data));
-      setSuccess(success);
+
+      setSuccess(true);
+      // undo disable
+      docs.setAttribute("disabled", "false");
+      // set loading to false
+      setBtnloading(false);
+
+      if (uploadSuccess) {
+        izitoast.show({
+          messageColor: "white",
+          title: method === "edit" ? "Product Updated" : "Product Added",
+          backgroundColor: "#00FF00",
+          titleColor: "white",
+          timeout: 5000,
+          message:
+            method === "edit"
+              ? `Product ${productObj.name} successfully Updated`
+              : `Product ${productObj.name} successfully Added`,
+          onClosed: () => setSuccess(false),
+        });
+      } else if (updateError) {
+        izitoast.show({
+          messageColor: "white",
+          title: "product Save",
+          backgroundColor: "red",
+          titleColor: "white",
+          timeout: 5000,
+          message: error,
+          onClosed: () => setUpdateError(false),
+        });
+      }
     } else {
       dispatch(updatePoductActions(object._id, data));
     }
@@ -239,6 +271,7 @@ export default (props) => {
               type="number"
               name={`from${index + 1}`}
               onChange={handlePricingChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -248,6 +281,7 @@ export default (props) => {
               name={`to${index + 1}`}
               placeholder="0"
               onChange={handlePricingChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -257,6 +291,7 @@ export default (props) => {
               name={`price${index + 1}`}
               placeholder="0"
               onChange={handlePricingChange}
+              required
             />
           </div>
         </div>
@@ -287,6 +322,7 @@ export default (props) => {
                     onChange={handleChange}
                     placeholder="Product Name"
                     value={product.name}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -296,6 +332,7 @@ export default (props) => {
                     onChange={handleChange}
                     placeholder="Describe your product"
                     value={product.description}
+                    required
                   />
                 </div>
               </Card>
@@ -317,6 +354,7 @@ export default (props) => {
                       name="firstImage"
                       onChange={handleFileUpload}
                       className="flex-4"
+                      required
                     />
                   </div>
                   <div className="d-flex between">
@@ -412,6 +450,7 @@ export default (props) => {
                     onChange={handleChange}
                     placeholder="0"
                     value={product.quantity}
+                    required
                   />
                 </div>
               </Card>
@@ -430,6 +469,7 @@ export default (props) => {
                     name="category"
                     isMulti={true}
                     defaultValue={[...product.categories]}
+                    required
                   />
                 </div>
               </Card>
@@ -443,6 +483,7 @@ export default (props) => {
                     options={latestBrands}
                     onChange={handleBrandSelectChange}
                     name="brandId"
+                    required
                   />
                 </div>
               </Card>
@@ -452,36 +493,10 @@ export default (props) => {
           <div className="row">
             <Button
               className="btn redSolidBtn"
-              value={
-                (fetching && <BeatLoader color="#fff" size={5} />) || "Save"
-              }
+              value={btnLoading ? <BeatLoader color="#fff" size={5} /> : "Save"}
             />
           </div>
         </form>
-        {uploadSuccess
-          ? izitoast.show({
-              messageColor: "white",
-              title: method === "edit" ? "Product Updated" : "Product Added",
-              backgroundColor: "#00FF00",
-              titleColor: "white",
-              timeout: 5000,
-              message:
-                method === "edit"
-                  ? `Product ${productObj.name} successfully Updated`
-                  : `Product ${productObj.name} successfully Added`,
-              onClosed: () => setSuccess(false),
-            })
-          : updateError
-          ? izitoast.show({
-              messageColor: "white",
-              title: "product Save",
-              backgroundColor: "red",
-              titleColor: "white",
-              timeout: 5000,
-              message: error,
-              onClosed: () => setUpdateError(false),
-            })
-          : null}
       </div>
     </div>
   );
