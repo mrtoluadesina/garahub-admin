@@ -27,12 +27,23 @@ export const fetchTransactions = (query) => {
   return async dispatch => {
     try {
       dispatch(fetchTransactionStart(true));
+      
       const res = await request.get(`/api/v1/transaction?${query}`);
       dispatch(fetchTransactionSuccess(res.data.payload));
       dispatch(fetchTransactionEnd(false));
     } catch (error) {
+      console.log('start')
       dispatch(fetchTransactionFail(retrieveMessage(error)));
       dispatch(fetchTransactionEnd(false));
     }
   };
 };
+
+export const fetchTransaction = async (query)=> {
+  try {
+    const res = await request.get(`/api/v1/transaction?${query}`);
+    return res.data.payload;
+  } catch (error) {
+    return error;
+  }
+}
