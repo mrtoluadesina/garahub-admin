@@ -71,3 +71,12 @@ export const createOrders =  (data) => {
     }
   };
 };
+
+export const fetchOrder = async (query) => {
+    try {
+      const res = await request.get(`/api/v1/order?${query}`);
+      return res.data.payload
+    } catch (error) {
+      return error
+    }
+};
