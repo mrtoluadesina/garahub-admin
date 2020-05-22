@@ -7,7 +7,7 @@ import {formattedDate} from "../../utils/helperFunc";
 
 import "./index.scss";
 
-import { fetchTransactions } from "../../actions/transactionAction";
+import { fetchTransaction } from "../../actions/transactionAction";
 import { useSelector, useDispatch } from "react-redux";
 
 export default (props) => {
@@ -18,105 +18,106 @@ export default (props) => {
   })
   const [transact, setTransaction] =  useState([])
   const [query, setQuery] = useState({
-    limit: 40, skip: 1
+    limit: 100, skip: 1
   }) 
   const [page, setPage] = useState({
     lower: 0,
-    upper: 1
+    upper: 0
   })
   const [limit, setLimit] = useState(20)
 
-  const {
-    transactions: { transactions: { data: transactions, total: tot} },
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
+  const [tot, setTotal] = useState(0)
+
+  const [nextData, setNextData] = useState(false)
+
+
+  useEffect(() => {
+    if (nextData) {
+      fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
+      .then((payload)=> {
+        // set transaction to state
+          let newTransact = [ ...transact, ...payload.data ];
+          setTransaction(()=> newTransact);
+          setTotal(payload.total);
+          let upper = page.upper;
+          let lower =  page.lower
+          setPage(() => ({
+            upper: ++upper, lower: ++lower
+          }));
+    })
+    }
+  }, [query.skip]);
 
   useEffect(() => {
     let upper = page.upper;
     let lower =  page.lower
-    if (!transact.length) return
     let transacts = transact.filter((trans, index) => {
       return(index >= lower*limit && index < upper*limit) 
     })
     setTrans(()=>({
       ...trans, transacts: transacts
     }))
-  }, [page]);
+  }, [page.upper])
 
+  useEffect( () => {
+    fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
+      .then((payload)=> {
+        // set transaction to state
+          let newTransact = [ ...transact, ...payload.data ];
+          setTransaction(()=> newTransact);
+          setTotal(payload.total);
+          let upper = page.upper;
+        setPage(() => ({
+         ...page, upper: ++upper
+        }));
+    
+      })
+  }, []);
 
-  useEffect(() => {
-    dispatch(fetchTransactions(`limit=${query.limit}&skip=${query.skip}`));
-    let  transaction = [...transact, ...transactions]
-    let upper = page.upper;
-    let lower =  page.lower
-    let transacts = transaction.filter((trans, index) => {
-      return(index >= lower*limit && index < upper*limit) 
-    })
-    setTrans(()=>({
-      ...trans, transacts: transacts
-    }))
-    setTransaction(() => transaction)
-
-  }, [query]);
 
 
   const next = () => {
-    if ( page.upper*limit >= transact.length-1) {
+    if ( page.upper*limit >= transact.length - 1) {
       // make call to fetch the next set
-      console.log('making call ', query.skip, transact)
       if (query.skip * limit < tot) {
+        setNextData(true)
         setQuery(()=> ({
           ...query, skip: query.skip + 1
         }))
       }
-      let upper = ++page.upper;
-      let lower =  ++page.lower
-
-      setPage(() => ({
-        upper: upper, lower: lower
-      }));
-      setTrans(()=>({
-        ...trans, page: trans.page +1
-      }))
-      
     } else {
-      // increase low and upper of page
-      let upper = ++page.upper;
-      let lower =  ++page.lower
-      setPage(() => ({
-        upper: upper, lower: lower
-      }));
-      setTrans(()=>({
-        ...trans, page: trans.page +1
-      }))
-  }
-  }
-  const prev = () => {
-    if (page.lower < 1 ) {
+
       let upper = page.upper;
       let lower =  page.lower
-      setTrans(()=>({
-        ...trans, page: trans.page -1
-      }))
-    } else {
-      // decrease low and upper of page
-      let upper = --page.upper;
-      let lower =  --page.lower
-
       setPage(() => ({
-        upper: upper, lower: lower
+        upper: ++upper, lower: ++lower
       }));
-      setTrans(()=>({
-        ...trans, page: trans.page -1
-      }))
     }
-    }
+    setTrans(()=>({
+      ...trans, page: trans.page +1
+    }))
+    
+  }
+
+  const prev = () => {
+    let upper = page.upper;
+    let lower =  page.lower
+    setPage(() => ({
+      upper: --upper, lower: --lower
+    }));
+    setTrans(()=>({
+      ...trans, page: trans.page -1
+    }))
+
+  }
+
   return (
     <div className="order-row">
       <div className="container">
         <div className="order-header">
           <h4 className="order">Transactions</h4>
           <div className="orderBtn">
+          <button >Refresh</button>
           </div>
         </div>
         <Card className="order-card">
@@ -133,7 +134,7 @@ export default (props) => {
                 </tr>
               </thead>
               <tbody>
-                {transactions.length > 0 ? (
+                {transact.length > 0 ? (
                   trans.transacts.map((item, index) => (
                     <tr key={index}>
                       <td className="checkbox">{index + 1}</td>
@@ -153,7 +154,8 @@ export default (props) => {
             </Table>
             <div>
               <button className="paginate" onClick={prev} disabled={trans.page < 2}>{"<"}</button>
-              <button className="paginate"  onClick={next} disabled={trans.page*limit >= tot}>{">"}</button>
+              <span>{trans.page}</span>
+              <button className="paginate"  onClick={next} disabled={trans.page * limit >= tot}>{">"}</button>
             </div>
           </div>
         </Card>
