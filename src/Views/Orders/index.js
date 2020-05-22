@@ -13,8 +13,6 @@ export default (props) => {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  console.log(orders);
-
   useEffect(() => {
     dispatch(fetchOrders());
   }, []);

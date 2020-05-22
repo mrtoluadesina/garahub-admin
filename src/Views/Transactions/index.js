@@ -124,9 +124,7 @@ export default (props) => {
             <Table>
               <thead className="th-color">
                 <tr>
-                  <th className="checkbox" scope="col">
-                    <input type="checkbox"></input>
-                  </th>
+                  <th scope="col">S/N</th>
                   <th scope="col">Transaction Id</th>
                   <th scope="col">Date</th>
                   <th scope="col">Transaction Quantity</th>
@@ -138,9 +136,7 @@ export default (props) => {
                 {transactions.length > 0 ? (
                   trans.transacts.map((item, index) => (
                     <tr key={index}>
-                      <td className="checkbox">
-                        <input type="checkbox"></input>
-                      </td>
+                      <td className="checkbox">{index + 1}</td>
                       <td className="order-item">{item._id}</td>
                       <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.items.length}</td>

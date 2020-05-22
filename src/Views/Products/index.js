@@ -69,7 +69,7 @@ export default props => {
               <tbody>
                 {products.map((item, index) => (
                   <tr key={index}>
-                    <td>
+                    <td className="md-5">
                       <div className="product-image">
                         {item.images?<img src={item.images[0]} alt="product" />:<Icon path={item.images[0]} className="product-icon"></Icon>}
                         
@@ -78,10 +78,9 @@ export default props => {
                     <td className="order-item"><Link to={`/dashboard/products/edit/${item._id}`}>{item.name}</Link>  </td>
                     <td>
                       <span className="color-orange">{item.quantity} </span>
-                      {/* <span className="color-lgray">{item.inventory}</span> */}
                       </td>
                     <td className="color-dgray">{item.brandName}</td>
-                    <td className="color-dgray">{formattedDate(item.createdAt)}</td>
+                    <td className="color-dgray date-md">{formattedDate(item.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>

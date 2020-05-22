@@ -28,7 +28,7 @@ export default (props) => {
         <div className="order-header">
           <h4 className="order">Discounts</h4>
           <div className="orderBtn">
-            <OrderButton value="Create Discount" />
+            {/* <OrderButton value="Create Discount" /> */}
           </div>
         </div>
         <Card className="order-card">
