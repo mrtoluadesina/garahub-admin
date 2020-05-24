@@ -24,10 +24,9 @@ export default props => {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:3005/api/v1/stats/${props.statType}/?range=${range}`
+                `${process.env.REACT_APP_BASE_URL}/api/v1/stats/${props.statType}/?range=${range}`
             )
             .then(res => {
-                console.log(res.data);
                 setData(() => res.data.payload);
             });
     }, [range]);
@@ -44,10 +43,10 @@ export default props => {
                 </a> */}
                 <DropDown change={handleChange}>
                     <option value="year">Year</option>
-                    <option value="month" selected>
+                    <option value="month">
                         Month
                     </option>
-                    <option value="week">Week</option>
+                    <option value="week" selected>Week</option>
                 </DropDown>
             </div>
             <div className="data-card-body">

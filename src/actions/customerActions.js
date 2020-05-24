@@ -39,8 +39,6 @@ export const fetchAllCustomers = () => {
         try {
             dispatch(fetchStart(true))
             const res = await request.get('/api/v1/user')
-
-            console.log(res.data)
             dispatch(fetchCustomersSuccess(res.data))
             dispatch(fetchEnd(false))
         } catch(error) {

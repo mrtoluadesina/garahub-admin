@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
@@ -7,19 +7,109 @@ import {formattedDate} from "../../utils/helperFunc";
 
 import "./index.scss";
 
-import { fetchTransactions } from "../../actions/transactionAction";
+import { fetchTransaction } from "../../actions/transactionAction";
 import { useSelector, useDispatch } from "react-redux";
 
 export default (props) => {
 
-  const {
-    transactions: { transactions },
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
+  const [trans, setTrans] = useState({
+    transacts: [],
+    page: 1
+  })
+  const [transact, setTransaction] =  useState([])
+  const [query, setQuery] = useState({
+    limit: 100, skip: 1
+  }) 
+  const [page, setPage] = useState({
+    lower: 0,
+    upper: 0
+  })
+  const [limit, setLimit] = useState(20)
+
+  const [tot, setTotal] = useState(0)
+
+  const [nextData, setNextData] = useState(false)
+
 
   useEffect(() => {
-    dispatch(fetchTransactions());
+    if (nextData) {
+      fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
+      .then((payload)=> {
+        // set transaction to state
+          let newTransact = [ ...transact, ...payload.data ];
+          setTransaction(()=> newTransact);
+          setTotal(payload.total);
+          let upper = page.upper;
+          let lower =  page.lower
+          setPage(() => ({
+            upper: ++upper, lower: ++lower
+          }));
+    })
+    }
+  }, [query.skip]);
+
+  useEffect(() => {
+    let upper = page.upper;
+    let lower =  page.lower
+    let transacts = transact.filter((trans, index) => {
+      return(index >= lower*limit && index < upper*limit) 
+    })
+    setTrans(()=>({
+      ...trans, transacts: transacts
+    }))
+  }, [page.upper])
+
+  useEffect( () => {
+    fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
+      .then((payload)=> {
+        // set transaction to state
+          let newTransact = [ ...transact, ...payload.data ];
+          setTransaction(()=> newTransact);
+          setTotal(payload.total);
+          let upper = page.upper;
+        setPage(() => ({
+         ...page, upper: ++upper
+        }));
+    
+      })
   }, []);
+
+
+
+  const next = () => {
+    if ( page.upper*limit >= transact.length - 1) {
+      // make call to fetch the next set
+      if (query.skip * limit < tot) {
+        setNextData(true)
+        setQuery(()=> ({
+          ...query, skip: query.skip + 1
+        }))
+      }
+    } else {
+
+      let upper = page.upper;
+      let lower =  page.lower
+      setPage(() => ({
+        upper: ++upper, lower: ++lower
+      }));
+    }
+    setTrans(()=>({
+      ...trans, page: trans.page +1
+    }))
+    
+  }
+
+  const prev = () => {
+    let upper = page.upper;
+    let lower =  page.lower
+    setPage(() => ({
+      upper: --upper, lower: --lower
+    }));
+    setTrans(()=>({
+      ...trans, page: trans.page -1
+    }))
+
+  }
 
   return (
     <div className="order-row">
@@ -27,6 +117,7 @@ export default (props) => {
         <div className="order-header">
           <h4 className="order">Transactions</h4>
           <div className="orderBtn">
+          <button >Refresh</button>
           </div>
         </div>
         <Card className="order-card">
@@ -34,9 +125,7 @@ export default (props) => {
             <Table>
               <thead className="th-color">
                 <tr>
-                  <th className="checkbox" scope="col">
-                    <input type="checkbox"></input>
-                  </th>
+                  <th scope="col">S/N</th>
                   <th scope="col">Transaction Id</th>
                   <th scope="col">Date</th>
                   <th scope="col">Transaction Quantity</th>
@@ -45,12 +134,10 @@ export default (props) => {
                 </tr>
               </thead>
               <tbody>
-                {transactions.length > 0 ? (
-                  transactions.map((item, index) => (
+                {transact.length > 0 ? (
+                  trans.transacts.map((item, index) => (
                     <tr key={index}>
-                      <td className="checkbox">
-                        <input type="checkbox"></input>
-                      </td>
+                      <td className="checkbox">{index + 1}</td>
                       <td className="order-item">{item._id}</td>
                       <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.items.length}</td>
@@ -60,11 +147,16 @@ export default (props) => {
                   ))
                 ) : (
                   <tr>
-                    <p>No Transactions Yet</p>
+                    <td colSpan="6"><p>No Transactions Yet</p></td>
                   </tr>
                 )}
               </tbody>
             </Table>
+            <div>
+              <button className="paginate" onClick={prev} disabled={trans.page < 2}>{"<"}</button>
+              <span>{trans.page}</span>
+              <button className="paginate"  onClick={next} disabled={trans.page * limit >= tot}>{">"}</button>
+            </div>
           </div>
         </Card>
       </div>
