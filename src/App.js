@@ -1,4 +1,6 @@
 import React from "react";
+import { ModalProvider } from "react-modal-hook";
+import { TransitionGroup } from "react-transition-group";
 import Layout from "./Layout";
 import getStore from "./store";
 import "./App.scss";
@@ -9,8 +11,11 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Views/Login";
 export const { store, persistor } = getStore();
 
+
+
 const App = () => (
   <Provider store={store}>
+    <ModalProvider rootComponent={TransitionGroup}>
     <PersistGate loading={null} persistor={persistor}>
       <HelmetProvider>
         <BrowserRouter>
@@ -23,6 +28,7 @@ const App = () => (
         </BrowserRouter>
       </HelmetProvider>
     </PersistGate>
+    </ModalProvider>
   </Provider>
 );
 
