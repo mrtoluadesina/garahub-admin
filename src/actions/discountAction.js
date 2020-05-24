@@ -36,3 +36,13 @@ export const fetchDiscounts = () => {
     }
   };
 };
+
+export const fetchDiscount = async (query) => {
+  try {
+    const res = await request.get(`/api/v1/discount?${query}`);
+    return res.data
+  } catch (error) {
+    return error
+  }
+
+};
