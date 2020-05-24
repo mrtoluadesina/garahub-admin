@@ -6,6 +6,7 @@ import transactions from "./transactionReducer";
 import discounts from "./discountReducer";
 import customer from "./customReducer"
 import category from "./categoryReducer"
+import user from "./userReducer";
 export default combineReducers({
   LoginReducer,
   products,
@@ -13,5 +14,6 @@ export default combineReducers({
   transactions,
   discounts,
   customer,
-  category
+  category,
+  user
 });
