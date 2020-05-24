@@ -13,6 +13,7 @@ import {
   priceArray,
   imagesPrepared,
   pricePrepared,
+  checkValidSlug,
 } from "../../utils/helperFunc";
 import {
   createPoductActions,
@@ -21,6 +22,7 @@ import {
 import { BeatLoader } from "react-spinners";
 import izitoast from "izitoast";
 import { fetchAllBrands } from "../../actions/brandsAction";
+
 export default (props) => {
   const { method, object = { categoryId: [] } } = props;
   const [uploadSuccess, setSuccess] = useState(false);
@@ -34,10 +36,10 @@ export default (props) => {
     brands: { brands },
   } = useSelector((state) => state);
 
-
-  const latestBrands = brands.map((brand) => {
+  const latestBrands = brands ? brands.map((brand) => {
     return { ...brand, label: brand.name, value: brand._id };
-  });
+  }) : [];
+
   let [pricingCount, setPricingCount] = useState(1);
 
   let [listOfPrices] = useState(
@@ -54,6 +56,7 @@ export default (props) => {
 
   let [product, createProduct] = useState({
     name: "",
+    slug: "",
     description: "",
     quantity: 0,
     categories: object
@@ -159,6 +162,7 @@ export default (props) => {
     let categoryId = product.categories.map((category) => category.value);
     const data = {
       name: product.name,
+      slug: checkValidSlug(product.slug),
       description: product.description,
       quantity: parseInt(product.quantity),
       sku: product.sku,
@@ -287,6 +291,16 @@ export default (props) => {
                     onChange={handleChange}
                     placeholder="Product Name"
                     value={product.name}
+                  />
+                </div>
+                <div className="form-group">
+                  <h3>Product slug</h3>
+                  <Input
+                    type="text"
+                    name="slug"
+                    onChange={handleChange}
+                    placeholder="Product Slug (e.g. samsung-galaxy-s10-20)"
+                    value={product.slug}
                   />
                 </div>
                 <div className="form-group">
