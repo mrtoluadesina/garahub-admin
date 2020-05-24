@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Icon from "@mdi/react";
 
+import axios from 'axios';
+
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import ProductTab from "../../Components/AbandonedTab";
@@ -16,11 +18,30 @@ export default props => {
   const {
     products: {products }
   } = useSelector(state => state);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  products.filter(item => console.log(item.isDeleted === false));
+
+  const storage = localStorage.getItem("persist:garahub");
+  const data = JSON.parse(storage);
+  const user = JSON.parse(data.LoginReducer);
 
   useEffect(()=>{
     dispatch(fetchProducts())
   },[])  
+
+  const auth = {
+    headers: {
+      Authorization: `Bearer ${user.info.token}`
+    }
+  }
+
+  const handleEdit = id => {console.log(id)}
+
+  const handleDelete = async id => {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${id}`, auth);
+    window.location.reload();
+  }
   
   return (
     <div className="product-row">
@@ -64,10 +85,12 @@ export default props => {
                   <th scope="col">Inventory</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Date</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((item, index) => (
+                {products.filter(list => list.isDeleted === false).map((item, index) => (
                   <tr key={index}>
                     <td className="md-5">
                       <div className="product-image">
@@ -81,6 +104,8 @@ export default props => {
                       </td>
                     <td className="color-dgray">{item.brandName}</td>
                     <td className="color-dgray date-md">{formattedDate(item.createdAt)}</td>
+                    <td className="crud edit" onClick={() => handleEdit(item._id)}>edit</td>
+                    <td className="crud del" onClick={() => handleDelete(item._id)}>delete</td>
                   </tr>
                 ))}
               </tbody>

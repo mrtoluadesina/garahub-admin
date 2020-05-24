@@ -92,3 +92,8 @@ export const formattedDate = (ISOString) => {
   let newDate = new Date(ISOString);
   return newDate.toDateString();
 };
+
+export function checkValidSlug(slug) {
+  return /[^-\w]/gi.test(slug);
+}
+
