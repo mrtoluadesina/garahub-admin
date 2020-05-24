@@ -44,10 +44,14 @@
           display: flex;
         }
         .count {
-          font-size: 8px;
           background-color: $another-grey;
-          padding: 0.1rem 0.5rem;
-          border-radius: 40%;
+          padding: 0.1rem 0.2rem;
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
