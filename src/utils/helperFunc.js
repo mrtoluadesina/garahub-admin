@@ -94,6 +94,6 @@ export const formattedDate = (ISOString) => {
 };
 
 export function checkValidSlug(slug) {
-   return /^[a-z0-9-]+$/gim.test(slug);
+   return /^[a-z0-9-]+$/gi.test(slug);
 }
 
