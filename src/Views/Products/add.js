@@ -165,7 +165,7 @@ export default (props) => {
     let categoryId = product.categories.map((category) => category.value);
     const data = {
       name: product.name,
-      slug: checkValidSlug(product.slug),
+      slug: checkValidSlug(product.slug) ? product.slug : null,
       description: product.description,
       quantity: parseInt(product.quantity),
       sku: product.sku,
