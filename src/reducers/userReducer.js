@@ -6,63 +6,78 @@ import {
 	CREATE_USER_END,
 	CREATE_USER_FAIL,
 	CREATE_USER_START,
-	CREATE_USER_SUCCESS,
+  CREATE_USER_SUCCESS,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAIL
 } from "../actions/types";
 
 const intialState = {
     users:[],
     userSuccess:false,
     userError:"",
-    loading:false
+    loading: false,
 }
 
 export default (state=intialState, action)=>{
     switch (action.type) {
-        case FETCHING_USER_END:
-            return {
-                ...state,
-                loading:action.payload,
-            }
-        case FETCHING_USER_START:
-            return {
-                ...state,
-                loading:action.payload,
-            }
-        case FETCH_ALL_USERS_SUCCESS:
-            return {
-                ...state,
-                users: action.payload,
-                userError: ''
-            }
-        case FETCH_ALL_USERS_FAILED:
-            return {
-                ...state,
-                users: [],
-                userError: action.payload.message
-        }
-      case CREATE_USER_START:
-      return {
-        ...state,
-        loading: action.payload
-      };
-    case CREATE_USER_END:
-      return {
-        ...state,
-        loading: action.payload
-      };
-    case CREATE_USER_SUCCESS:
-      return {
-        ...state,
-        userError: "",
-        userSuccess: true
-      };
-    case CREATE_USER_FAIL:
-      return {
-        ...state,
-        userError: action.payload,
-        userSuccess: false
-      };
-        default:
-            return state;
-    }
+			case FETCHING_USER_END:
+				return {
+					...state,
+					loading: action.payload,
+				};
+			case FETCHING_USER_START:
+				return {
+					...state,
+					loading: action.payload,
+				};
+			case FETCH_ALL_USERS_SUCCESS:
+				return {
+					...state,
+					users: action.payload,
+					userError: "",
+				};
+			case FETCH_ALL_USERS_FAILED:
+				return {
+					...state,
+					users: [],
+					userError: action.payload.message,
+				};
+			case CREATE_USER_START:
+				return {
+					...state,
+					loading: action.payload,
+				};
+			case CREATE_USER_END:
+				return {
+					...state,
+					loading: action.payload,
+				};
+			case CREATE_USER_SUCCESS:
+				return {
+					...state,
+					userError: "",
+					userSuccess: true,
+				};
+			case CREATE_USER_FAIL:
+				return {
+					...state,
+					userError: action.payload,
+					userSuccess: false,
+				};
+			case EDIT_USER_SUCCESS:
+				return {
+					...state,
+					users: []
+        };
+
+			case EDIT_USER_FAIL:
+				return {
+					...state,
+					users: [],
+					userError: action.payload.message,
+				};
+
+			default:
+				return state;
+		}
 }

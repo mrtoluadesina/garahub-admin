@@ -6,7 +6,11 @@ import {
 	CREATE_USER_END,
 	CREATE_USER_FAIL,
 	CREATE_USER_START,
-	CREATE_USER_SUCCESS,
+  CREATE_USER_SUCCESS,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAIL,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL
 } from "./types";
 import request from "../request";
 import { retrieveMessage } from "../utils/helperFunc";
@@ -43,6 +47,23 @@ const createUserFail = (payload) => ({
 	type: CREATE_USER_FAIL,
 	payload,
 });
+const editUserSuccess = (payload) => ({
+  type: EDIT_USER_SUCCESS,
+  payload,
+});
+const editUserFail = (payload) => ({
+	type: EDIT_USER_FAIL,
+	payload,
+});
+const deleteUserFail = (payload) => ({
+	type: DELETE_USER_FAIL,
+	payload,
+});
+const deleteUserSuccess = (payload) => ({
+	type: DELETE_USER_SUCCESS,
+	payload,
+});
+
 
 
 export const fetchAllUsers = () => {
@@ -74,4 +95,24 @@ export const createUser = (data) => {
 	};
 };
 
+export const editUser = (data,id) => {
+	return async (dispatch) => {
+		try {
+			const res = await request.put(`/api/v1/admin/${id}`,data);
+			dispatch(editUserSuccess(res.data.payload));
+		} catch (err) {
+			dispatch(editUserFail(retrieveMessage(err)));
+		}
+	};
+};
 
+export const deleteUser = (id) => {
+	return async (dispatch) => {
+		try {
+      const res = await request.delete(`/api/v1/admin/${id}`);
+			dispatch(deleteUserSuccess(res.data.payload));
+		} catch (err) {
+			dispatch(deleteUserFail(retrieveMessage(err)));
+		}
+	};
+};
