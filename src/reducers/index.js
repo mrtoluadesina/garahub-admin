@@ -6,9 +6,6 @@ import transactions from "./transactionReducer";
 import discounts from "./discountReducer";
 import customer from "./customReducer"
 import category from "./categoryReducer"
-import user from "./userReducer";
-import customer from "./customReducer";
-import category from "./categoryReducer";
 import brands from "./brandsReducer";
 import user from "./userReducer";
 export default combineReducers({

@@ -2,49 +2,173 @@ import React, { useState,useEffect } from "react";
 import {Link} from "react-router-dom";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
-import Button from "../../Components/Button";
+import CustomButton from "../../Components/Button";
 
 import {useSelector, useDispatch} from "react-redux";
-import { fetchAllUsers} from "../../actions/userAction";
+import { fetchAllUsers, deleteUser} from "../../actions/userAction";
 import { useModal } from "react-modal-hook";
-import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import { Button,Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
+import Input from "../../Components/Input";
+import { editUser } from "../../actions/userAction";
+
+
+
+let userId;
+
+
+
+
+const EditForm = (props) => {
+  const dispatch = useDispatch();
+
+  const handleEditUser = async (e) => {
+    e.preventDefault();
+		dispatch(editUser(adminUser, userId));
+		console.log("State Updated");
+	};
+
+const [adminUser, setAdminUser] = useState({
+    firstName: props.user.firstName,
+  lastName: props.user.lastName,
+    phone:props.user.phone,
+DOB:(props.user.DOB).slice(0,10),
+    email:props.user.email,
+    password:props.user.password
+})
+  	//const formatDate = DOB.slice(0, 10);
+const handleChange = ({ target }) => {
+	setAdminUser({ ...adminUser, [target.name]: target.value });
+	console.log(adminUser);
+};
+  return (
+		<form className="form" onSubmit={handleEditUser}>
+			<div className="row">
+				<div className="col _big">
+					<Card>
+						<h3>Edit User</h3>
+						<div className="form-group">
+							<label>First Name </label>
+							<Input
+								type="text"
+								name="firstName"
+								placeholder="First Name"
+								value={adminUser.firstName}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="form-group">
+							<label>Last Name</label>
+							<Input
+								type="text"
+								name="lastName"
+								placeholder="LastName"
+								value={adminUser.lastName}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="form-group">
+							<label>Email</label>
+							<Input
+								type="email"
+								name="email"
+								placeholder="Email"
+								value={adminUser.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="form-group">
+							<label>Date of Birth </label>
+							<Input type="date" name="DOB" value={adminUser.DOB} />
+						</div>
+						<div className="form-group">
+							<label>Phone Number</label>
+							<Input
+								type="text"
+								name="phone"
+								placeholder="Phone Number"
+								value={adminUser.phone}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="form-group">
+							<label>Role</label>
+							<Input type="text" name="role" placeholder="Role" />
+						</div>
+						<div className="form-group">
+							<label>Password </label>
+							<Input
+								type="password"
+								name="password"
+								placeholder="Password"
+								value={adminUser.password}
+								onChange={handleChange}
+							/>
+            </div>
+					</Card>
+				</div>
+			</div>
+			<div className="row">
+				<CustomButton className="btn redSolidBtn" value="Edit User" />
+			</div>
+		</form>
+	);
+}
+
 
 
 export default (props) => {
 
-  const {user: {users} }
-  = useSelector((state) => state);
+  const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
+    <Dialog open={open} onExited={onExited} onClose={hideModal}>
+      <DialogTitle>Delete User</DialogTitle>
+      <DialogContent>
+        Are you Sure you want to delete User?
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={hideModal}>Close</Button>
+        <Button onClick={() => {
 
-const dispatch = useDispatch();
+dispatch(deleteUser(userId))
+          console.log(users.filter((user) => user._id === userId));
+          hideModal();
+       }
+        }>yes</Button>
 
-const [user,setUser]=useState({
-  firstName:"",
-  lastName: "",
-  email:"",
-	phone: "",
-	DOB: ""
-})
+      </DialogActions>
+    </Dialog>
+  ));
 
-useEffect(async () => {
-  dispatch(fetchAllUsers());
-}, []);
+ const [showEditModal, hideEditModal] = useModal(({ in: open, onExited }) => (
+		<Dialog open={open} onExited={onExited} onClose={hideEditModal}>
+			<DialogTitle>Edit User</DialogTitle>
+			<DialogContent>
+				 <EditForm user={users.find((user) => user._id === userId)}/>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={hideEditModal}>Close</Button>
+			</DialogActions>
+		</Dialog>
+ ));
 
-const handleEdit=(e)=>{
-e.preventDefault();
 
-console.log("Edit button Clicked")
-};
 
-const handleDelete=(e)=>{
+  //console.log(user);
+  const { user: { users } }
+    = useSelector((state) => state);
 
-  const id = e.target.dataset.value;
+  const dispatch = useDispatch();
 
-  const getDeleteItem=users.filter(user => user._id === id);
 
-setUser({...user,firstName:getDeleteItem.firstName,lastName:getDeleteItem.lastName,email:getDeleteItem.email,DOB:getDeleteItem.DOB})
-  console.log("Delete button Clicked");
-  console.log(id)
-};
+  useEffect(async () => {
+    dispatch(fetchAllUsers());
+  }, []);
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+    console.log("Edit button Clicked");
+
+  };
 
 	return (
 		<div className="customer-row">
@@ -88,10 +212,16 @@ setUser({...user,firstName:getDeleteItem.firstName,lastName:getDeleteItem.lastNa
 										{item.isGuest ? "guest" : "member"}
 									</td>
 									<td>
-										<Button className="btn redSolidBtn" value="Edit" onClick={handleEdit}/>
+                    <CustomButton className="btn redSolidBtn" value="Edit" onClick={() => {
+                      userId = item._id;
+                      showEditModal();
+                    }}/>
 									</td>
 									<td>
-										<Button className="btn redSolidBtn" value="Delete" onClick={handleDelete} dataValue={item._id} />
+                    <CustomButton className="btn redSolidBtn" value="Delete" onClick={() => {
+                      userId = item._id;
+                      showDeleteModal();
+                    }} />
 									</td>
 								</tr>
 							))}

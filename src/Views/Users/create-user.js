@@ -32,15 +32,6 @@ const [createUserSuccess, setCreateUserSuccess] = useState(false);
 	};
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if(profile.password!==confirmPassword){
-    //  izitoast.show({
-    //       messageColor: "white",
-    //       backgroundColor: "red",
-    //       titleColor: "white",
-    //       timeout: 5000,
-    //       message: "Passwords do not match"
-    //     });
-    // }
     dispatch(createUser(profile));
     setError(userError);
     setCreateUserSuccess(userSuccess);
@@ -64,11 +55,7 @@ izitoast.show({
         });
 
      updateProfile({...profile,firstName:"",lastName:"",email:"",phone:"",DOB:"",password:""});
-     //setConfirmPassword("");
     }
-    console.log(profile);
-    console.log(createUserSuccess);
-    console.log(userError);
   }
 	return (
 		<div className="add-product-section">
