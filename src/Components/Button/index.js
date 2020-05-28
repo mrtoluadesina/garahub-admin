@@ -3,6 +3,6 @@ import './styles.scss';
 
 export default props => {
   return (
-    <button className={`btn ${props.className || ''}`}>{props.value}</button>
+    <button className={`btn ${props.className || ''}`} onClick={props.onClick} data-value={props.dataValue}>{props.value}</button>
   );
 };
