@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useModal from 'use-react-modal';
+//import useModal from 'use-react-modal';
+import { useModal } from "react-modal-hook";
+import { Button,Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
-import { fetchOrder } from "../../actions/orderAction";
+import { fetchOrder, promoteOrder } from "../../actions/orderAction";
 import "./index.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {formattedDate} from "../../utils/helperFunc";
@@ -31,6 +33,7 @@ export default (props) => {
   //   orders: { orders },
   // } = useSelector((state) => state);
   // const dispatch = useDispatch();
+  let status;
 
   useEffect(() => {
     if (nextData) {
@@ -130,6 +133,34 @@ export default (props) => {
       // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
       onClick({ targetEl, event, portal }) {} 
     })
+
+    const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
+      <Dialog open={open} onExited={onExited} onClose={hideModal}>
+        <DialogTitle>Delete User</DialogTitle>
+        <select onChange={(e)=> {
+          status = e.target.value;
+          console.log(status)
+        }}>
+          {['Pending', 'In-Progress', 'Completed', 'Failed', 'Cancelled'].map(option => (<option>{option}</option>))}
+        </select>
+        <DialogActions>
+          <Button onClick={hideModal}>Close</Button>
+          <Button onClick={() => {
+            promoteOrder()
+            // axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`, auth).then(()=>{
+            //   window.location.reload();
+            // });
+        // dispatch(deleteUser(userId))
+        //     console.log(users.filter((user) => user._id === userId));
+            hideModal();
+         }
+          }>Update</Button>
+  
+        </DialogActions>
+      </Dialog>
+    ));
+
+
   return (
     <div className="order-row">
       <div className="container">
@@ -195,7 +226,7 @@ export default (props) => {
                         {formattedDate(item.createdAt)}
                       </td>
                       <td className="color-lgray">
-                        {item.userId.firstName + " " + item.userId.lastName}
+                        {item.userId? item.userId.firstName + " " + item.userId.lastName: "User"}
                       </td>
                       <td className="Payment">
                         {item.payment === "Paid" ? (
@@ -224,8 +255,8 @@ export default (props) => {
                         )}
                       </td>
                       <td className="color-dgray">{item.amount/100}</td>
-                      <td className="action" onClick={openModal} >{item.status}</td>
-                      {isOpen && (
+                      <td className="action" onClick={showDeleteModal} >{item.status}</td>
+                      {/* {isOpen && (
                       <Modal>
                         <div style={{
                           backgroundColor: 'white',
@@ -240,11 +271,11 @@ export default (props) => {
                             width: '100%',
                           }}> 
                             <button onClick={closeModal}>close</button>
-                            {/* <button onClick={() => handleDelete(item._id)} >Yes, Delete</button> */}
+                            <button onClick={() => handleDelete(item._id)} >Yes, Delete</button>
                           </div>
                         </div>
                       </Modal>
-                    )}
+                    )} */}
 
                     </tr>
                   ))

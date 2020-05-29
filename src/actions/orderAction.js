@@ -82,3 +82,12 @@ export const fetchOrder = async (query) => {
       return error
     }
 };
+
+export const promoteOrder = async (id, data) => {
+  try {
+    const res = await request.post(`/api/v1/order/status/${id}`, data );
+    return res.data;
+  } catch (error) {
+    return error
+  }
+}
