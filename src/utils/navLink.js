@@ -100,12 +100,12 @@ export default {
 				},
 			],
 		},
-		{
-			title: "Settings",
-			link: "/dashboard/settings",
-			icon: mdiSettings,
-			subNav: [],
-		},
+		// {
+		// 	title: "Settings",
+		// 	link: "/dashboard/settings",
+		// 	icon: mdiSettings,
+		// 	subNav: [],
+		// },
 	],
 	// admin: [
 	// 	{
