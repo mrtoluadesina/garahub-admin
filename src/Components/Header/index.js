@@ -7,7 +7,7 @@ export default props => {
     <div className="header">
       <Link className="logo-section" to="/">
         <div className="logo">
-          <img src="/assets/images/logo.png" alt="emall admin" />
+          <img src="/assets/images/logo.svg" alt="emall admin" />
         </div>
         <span className="admin"> Admin</span>
       </Link>
