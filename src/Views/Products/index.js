@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Icon from "@mdi/react";
-import useModal from 'use-react-modal'
+// import useModal from 'use-react-modal'
+import { useModal } from "react-modal-hook";
+import { Button,Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
 
 import axios from 'axios';
 
@@ -14,6 +16,8 @@ import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../actions/productAction";
 import { Link } from "react-router-dom";
+
+let itemId;
 
 export default props => {
   const {
@@ -46,24 +50,48 @@ export default props => {
   }
 
   // use modal hooks
-  const { isOpen, openModal, closeModal, Modal } = useModal({
-    background: 'rgba(0, 0, 0, 0.5)', // sets the color of the backdrop, if nothing is set, there will be no backdrop
-    closeOnOutsideClick: true,
-    closeOnEsc: true,
-    isOpen: false,
-    // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
-    // with the additional `portal` and `targetEl` added to it as seen in the examples below
-    onOpen: (event) => {
-      // can access: event.portal, event.targetEl, event.event, event.target, etc.
-    },
-    // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
-    onClose({ targetEl, event, portal }) {},
-    // `targetEl` is the element that you either are attaching a `ref` to
-    // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
+  // const { isOpen, openModal, closeModal, Modal } = useModal({
+  //   background: 'rgba(0, 0, 0, 0.5)', // sets the color of the backdrop, if nothing is set, there will be no backdrop
+  //   closeOnOutsideClick: true,
+  //   closeOnEsc: true,
+  //   isOpen: false,
+  //   // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
+  //   // with the additional `portal` and `targetEl` added to it as seen in the examples below
+  //   onOpen: (event) => {
+  //     // can access: event.portal, event.targetEl, event.event, event.target, etc.
+  //   },
+  //   // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
+  //   onClose({ targetEl, event, portal }) {},
+  //   // `targetEl` is the element that you either are attaching a `ref` to
+  //   // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
   
-    // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
-    onClick({ targetEl, event, portal }) {} 
-  })
+  //   // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
+  //   onClick({ targetEl, event, portal }) {} 
+  // })
+
+  const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
+    <Dialog open={open} onExited={onExited} onClose={hideModal}>
+      <DialogTitle>Delete User</DialogTitle>
+      <DialogContent>
+        Are you Sure you want to delete this Product?
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={hideModal}>Close</Button>
+        <Button onClick={() => {
+          axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`, auth).then(()=>{
+            window.location.reload();
+          });
+      // dispatch(deleteUser(userId))
+      //     console.log(users.filter((user) => user._id === userId));
+          hideModal();
+       }
+        }>yes</Button>
+
+      </DialogActions>
+    </Dialog>
+  ));
+
+
   
   return (
     <div className='product-row'>
@@ -128,10 +156,13 @@ export default props => {
                     <td className='crud edit' onClick={() => handleEdit(item._id)}>
                       edit
                     </td>
-                    <td className='crud del' onClick={openModal}>
+                    <td className='crud del' onClick={() =>{
+                      itemId = item._id;
+                      showDeleteModal();
+                    }}>
                       delete
                     </td>
-                    {isOpen && (
+                    {/* {isOpen && (
                       <Modal>
                         <div style={{
                           backgroundColor: 'white',
@@ -150,7 +181,7 @@ export default props => {
                           </div>
                         </div>
                       </Modal>
-                    )}
+                    )} */}
                   </tr>
                 ))}
             </tbody>
