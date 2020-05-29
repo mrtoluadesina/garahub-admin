@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useModal from 'use-react-modal';
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import { fetchOrder } from "../../actions/orderAction";
@@ -109,6 +110,26 @@ export default (props) => {
     }))
 
   }
+
+    // use modal hooks
+    const { isOpen, openModal, closeModal, Modal } = useModal({
+      background: 'rgba(0, 0, 0, 0.5)', // sets the color of the backdrop, if nothing is set, there will be no backdrop
+      closeOnOutsideClick: true,
+      closeOnEsc: true,
+      isOpen: false,
+      // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
+      // with the additional `portal` and `targetEl` added to it as seen in the examples below
+      onOpen: (event) => {
+        // can access: event.portal, event.targetEl, event.event, event.target, etc.
+      },
+      // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
+      onClose({ targetEl, event, portal }) {},
+      // `targetEl` is the element that you either are attaching a `ref` to
+      // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
+    
+      // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
+      onClick({ targetEl, event, portal }) {} 
+    })
   return (
     <div className="order-row">
       <div className="container">
@@ -162,6 +183,7 @@ export default (props) => {
                   <th scope="col">Payment</th>
                   <th scope="col">Fulfilment</th>
                   <th scope="col">Total</th>
+                  <th scope="col">State</th>
                 </tr>
               </thead>
               <tbody>
@@ -202,6 +224,28 @@ export default (props) => {
                         )}
                       </td>
                       <td className="color-dgray">{item.amount/100}</td>
+                      <td className="action" onClick={openModal} >{item.status}</td>
+                      {isOpen && (
+                      <Modal>
+                        <div style={{
+                          backgroundColor: 'white',
+                          height: 200,
+
+                        }}>
+                          <select>
+                          {['Pending', 'In-Progress', 'Completed', 'Failed', 'Cancelled'].map(option => (<option>{option}</option>))}
+                          </select>
+                          <div style={{
+                            display: 'flex',
+                            width: '100%',
+                          }}> 
+                            <button onClick={closeModal}>close</button>
+                            {/* <button onClick={() => handleDelete(item._id)} >Yes, Delete</button> */}
+                          </div>
+                        </div>
+                      </Modal>
+                    )}
+
                     </tr>
                   ))
                 ) : (
