@@ -111,6 +111,8 @@ export default (props) => {
 
   }
 
+
+
   return (
     <div className="order-row">
       <div className="container">
@@ -141,8 +143,8 @@ export default (props) => {
                       <td className="order-item">{item._id}</td>
                       <td className="color-lgray">{formattedDate(item.createdAt)}</td>
                       <td className="color-dgray">{item.items.length}</td>
-                      <td className="color-lgray">{`${item.user.firstName} ${item.user.lastName}`}</td>
-                      <td className="color-dgray">{item.chargedAmount}</td>
+                      <td className="color-lgray">{item.user? `${item.user.firstName} ${item.user.lastName}`: "User"}</td>
+                      <td className="color-dgray">{item.chargedAmount/100}</td>
                     </tr>
                   ))
                 ) : (

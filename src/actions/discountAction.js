@@ -40,7 +40,9 @@ export const fetchDiscounts = () => {
 export const fetchDiscount = async (query) => {
   try {
     const res = await request.get(`/api/v1/discount?${query}`);
-    return res.data
+    return res.data.payload? res.data.payload: {
+      data: [], total: 0
+    }
   } catch (error) {
     return error
   }

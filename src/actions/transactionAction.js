@@ -42,8 +42,10 @@ export const fetchTransactions = (query) => {
 export const fetchTransaction = async (query)=> {
   try {
     const res = await request.get(`/api/v1/transaction?${query}`);
-    return res.data.payload;
-  } catch (error) {
+    return res.data.payload? res.data.payload: {
+      data: [], total: 0
+    }
+    } catch (error) {
     return error;
   }
 }
