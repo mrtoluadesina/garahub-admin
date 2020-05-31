@@ -31,7 +31,6 @@ export const authLogin = body => {
     try {
       dispatch(authStart());
       const res = await request.post("/api/v1/admin/login", body);
-      console.log(res.data.payload);
       dispatch(authUser(res.data.payload));
       dispatch(authSuccess(res.data));
       dispatch(authEnd(false));
