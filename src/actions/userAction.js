@@ -71,7 +71,6 @@ export const fetchAllUsers = () => {
 		try {
 			dispatch(fetchStart(true));
 			const res = await request.get("/api/v1/admin");
-		//	console.log(res.data.payload);
 			dispatch(fetchUsersSuccess(res.data.payload));
 			dispatch(fetchEnd(false));
 		} catch (error) {
@@ -85,7 +84,7 @@ export const createUser = (data) => {
 	return async (dispatch) => {
 		try {
 			dispatch(createUserStart(true));
-			const res = await request.post("/api/v1/admin", data);
+      const res = await request.post("/api/v1/admin", data);
 			dispatch(createUserSuccess(res.data.payload));
 			dispatch(createUserEnd(false));
 		} catch (err) {
