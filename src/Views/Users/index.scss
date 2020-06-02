@@ -1,0 +1,28 @@
+label {
+  font-weight: 600;
+}
+
+.modalContainer {
+  width:400px;
+  margin-right:50px;
+	.formContainer {
+    display:flex;
+    justify-content: space-between;
+		margin: 20px 10px 20px 5px;
+		padding: 5px;
+    height: 40px;
+	}
+}
+.selectBox{
+  display:flex;
+  justify-content: space-between;
+margin: 20px 10px 20px 5px;
+		padding: 5px;
+    height: 40px;
+}
+.selectInput{
+  width:60%
+}
+.editButton {
+		margin-top: 20px;
+	}
