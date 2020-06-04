@@ -32,7 +32,44 @@
         align-items: center;
       }
     }
+.overviewList{
+  // background:white;
+  width:100%;
+  padding-top: 2rem;
+  padding-bottom:2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 
+  .overviewBox{
+    height:100px;
+    width:250px;
+     background:white;
+    border-radius: 10px;
+    box-shadow: 5px 10px 53px -5px  #9e929e;
+
+    .viewContainer{
+      display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    }
+
+    .overviewText{
+      margin-top: 3rem;
+      padding-left:0.8rem;
+      font-size: larger;
+
+      p{
+        color:#6495ed;
+      }
+      }
+      .viewImage{
+        padding:10px
+      }
+  }
+
+}
     .content {
       display: flex;
       flex-wrap: wrap;
