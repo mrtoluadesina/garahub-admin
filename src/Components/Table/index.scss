@@ -1,3 +1,5 @@
+@import '../../_variables';
+
 .table {
   overflow-x: auto;
 
@@ -81,6 +83,20 @@
 
       .order-item {
         color: #0672bc;
+      }
+
+      .crud {
+        color: $dark-grey;
+        font-size: 12px;
+        cursor: pointer;
+
+        &.edit {
+          color: $gh-color-orange
+        }
+
+        &.del {
+          color: $red;
+        }
       }
 
       .recovery {

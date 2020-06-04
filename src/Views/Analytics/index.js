@@ -7,6 +7,11 @@ import Product from "../../assets/images/product.png";
 import Order from "../../assets/images/orders.png";
 import Discount from "../../assets/images/discount.png";
 import RevenueChart from "../../Components/Chart"
+import Card from "../../Components/Card";
+import {XYPlot, VerticalBarSeries } from 'react-vis';
+
+
+
 export default (props) => {
   const [state, setState] = useState({
     // data: {},
@@ -32,6 +37,18 @@ export default (props) => {
     setDiscountNumber(discounts.discounts.length)
     setCustomerNumber(customers.customers.length)
   }, []);
+  const data1 = [
+    {x: 0, y: 8},
+    {x: 1, y: 5},
+    {x: 2, y: 4},
+    {x: 3, y: 9},
+    {x: 4, y: 1},
+    {x: 5, y: 7},
+    {x: 6, y: 6},
+    {x: 7, y: 3},
+    {x: 8, y: 2},
+    {x: 9, y: 0}
+  ];
 
   return (
 		<div className="admin-row">
@@ -103,8 +120,19 @@ export default (props) => {
 						})}
 					</MasonryLayout> */}
           <RevenueChart />
+     <div className="App">
+        <XYPlot height={300} width={300}>
+          <VerticalBarSeries 
+            data={data1} 
+            color="blue"
+            opacity={0.4}
+            stroke="black"
+          />
+        </XYPlot>
+      </div>
 				</div>
 			</div>
 		</div>
+    
 	);
 };
