@@ -75,8 +75,19 @@ export const createOrders =  (data) => {
 export const fetchOrder = async (query) => {
     try {
       const res = await request.get(`/api/v1/order?${query}`);
-      return res.data.payload
+      return res.data.payload? res.data.payload: {
+        data: [], total: 0
+      }
     } catch (error) {
       return error
     }
 };
+
+export const promoteOrder = async (id, data) => {
+  try {
+    const res = await request.post(`/api/v1/order/status/${id}`, data );
+    return res.data;
+  } catch (error) {
+    return error
+  }
+}
