@@ -3,112 +3,154 @@ import {Link} from "react-router-dom";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import CustomButton from "../../Components/Button";
-
+import "./index.scss";
 import {useSelector, useDispatch} from "react-redux";
 import { fetchAllUsers, deleteUser} from "../../actions/userAction";
 import { useModal } from "react-modal-hook";
 import { Button,Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
 import Input from "../../Components/Input";
 import { editUser } from "../../actions/userAction";
-
-
+import izitoast from "izitoast";
+import Select from "react-select";
 
 let userId;
 
 
 
-
+//Edit Form on Modal
 const EditForm = (props) => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const {
+	user: { editSuccess },
+} = useSelector((state) => state);
+
+  //Edit User on Submit
   const handleEditUser = async (e) => {
     e.preventDefault();
 		dispatch(editUser(adminUser, userId));
-		console.log("State Updated");
+
+    if (editSuccess === true) {
+      izitoast.show({
+				messageColor: "white",
+				backgroundColor: "green",
+				titleColor: "white",
+				timeout: 5000,
+				position: "center",
+				message: "User Edited Successfully ",
+      });
+    }
 	};
 
+  //Admin User Default State
 const [adminUser, setAdminUser] = useState({
     firstName: props.user.firstName,
   lastName: props.user.lastName,
     phone:props.user.phone,
 DOB:(props.user.DOB).slice(0,10),
     email:props.user.email,
-    password:props.user.password
+  password: props.user.password,
+role:props.user.role
 })
-  	//const formatDate = DOB.slice(0, 10);
+
+  //Handle Input Select
 const handleChange = ({ target }) => {
-	setAdminUser({ ...adminUser, [target.name]: target.value });
-	console.log(adminUser);
-};
+  setAdminUser({ ...adminUser, [target.name]: target.value });};
+
+  //Handle Role Select
+  const handleSelectChange = (value) => {
+		if (value.value === "admin") {
+			setAdminUser({ ...adminUser, role: 1 });
+			return;
+		}
+		if (value.value === "editor") {
+			setAdminUser({ ...adminUser, role: 2 });
+			return;
+		}
+		if (value.value === "customerCare") {
+			setAdminUser({ ...adminUser, role: 3 });
+			return;
+		}
+  };
+
+  //Role Select Options
+  const roles = [
+		{ value: "admin", label: "Admin" },
+		{ value: "editor", label: "Editor" },
+		{ value: "customerCare", label: "Customer Care" },
+	];
+
   return (
 		<form className="form" onSubmit={handleEditUser}>
-			<div className="row">
-				<div className="col _big">
-					<Card>
-						<h3>Edit User</h3>
-						<div className="form-group">
-							<label>First Name </label>
-							<Input
-								type="text"
-								name="firstName"
-								placeholder="First Name"
-								value={adminUser.firstName}
-								onChange={handleChange}
-							/>
-						</div>
-						<div className="form-group">
-							<label>Last Name</label>
-							<Input
-								type="text"
-								name="lastName"
-								placeholder="LastName"
-								value={adminUser.lastName}
-								onChange={handleChange}
-							/>
-						</div>
-						<div className="form-group">
-							<label>Email</label>
-							<Input
-								type="email"
-								name="email"
-								placeholder="Email"
-								value={adminUser.email}
-								onChange={handleChange}
-							/>
-						</div>
-						<div className="form-group">
-							<label>Date of Birth </label>
-							<Input type="date" name="DOB" value={adminUser.DOB} />
-						</div>
-						<div className="form-group">
-							<label>Phone Number</label>
-							<Input
-								type="text"
-								name="phone"
-								placeholder="Phone Number"
-								value={adminUser.phone}
-								onChange={handleChange}
-							/>
-						</div>
-						<div className="form-group">
-							<label>Role</label>
-							<Input type="text" name="role" placeholder="Role" />
-						</div>
-						<div className="form-group">
-							<label>Password </label>
-							<Input
-								type="password"
-								name="password"
-								placeholder="Password"
-								value={adminUser.password}
-								onChange={handleChange}
-							/>
-            </div>
-					</Card>
+			<Card className="modalContainer">
+				<div className="form-group formContainer">
+					<label>First Name </label>
+					<Input
+						className="formInput"
+						type="text"
+						name="firstName"
+						placeholder="First Name"
+						value={adminUser.firstName}
+						onChange={handleChange}
+					/>
 				</div>
-			</div>
-			<div className="row">
-				<CustomButton className="btn redSolidBtn" value="Edit User" />
+				<div className="form-group formContainer">
+					<label>Last Name</label>
+					<Input
+						type="text"
+						name="lastName"
+						placeholder="LastName"
+						value={adminUser.lastName}
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="form-group formContainer">
+					<label>Email</label>
+					<Input
+						type="email"
+						name="email"
+						placeholder="Email"
+						value={adminUser.email}
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="form-group formContainer">
+					<label>Date of Birth </label>
+					<Input type="date" name="DOB" value={adminUser.DOB} />
+				</div>
+				<div className="form-group formContainer">
+					<label>Phone Number</label>
+					<Input
+						type="text"
+						name="phone"
+						placeholder="Phone Number"
+						value={adminUser.phone}
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="selectBox">
+					<label>Roles</label>
+					<Select className="selectInput"
+						options={roles}
+						onChange={handleSelectChange}
+						name="role"
+            required
+					/>
+				</div>
+				<div className="form-group formContainer">
+					<label>Password </label>
+					<Input
+						type="password"
+						name="password"
+						placeholder="Password"
+						value={adminUser.password}
+						onChange={handleChange}
+					/>
+				</div>
+			</Card>
+
+      <div className="row editButton">
+        <CustomButton className="btn redSolidBtn" value="Edit User" />
 			</div>
 		</form>
 	);
@@ -127,11 +169,10 @@ export default (props) => {
       <DialogActions>
         <Button onClick={hideModal}>Close</Button>
         <Button onClick={() => {
-
-dispatch(deleteUser(userId))
-          console.log(users.filter((user) => user._id === userId));
+          dispatch(deleteUser(userId));
           hideModal();
-       }
+        }
+
         }>yes</Button>
 
       </DialogActions>
@@ -151,9 +192,7 @@ dispatch(deleteUser(userId))
  ));
 
 
-
-  //console.log(user);
-  const { user: { users } }
+  const { user: { users} }
     = useSelector((state) => state);
 
   const dispatch = useDispatch();
@@ -163,12 +202,7 @@ dispatch(deleteUser(userId))
     dispatch(fetchAllUsers());
   }, []);
 
-  const handleEdit = (e) => {
-    e.preventDefault();
 
-    console.log("Edit button Clicked");
-
-  };
 
 	return (
 		<div className="customer-row">
@@ -209,16 +243,43 @@ dispatch(deleteUser(userId))
 									</td>
 									<td className="color-lgray">{item.phone}</td>
 									<td className="color-lgray">
-										{item.isGuest ? "guest" : "member"}
+                    {item.role === 1 && "Admin"}
+                    {item.role === 2 && "Editor"}
+                    {item.role === 3 && "Customer Care"}
+                     {!item.role && "Super Admin"}
 									</td>
 									<td>
                     <CustomButton className="btn redSolidBtn" value="Edit" onClick={() => {
+                      if (!item.role) {
+                        izitoast.show({
+                          messageColor: "white",
+                          backgroundColor: "Red",
+                          titleColor: "white",
+                          timeout: 3000,
+                          position: "center",
+                          message: "Super Admin Cannot be Edited ",
+                        });
+                        return;
+                      }
                       userId = item._id;
                       showEditModal();
-                    }}/>
+                    }
+                    }
+                    />
 									</td>
 									<td>
                     <CustomButton className="btn redSolidBtn" value="Delete" onClick={() => {
+                      if (!item.role) {
+                        izitoast.show({
+													messageColor: "white",
+													backgroundColor: "Red",
+													titleColor: "white",
+													timeout: 3000,
+													position: "center",
+													message: "Super Admin Cannot be Deleted ",
+												});
+                        return;
+                      }
                       userId = item._id;
                       showDeleteModal();
                     }} />

@@ -13,7 +13,8 @@ import {
 
 const intialState = {
     users:[],
-    userSuccess:false,
+    userSuccess: false,
+    editSuccess:false,
     userError:"",
     loading: false,
 }
@@ -66,7 +67,8 @@ export default (state=intialState, action)=>{
 				};
 			case EDIT_USER_SUCCESS:
 				return {
-					...state,
+          ...state,
+          editSuccess:true,
 					users: []
         };
 
