@@ -9,6 +9,7 @@
   position: fixed;
   width: 15%;
   height: calc(100% - 3rem);
+  background-color:#6495ed;
 
   a {
     text-decoration: none;
@@ -60,4 +61,25 @@
   .bottom-link {
     margin: 1.5rem 1rem;
   }
+  .navStyle{
+    background:white;
+    height:50px;
+     width:180px;
+     border-radius:5px;
+     justify-content:start;
+     align-items: center;
+     box-shadow: 2px 5px 5px -5px #000000;
+    .navIcon{
+      padding:0.5rem;
+    }
+
+  }
+  .navLogout{
+       background:white;
+    height:50px;
+     width:100%;
+     justify-content:start;
+     align-items: center;
+     box-shadow: 2px 5px 5px -5px #000000;
+    }
 }

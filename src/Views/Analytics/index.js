@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
-import DataCard from "../../Components/DataCard";
-import MasonryLayout from "../../Components/MasonryLayout";
-import Card from "../../Components/Card";
-//import '../../../node_modules/react-vis/dist/style.css';
+import Customer from "../../assets/images/customer.png";
+import Product from "../../assets/images/product.png";
+import Order from "../../assets/images/orders.png";
+import Discount from "../../assets/images/discount.png";
+import RevenueChart from "../../Components/Chart"
 import {XYPlot, VerticalBarSeries } from 'react-vis';
 
 
+
 export default (props) => {
-  const [state, setState] = useState({
-    // data: {},
-    chartData: ["revenue", "order", "revenue"],
-  });
 
   const [productNumber, setProductNumber] = useState(0);
   const [orderNumber, setOrderNumber] = useState(0);
@@ -33,16 +31,16 @@ export default (props) => {
     setCustomerNumber(customers.customers.length)
   }, []);
   const data1 = [
-    {x: 0, y: 8},
-    {x: 1, y: 5},
-    {x: 2, y: 4},
-    {x: 3, y: 9},
-    {x: 4, y: 1},
-    {x: 5, y: 7},
-    {x: 6, y: 6},
-    {x: 7, y: 3},
-    {x: 8, y: 2},
-    {x: 9, y: 0}
+    { x: 0, y: 8 },
+    { x: 1, y: 5 },
+    { x: 2, y: 4 },
+    { x: 3, y: 9 },
+    { x: 4, y: 1 },
+    { x: 5, y: 7 },
+    { x: 6, y: 6 },
+    { x: 7, y: 3 },
+    { x: 8, y: 2 },
+    { x: 9, y: 0 }
   ];
 
   return (
@@ -51,51 +49,68 @@ export default (props) => {
         <div className="admin-header">
           <h2 className="title">Overview dashboard</h2>
         </div>
-        <div className="filter-data">
-          <Card className="metrics-card">
-            <h3>{productNumber}</h3>
-            <p>Products</p>
-          </Card>
-          <Card className="metrics-card">
-            <h3>{orderNumber}</h3>
-            <p>Orders</p>
-          </Card>
-          <Card className="metrics-card">
-            <h3>{discountNumber}</h3>
-            <p>Discounts</p>
-          </Card>
-          <Card className="metrics-card">
-            <h3>{customerNumber}</h3>
-            <p>Customers</p>
-          </Card>
+
+        <div className="overviewList">
+          <div className="col-lg overviewBox">
+            <div className="viewContainer">
+              <div className="overviewText">
+                <h3>{productNumber}</h3>
+                <p>Products</p>
+              </div>
+              <div className="viewImage">
+                <img src={Product} />
+              </div>
+            </div>
+          </div>
+          <div className="lg-col overviewBox">
+            <div className="viewContainer">
+              <div className="overviewText">
+                <h3>{!orderNumber ? 0 : orderNumber}</h3>
+                <p>Orders</p>
+              </div>
+              <div className="viewImage">
+                <img src={Order} />
+              </div>
+            </div>
+          </div>
+          <div className="lg-col overviewBox">
+            <div className="viewContainer">
+              <div className="overviewText">
+                <h3>{!discountNumber ? 0 : discountNumber}</h3>
+                <p>Discounts</p>
+              </div>
+              <div className="viewImage">
+                <img src={Discount} />
+              </div>
+            </div>
+          </div>
+          <div className="lg-col overviewBox">
+            <div className="viewContainer">
+              <div className="overviewText">
+                <h3>{customerNumber}</h3>
+                <p>Customers</p>
+              </div>
+              <div className="viewImage">
+                <img src={Customer} />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="content">
-          <MasonryLayout>
-            {state.chartData.map((item, index) => {
-              return (
-                <DataCard
-                  data={item}
-                  key={index}
-                  statType={item}
-                  title={item.toUpperCase()}
-                  backgroundColor={""}
-                  label={"Date"}
-                />
-              );
-            })}
-          </MasonryLayout>
-        </div>
-        <div className="App">
+          <RevenueChart />
+     <div className="App">
         <XYPlot height={300} width={300}>
-          <VerticalBarSeries 
-            data={data1} 
+          <VerticalBarSeries
+            data={data1}
             color="blue"
             opacity={0.4}
             stroke="black"
           />
         </XYPlot>
       </div>
-      </div>
-    </div>
-  );
+				</div>
+			</div>
+		</div>
+
+	);
 };
