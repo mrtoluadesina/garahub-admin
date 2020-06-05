@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
-import DataCard from "../../Components/DataCard";
-import MasonryLayout from "../../Components/MasonryLayout";
 import Customer from "../../assets/images/customer.png";
 import Product from "../../assets/images/product.png";
 import Order from "../../assets/images/orders.png";
 import Discount from "../../assets/images/discount.png";
 import RevenueChart from "../../Components/Chart"
-import Card from "../../Components/Card";
 import {XYPlot, VerticalBarSeries } from 'react-vis';
 
 
+
 export default (props) => {
-  const [state, setState] = useState({
-    // data: {},
-    chartData: ["revenue", "order", "revenue"],
-  });
 
   const [productNumber, setProductNumber] = useState(0);
   const [orderNumber, setOrderNumber] = useState(0);
@@ -103,35 +97,20 @@ export default (props) => {
           </div>
         </div>
         <div className="content">
-
-          {/* <MasonryLayout>
-						{state.chartData.map((item, index) => {
-							return (
-								<DataCard
-									data={item}
-									key={index}
-									statType={item}
-									title={item.toUpperCase()}
-									backgroundColor={"blue"}
-									label={"Date"}
-								/>
-							);
-						})}
-					</MasonryLayout> */}
           <RevenueChart />
-          <div className="App">
-            <XYPlot height={300} width={300}>
-              <VerticalBarSeries
-                data={data1}
-                color="blue"
-                opacity={0.4}
-                stroke="black"
-              />
-            </XYPlot>
-          </div>
-        </div>
+     <div className="App">
+        <XYPlot height={300} width={300}>
+          <VerticalBarSeries
+            data={data1}
+            color="blue"
+            opacity={0.4}
+            stroke="black"
+          />
+        </XYPlot>
       </div>
-    </div>
-  );
+				</div>
+			</div>
+		</div>
 
-}
+	);
+};
