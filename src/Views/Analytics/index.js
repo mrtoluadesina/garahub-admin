@@ -52,9 +52,10 @@ export default (props) => {
         </div>
 
         <div className="overviewList">
-          <div className="col-lg overviewBox">
-            <Link to="/dashboard/products">
- <div className="viewContainer">
+          <Link to="/dashboard/products">
+            <div className="col-lg overviewBox">
+
+                 <div className="viewContainer">
 
               <div className="overviewText">
                 <h3>{productNumber}</h3>
@@ -64,9 +65,10 @@ export default (props) => {
                 <img src={Product} />
               </div>
             </div>
-              </Link>
 
-          </div>
+            </div>
+          </Link>
+
           <Link to="/dashboard/orders">
           <div className="lg-col overviewBox">
             <div className="viewContainer">
@@ -92,7 +94,7 @@ export default (props) => {
               </div>
             </div>
           </div>
-         </Link> 
+         </Link>
           <Link to="/dashboard/customers">
           <div className="lg-col overviewBox">
             <div className="viewContainer">
@@ -106,7 +108,7 @@ export default (props) => {
             </div>
           </div>
           </Link>
-          
+
         </div>
         <div className="content">
           <RevenueChart />
