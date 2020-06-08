@@ -63,7 +63,8 @@ export default function ({ props }) {
 							</Link>
 							{item.subNav.length > 0 && (
 								<ul
-									style={{
+                  style={{
+                    color:"white",
 										marginTop: "0.5rem",
 										paddingLeft: "1.3rem",
 									}}

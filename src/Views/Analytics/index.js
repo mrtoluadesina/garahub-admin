@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
+import {Link} from "react-router-dom";
 import Customer from "../../assets/images/customer.png";
 import Product from "../../assets/images/product.png";
 import Order from "../../assets/images/orders.png";
@@ -52,7 +53,9 @@ export default (props) => {
 
         <div className="overviewList">
           <div className="col-lg overviewBox">
-            <div className="viewContainer">
+            <Link to="/dashboard/products">
+ <div className="viewContainer">
+
               <div className="overviewText">
                 <h3>{productNumber}</h3>
                 <p>Products</p>
@@ -61,7 +64,10 @@ export default (props) => {
                 <img src={Product} />
               </div>
             </div>
+              </Link>
+
           </div>
+          <Link to="/dashboard/orders">
           <div className="lg-col overviewBox">
             <div className="viewContainer">
               <div className="overviewText">
@@ -73,7 +79,9 @@ export default (props) => {
               </div>
             </div>
           </div>
-          <div className="lg-col overviewBox">
+          </Link>
+         <Link to="/dashboard/discounts">
+         <div className="lg-col overviewBox">
             <div className="viewContainer">
               <div className="overviewText">
                 <h3>{!discountNumber ? 0 : discountNumber}</h3>
@@ -84,6 +92,8 @@ export default (props) => {
               </div>
             </div>
           </div>
+         </Link> 
+          <Link to="/dashboard/customers">
           <div className="lg-col overviewBox">
             <div className="viewContainer">
               <div className="overviewText">
@@ -95,19 +105,11 @@ export default (props) => {
               </div>
             </div>
           </div>
+          </Link>
+          
         </div>
         <div className="content">
           <RevenueChart />
-     <div className="App">
-        <XYPlot height={300} width={300}>
-          <VerticalBarSeries
-            data={data1}
-            color="blue"
-            opacity={0.4}
-            stroke="black"
-          />
-        </XYPlot>
-      </div>
 				</div>
 			</div>
 		</div>

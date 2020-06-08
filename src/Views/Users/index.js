@@ -210,7 +210,7 @@ export default (props) => {
 				<div className="customer-header">
 					<h4 className="customer">Admin Users</h4>
 					<div className="customerbtn">
-						<Link to="/dashboard/users/create-user" className="btn orderbtn">
+            <Link to="/dashboard/users/create-user" style={{padding:10,borderRadius:5,width:50}} className="redSolidBtn">
 							Create User
 						</Link>
 					</div>

@@ -166,144 +166,149 @@ export default (props) => {
     });
   };
   return (
-    <div className="add-product-section">
-      <div className="container">
-        <h2>Create Order</h2>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col _big">
-              <Card>
-                <div className="form-group">
-                  <h3>Product</h3>
-                  <Select
-                    options={productList}
-                    onChange={handleSelectChange}
-                    name="product"
-                    value={order.product}
-                    isMulti
-                  ></Select>
-                  {order.cartItems ? (
-                    <div className="lists">
-                      {order.cartItems.map((product) => (
-                        <li className="cart-item" key={product.value}>
-                          <span className="label">{product.label}</span>
-                          <input
-                            className="small"
-                            type="number"
-                            name={product.value}
-                            max={product.quantities}
-                            min="0"
-                            placeholder="number"
-                            onChange={handleProductNumber}
-                          />
-                          <span className="small">
-                            &#8358;{product.cost ? product.cost : 0}
-                          </span>
-                        </li>
-                      ))}
-                      <div className="calculate">
-                        {
-                          <button
-                            className="button"
-                            onClick={handleCalculation}
-                          >
-                            calculate
-                          </button>
-                        }
-                        <p>Total Cost:&#8358; {totalCost}</p>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              </Card>
-              <Card>
-                <h3>Customer Information</h3>
+		<div className="add-product-section">
+			<div className="container">
+				<h2>Create Order</h2>
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="row">
+						<div className="col _big">
+							<Card>
+								<div className="form-group">
+									<h3>Product</h3>
+									<Select
+										options={productList}
+										onChange={handleSelectChange}
+										name="product"
+										value={order.product}
+										isMulti
+									></Select>
+									{order.cartItems ? (
+										<div className="lists">
+											{order.cartItems.map((product) => (
+												<li className="cart-item" key={product.value}>
+													<span className="label">{product.label}</span>
+													<input
+														className="small"
+														type="number"
+														name={product.value}
+														max={product.quantities}
+														min="0"
+														placeholder="number"
+														onChange={handleProductNumber}
+													/>
+													<span className="small">
+														&#8358;{product.cost ? product.cost : 0}
+													</span>
+												</li>
+											))}
+											<div className="calculate">
+												{
+													<button
+                            style={{
+                              background: "#00315E",
+                              color: "white",
+                              height: 50,
+                              width:100
+                            }}
+														onClick={handleCalculation}
+													>
+														calculate
+													</button>
+												}
+												<p>Total Cost:&#8358; {totalCost}</p>
+											</div>
+										</div>
+									) : null}
+								</div>
+							</Card>
+							<Card>
+								<h3>Customer Information</h3>
 
-                <div className="form-group">
-                  <label>Email Address</label>
-                  <div className="split">
-                    <Input
-                      type="text"
-                      className="__big"
-                      name="email"
-                      onChange={handleChange}
-                      placeholder="Email"
-                    />
+								<div className="form-group">
+									<label>Email Address</label>
+									<div className="split">
+										<Input
+											type="text"
+											className="__big"
+											name="email"
+											onChange={handleChange}
+											placeholder="Email"
+										/>
 
-                    <button
-                      className="check-order-button __small"
-                      type=""
-                      onClick={handleEmailCheck}
-                    >
-                      {(loading && <BeatLoader color="#fff" size={5} />) ||
-                        "Check"}
-                    </button>
-                  </div>
-                  {error ? (
-                    <p>User Not found Proceed to create manually</p>
-                  ) : null}
-                </div>
-                <div className="form-group">
-                  <label>First Name</label>
-                  <Input
-                    type="text"
-                    name="firstName"
-                    onChange={handleChange}
-                    placeholder="First Name"
-                    value={order.firstName}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Last Name</label>
-                  <Input
-                    type="text"
-                    name="lastName"
-                    onChange={handleChange}
-                    placeholder="Last Name"
-                    value={order.lastName}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Mailing Address</label>
-                  {customer.address ? (
-                    <Select
-                      options={customer.address}
-                      onChange={handleAddrChange}
-                      name="address"
-                      value={order.address}
-                    ></Select>
-                  ) : (
-                    <Input
-                      type="text"
-                      name="address"
-                      onChange={handleChange}
-                      placeholder="Mailing Address"
-                    />
-                  )}
-                </div>
-                <div className="form-group">
-                  <label>Phone Number</label>
-                  <Input
-                    type="text"
-                    name="phone"
-                    onChange={handleChange}
-                    placeholder="Phone Number"
-                    value={order.phone}
-                  />
-                </div>
-              </Card>
-            </div>
-          </div>
-          <div className="row">
-            <Button
-              className="btn redSolidBtn"
-              value={
-                (loading && <BeatLoader color="#fff" size={5} />) || "Save"
-              }
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+										<button
+											className="redSolidBtn __small"
+											type=""
+											onClick={handleEmailCheck}
+										>
+											{(loading && <BeatLoader color="#fff" size={5} />) ||
+												"Check"}
+										</button>
+									</div>
+									{error ? (
+										<p>User Not found Proceed to create manually</p>
+									) : null}
+								</div>
+								<div className="form-group">
+									<label>First Name</label>
+									<Input
+										type="text"
+										name="firstName"
+										onChange={handleChange}
+										placeholder="First Name"
+										value={order.firstName}
+									/>
+								</div>
+								<div className="form-group">
+									<label>Last Name</label>
+									<Input
+										type="text"
+										name="lastName"
+										onChange={handleChange}
+										placeholder="Last Name"
+										value={order.lastName}
+									/>
+								</div>
+								<div className="form-group">
+									<label>Mailing Address</label>
+									{customer.address ? (
+										<Select
+											options={customer.address}
+											onChange={handleAddrChange}
+											name="address"
+											value={order.address}
+										></Select>
+									) : (
+										<Input
+											type="text"
+											name="address"
+											onChange={handleChange}
+											placeholder="Mailing Address"
+										/>
+									)}
+								</div>
+								<div className="form-group">
+									<label>Phone Number</label>
+									<Input
+										type="text"
+										name="phone"
+										onChange={handleChange}
+										placeholder="Phone Number"
+										value={order.phone}
+									/>
+								</div>
+							</Card>
+						</div>
+					</div>
+					<div className="row">
+						<Button
+							className=" redSolidBtn"
+							value={
+								(loading && <BeatLoader color="#fff" size={5} />) || "Save"
+							}
+						/>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
 };
