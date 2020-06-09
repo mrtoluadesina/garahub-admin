@@ -57,6 +57,19 @@ export const fetchOrders = () => {
     }
   };
 };
+export const fetchAllOrders = () => {
+  return async dispatch => {
+    try {
+      dispatch(fetchOrderStart(true));
+      const res = await request.get("/api/v1/order");
+      dispatch(fetchOrderSuccess(res.data.payload));
+      dispatch(fetchOrderEnd(false));
+    } catch (error) {
+      dispatch(fetchOrderFail(retrieveMessage(error)));
+      dispatch(fetchOrderEnd(false));
+    }
+  };
+};
 
 export const createOrders =  (data) => {
   return async dispatch => {
