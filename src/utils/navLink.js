@@ -4,7 +4,8 @@ import {
 	mdiTagOutline,
 	mdiAccountOutline,
 	mdiGoogleAnalytics,
-	mdiSale,
+  mdiSale,
+  mdiAccount,
 	mdiSettings,
 } from "@mdi/js";
 
@@ -72,7 +73,7 @@ export default {
 		{
 			title: "Admin Users",
 			link: "/dashboard/users",
-			icon: mdiFolderDownloadOutline,
+			icon: mdiAccount,
 			subNav: [
 				{
 					title: "All Users",

@@ -19,7 +19,7 @@ export default (props) => {
   const [orders, setOrders] =  useState([])
   const [query, setQuery] = useState({
     limit: 100, skip: 1
-  }) 
+  })
   const [page, setPage] = useState({
     lower: 0,
     upper: 0
@@ -51,12 +51,12 @@ export default (props) => {
     })
     }
   }, [query.skip]);
-  
+
   useEffect(() => {
     let upper = page.upper;
     let lower =  page.lower
     let order = orders.filter((trans, index) => {
-      return(index >= lower*limit && index < upper*limit) 
+      return(index >= lower*limit && index < upper*limit)
     })
     setOrderPage(()=>({
       ...orderPage, order: order
@@ -75,7 +75,7 @@ export default (props) => {
       setPage(() => ({
        ...page, upper: ++upper
       }));
-  
+
     })
   }, []);
 
@@ -99,7 +99,7 @@ export default (props) => {
     setOrderPage(()=>({
       ...orderPage, page: orderPage.page +1
     }))
-    
+
   }
 
   const prev = () => {
@@ -129,9 +129,9 @@ export default (props) => {
       onClose({ targetEl, event, portal }) {},
       // `targetEl` is the element that you either are attaching a `ref` to
       // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
-    
+
       // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
-      onClick({ targetEl, event, portal }) {} 
+      onClick({ targetEl, event, portal }) {}
     })
 
     const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
@@ -155,7 +155,7 @@ export default (props) => {
             hideModal();
          }
           }>Update</Button>
-  
+
         </DialogActions>
       </Dialog>
     ));
@@ -167,13 +167,16 @@ export default (props) => {
         <div className="order-header">
           <h4 className="order">Orders</h4>
           <div className="orderBtn">
-            <Link to="/dashboard/orders/create-order" className="btn orderbtn">
+            <Link to="/dashboard/orders/create-order"
+              className="redSolidBtn"
+              style={{height:100,width:50,padding:10,borderRadius:3}}
+            >
               Create Order
             </Link>
           </div>
         </div>
         <ul className="order-ul">
-         
+
         </ul>
         <Card className="order-card">
           {/* <div className="filter">
@@ -269,7 +272,7 @@ export default (props) => {
                           <div style={{
                             display: 'flex',
                             width: '100%',
-                          }}> 
+                          }}>
                             <button onClick={closeModal}>close</button>
                             <button onClick={() => handleDelete(item._id)} >Yes, Delete</button>
                           </div>

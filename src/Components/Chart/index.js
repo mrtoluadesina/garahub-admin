@@ -45,10 +45,10 @@ export default props => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="output" stroke="#000000" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="output" stroke="#ffffff" activeDot={{ r: 8 }} />
       </LineChart>
         </div>
-     
+
     );
-  
+
 }

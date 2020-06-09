@@ -312,207 +312,215 @@ export default (props) => {
   };
 
   return (
-    <div className="add-product-section">
-      <div className="container">
-        <h2>Add products</h2>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col _big">
-              <Card>
-                <div className="form-group">
-                  <h3>Product Name</h3>
-                  <Input
-                    type="text"
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Product Name"
-                    value={product.name}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <h3>Product slug</h3>
-                  <Input
-                    type="text"
-                    name="slug"
-                    onChange={handleChange}
-                    placeholder="Product Slug (e.g. samsung-galaxy-s10-20)"
-                    value={product.slug}
-                  />
-                </div>
-                <div className="form-group">
-                  <h3>Description</h3>
-                  <TextArea
-                    name="description"
-                    onChange={handleChange}
-                    placeholder="Describe your product"
-                    value={product.description}
-                    required
-                  />
-                </div>
-              </Card>
-              <Card>
-                <div className="form-group">
-                  <h3>Images</h3>
-                  <div className="d-flex between">
-                    {object.images !== undefined ? (
-                      <span className="flex-1">
-                        <img
-                          className="img-fluid"
-                          src={object.images[0]}
-                          alt="product1"
-                        />
-                      </span>
-                    ) : null}
-                    <Input
-                      type="file"
-                      name="firstImage"
-                      onChange={handleFileUpload}
-                      className="flex-4"
-                      required
-                    />
-                  </div>
-                  <div className="d-flex between">
-                    {object.images !== undefined ? (
-                      <span className="flex-1">
-                        <img
-                          className="img-fluid"
-                          src={object.images[1]}
-                          alt="product2"
-                        />
-                      </span>
-                    ) : null}
-                    <Input
-                      type="file"
-                      name="secondImage"
-                      onChange={handleFileUpload}
-                      className="flex-4"
-                    />
-                  </div>
-                  <div className="d-flex between">
-                    {object.images !== undefined ? (
-                      <span className="flex-1">
-                        <img
-                          className="img-fluid"
-                          src={object.images[2]}
-                          alt="product3"
-                        />
-                      </span>
-                    ) : null}
-                    <Input
-                      type="file"
-                      name="thirdImage"
-                      onChange={handleFileUpload}
-                      className="flex-4"
-                    />
-                  </div>
-                  <div className="d-flex between">
-                    {object.images !== undefined ? (
-                      <span className="flex-1">
-                        <img
-                          className="img-fluid"
-                          src={object.images[3]}
-                          alt="product4"
-                        />
-                      </span>
-                    ) : null}
-                    <Input
-                      type="file"
-                      name="fourthImage"
-                      onChange={handleFileUpload}
-                      className="flex-4"
-                    />
-                  </div>
-                  <div className="d-flex between">
-                    {object.images !== undefined ? (
-                      <span className="flex-1">
-                        <img
-                          className="img-fluid"
-                          src={object.images[4]}
-                          alt="product5"
-                        />
-                      </span>
-                    ) : null}
-                    <Input
-                      type="file"
-                      name="fifthImage"
-                      onChange={handleFileUpload}
-                      className="flex-4"
-                    />
-                  </div>
-                </div>
-              </Card>
-              <Card>
-                <h3>Pricing</h3>
-                <div className="form-group">
-                  {method === "edit"
-                    ? priceEditGenerator()
-                    : priceInputGenerator()}
-                </div>
-                {pricingCount < 2 ? (
-                  <button className="btn add" onClick={addPriceFunc}>
-                    Add Price
-                  </button>
-                ) : null}
-              </Card>
-              <Card>
-                <h3>Inventory</h3>
-                <div className="form-group">
-                  <label>Stock</label>
-                  <Input
-                    type="number"
-                    name="quantity"
-                    onChange={handleChange}
-                    placeholder="0"
-                    value={product.quantity}
-                    required
-                  />
-                </div>
-              </Card>
-            </div>
-            <div className="col _small">
-              <Card>
-                <h4>Categories</h4>
-                <div className="form-group">
-                  <label>select category</label>
-                  {/* <Input type="text" placeholder="Enter Category" />
-                   */}
+		<div className="add-product-section">
+			<div className="container">
+				<h2>Add products</h2>
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="row">
+						<div className="col _big">
+							<Card>
+								<div className="form-group">
+									<h3>Product Name</h3>
+									<Input
+										type="text"
+										name="name"
+										onChange={handleChange}
+										placeholder="Product Name"
+										value={product.name}
+										required
+									/>
+								</div>
+								<div className="form-group">
+									<h3>Product slug</h3>
+									<Input
+										type="text"
+										name="slug"
+										onChange={handleChange}
+										placeholder="Product Slug (e.g. samsung-galaxy-s10-20)"
+										value={product.slug}
+									/>
+								</div>
+								<div className="form-group">
+									<h3>Description</h3>
+									<TextArea
+										name="description"
+										onChange={handleChange}
+										placeholder="Describe your product"
+										value={product.description}
+										required
+									/>
+								</div>
+							</Card>
+							<Card>
+								<div className="form-group">
+									<h3>Images</h3>
+									<div className="d-flex between">
+										{object.images !== undefined ? (
+											<span className="flex-1">
+												<img
+													className="img-fluid"
+													src={object.images[0]}
+													alt="product1"
+												/>
+											</span>
+										) : null}
+										<Input
+											type="file"
+											name="firstImage"
+											onChange={handleFileUpload}
+											className="flex-4"
+											required
+										/>
+									</div>
+									<div className="d-flex between">
+										{object.images !== undefined ? (
+											<span className="flex-1">
+												<img
+													className="img-fluid"
+													src={object.images[1]}
+													alt="product2"
+												/>
+											</span>
+										) : null}
+										<Input
+											type="file"
+											name="secondImage"
+											onChange={handleFileUpload}
+											className="flex-4"
+										/>
+									</div>
+									<div className="d-flex between">
+										{object.images !== undefined ? (
+											<span className="flex-1">
+												<img
+													className="img-fluid"
+													src={object.images[2]}
+													alt="product3"
+												/>
+											</span>
+										) : null}
+										<Input
+											type="file"
+											name="thirdImage"
+											onChange={handleFileUpload}
+											className="flex-4"
+										/>
+									</div>
+									<div className="d-flex between">
+										{object.images !== undefined ? (
+											<span className="flex-1">
+												<img
+													className="img-fluid"
+													src={object.images[3]}
+													alt="product4"
+												/>
+											</span>
+										) : null}
+										<Input
+											type="file"
+											name="fourthImage"
+											onChange={handleFileUpload}
+											className="flex-4"
+										/>
+									</div>
+									<div className="d-flex between">
+										{object.images !== undefined ? (
+											<span className="flex-1">
+												<img
+													className="img-fluid"
+													src={object.images[4]}
+													alt="product5"
+												/>
+											</span>
+										) : null}
+										<Input
+											type="file"
+											name="fifthImage"
+											onChange={handleFileUpload}
+											className="flex-4"
+										/>
+									</div>
+								</div>
+							</Card>
+							<Card>
+								<h3>Pricing</h3>
+								<div className="form-group">
+									{method === "edit"
+										? priceEditGenerator()
+										: priceInputGenerator()}
+								</div>
+								{pricingCount < 2 ? (
+									<button
+										className="redSolidBtn"
+                    style={{
+                      background: "#00315E",
+                      height: 50,
+                      width:100
+                    }}
+										onClick={addPriceFunc}
+									>
+										Add Price
+									</button>
+								) : null}
+							</Card>
+							<Card>
+								<h3>Inventory</h3>
+								<div className="form-group">
+									<label>Stock</label>
+									<Input
+										type="number"
+										name="quantity"
+										onChange={handleChange}
+										placeholder="0"
+										value={product.quantity}
+										required
+									/>
+								</div>
+							</Card>
+						</div>
+						<div className="col _small">
+							<Card>
+								<h4>Categories</h4>
+								<div className="form-group">
+									<label>select category</label>
+									{/* <Input type="text" placeholder="Enter Category" />
+									 */}
 
-                  <Select
-                    options={categories}
-                    onChange={handleSelectChange}
-                    name="category"
-                    isMulti={true}
-                    defaultValue={[...product.categories]}
-                    required
-                  />
-                </div>
-              </Card>
-              <Card>
-                <h4>Brands</h4>
-                <div className="form-group">
-                  <label>select brand</label>
-                  {/* <Input type="text" placeholder="Enter Category" />
-                   */}
-                  <Select
-                    options={latestBrands}
-                    onChange={handleBrandSelectChange}
-                    name="brandId"
-                    required
-                  />
-                </div>
-              </Card>
-            </div>
-            <div className="col _small"></div>
-          </div>
-          <div className="row">
-            <Button
-              className="btn redSolidBtn"
-              value={btnLoading ? <BeatLoader color="#fff" size={5} /> : "Save"}
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+									<Select
+										options={categories}
+										onChange={handleSelectChange}
+										name="category"
+										isMulti={true}
+										defaultValue={[...product.categories]}
+										required
+									/>
+								</div>
+							</Card>
+							<Card>
+								<h4>Brands</h4>
+								<div className="form-group">
+									<label>select brand</label>
+									{/* <Input type="text" placeholder="Enter Category" />
+									 */}
+									<Select
+										options={latestBrands}
+										onChange={handleBrandSelectChange}
+										name="brandId"
+										required
+									/>
+								</div>
+							</Card>
+						</div>
+						<div className="col _small"></div>
+					</div>
+					<div className="row">
+						<Button
+							className="btn redSolidBtn"
+							value={btnLoading ? <BeatLoader color="#fff" size={5} /> : "Save"}
+						/>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
 };
