@@ -15,15 +15,19 @@ export const checkCode = async (url, data) => {
   return resp;
 };
 
-export const postCoupon = data => {
-  const url = "http://localhost:3005/api/v1/coupon";
+export const postCoupon = (data, auth) => {
+  console.log(auth)
+  const url = " https://jarahub-staging.herokuapp.com/api/v1/coupon";
   const resp = axios({
     url,
     data,
-    headers: { Authorization: data }
+    headers: { Authorization: `Bearer ${auth}` },
+    method:"post"
   })
     .then(response => {
-      return 1;
+
+      console.log(response);
+      return response;
     })
     .catch(error => {
       return error;
