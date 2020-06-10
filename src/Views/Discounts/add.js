@@ -43,6 +43,7 @@ const Discount = ({ data, ...props }) => {
   const handleChange = e => {
     let name = e.target.name;
     let value = e.target.value;
+    console.log(formFields)
     if (name === "unit" && value === "NAIRA") {
       setField(() => ({ ...formFields, [name]: value, maxDis: 0 }));
     } else {
@@ -50,60 +51,39 @@ const Discount = ({ data, ...props }) => {
     }
   };
 
-  const retrieveCode = async e => {
-    const target = e.target.value;
-    const url = "http://localhost:3005/api/v1/coupon/" + target;
-    const auth = "Bearer " + data;
-    const check = await checkCode(url, auth);
-    const msg = document.querySelector("#msg");
-    const msgna = document.querySelector("#msgna");
-
-    if (check >= 400) {
-      msgna.style.display = "none";
-      msg.style.display = "inline-block";
-    } else if (target.length !== 0 && target !== "hello") {
-      msg.style.display = "none";
-      msgna.style.display = "inline-block";
-    } else {
-      msg.style.display = "none";
-      msgna.style.display = "none";
-    }
-  };
-
-  const generate = async e => {
+ 
+  const generate = async(e) => {
     e.preventDefault();
     const body = {
+      discountValue:formFields.discount,
       discountUnit: formFields.unit,
       validFrom: formFields.from,
       validUntil: formFields.till,
       code: formFields.disCode,
       maximumDiscount: formFields.maxDis
     };
-    if (body.discountUnit === "PERCENTAGE")
+    if (body.discountUnit === "PERCENTAGE") {
       body.maximumDiscount = formFields.maxDis;
-    const resp = await postCoupon(body);
-
-    if (resp === 1) {
-      setField(initialState);
-      document.location.reload();
-      let id = "toast";
-      let fu = '[id="' + id.toString() + '"]';
-      iziToast.show({
-        message: "Coupon Successfully Created",
-        messageColor: "white",
-        backgroundColor: "black",
-        zindex: 20,
-        timeout: 3000,
-        closeOnEscape: true,
-        closeOnClick: true,
-        position: "topRight",
-        transitionIn: "fadeInUp",
-        transitionOut: "fadeOut",
-        transitionInMobile: "fadeInUp",
-        transitionOutMobile: "fadeOutDown",
-        target: fu
-      });
     }
+    const res = await postCoupon(body, data);
+
+     if (res.status===201) {
+      setField(initialState);
+       iziToast.show({
+         message: "Coupon Successfully Created",
+       messageColor: "white",
+        backgroundColor: "Green",
+         timeout: 5000,
+     });
+    }else {
+      iziToast.show({
+         message: "Unable to Create Coupon",
+       messageColor: "white",
+        backgroundColor: "Red",
+         timeout: 5000,
+     });
+    }
+
   };
 
   const warning = () => {
@@ -154,7 +134,7 @@ const Discount = ({ data, ...props }) => {
     <div className="customer-row">
       <div className="container">
         <div className="customer-header">
-          <h4 className="customer">Create Discounts</h4>
+          <h4 className="customer">Create Discount</h4>
           <span id="toast"></span>
         </div>
 
@@ -171,7 +151,6 @@ const Discount = ({ data, ...props }) => {
                 id="discount-code"
                 type="text"
                 className=""
-                onBlur={retrieveCode}
                 onChange={handleChange}
                 required
               />
@@ -278,11 +257,20 @@ const Discount = ({ data, ...props }) => {
         ></span>
         <div
           className="customerbtn submit"
+          
           id="button-div"
-          onClick={!formFilled() ? warning : generate}
+
           disabled={true}
         >
-          <OrderButton id="button" value="Generate" />
+          <button 
+          style={{background:"#00315E",
+          height:50,
+          width:150,
+          color:"white",
+          borderRadius:5
+        
+        }}
+          onClick={generate} id="button" >Generate</button>
         </div>
       </div>
     </div>

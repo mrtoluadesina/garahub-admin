@@ -27,8 +27,8 @@ export const fetchDiscounts = () => {
   return async dispatch => {
     try {
       dispatch(fetchDiscountStart(true));
-      const res = await request.get("/api/v1/discount");
-      dispatch(fetchDiscountSuccess(res.data));
+      const res = await request.get("/api/v1/coupon");
+      dispatch(fetchDiscountSuccess(res.data.payload));
       dispatch(fetchDiscountEnd(false));
     } catch (error) {
       dispatch(fetchDiscountFail(retrieveMessage(error)));
@@ -39,7 +39,7 @@ export const fetchDiscounts = () => {
 
 export const fetchDiscount = async (query) => {
   try {
-    const res = await request.get(`/api/v1/discount?${query}`);
+    const res = await request.get(`/api/v1/coupon?${query}`);
     return res.data.payload? res.data.payload: {
       data: [], total: 0
     }
