@@ -9,7 +9,7 @@ import Form from "../../Components/Form";
 import { connect } from "react-redux";
 import iziToast from "izitoast";
 
-import { checkCode, postCoupon } from "../../utils/axiosFunctions";
+import { postCoupon } from "../../utils/axiosFunctions";
 
 import "./styles.scss";
 
@@ -51,7 +51,7 @@ const Discount = ({ data, ...props }) => {
     }
   };
 
- 
+
   const generate = async(e) => {
     e.preventDefault();
     const body = {
@@ -257,18 +257,18 @@ const Discount = ({ data, ...props }) => {
         ></span>
         <div
           className="customerbtn submit"
-          
+
           id="button-div"
 
           disabled={true}
         >
-          <button 
+          <button
           style={{background:"#00315E",
           height:50,
           width:150,
           color:"white",
           borderRadius:5
-        
+
         }}
           onClick={generate} id="button" >Generate</button>
         </div>

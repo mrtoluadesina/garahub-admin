@@ -1,53 +1,145 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-import "./styles.scss"
+import { getStats } from "../../utils/axiosFunctions"
+import Select from "react-select";
+import "./styles.scss";
 
 export default props => {
 
-  const data = [
-  {
-    name: 'Revenue', uv: 4000, output: 2400, amt: 2400,
-  },
-  {
-    name: 'Revenue', uv: 3000, output: 1398, amt: 2210,
-  },
-  {
-    name: 'Revenue', uv: 2000, output: 9800, amt: 2290,
-  },
-  {
-    name: 'Revenue', uv: 2780, output: 3908, amt: 2000,
-  },
-  {
-    name: 'Revenue', uv: 1890, output: 4800, amt: 2181,
-  },
-  {
-    name: 'Revenue', uv: 2390, output: 3800, amt: 2500,
-  },
-  {
-    name: 'Revenue', uv: 3490, output: 4300, amt: 2100,
-  },
-];
+  const [days, setDays] = useState([]);
+  const [month, setMonth] = useState([]);
+
+  const [range, setRange] = useState("");
+
+  useEffect(async () => {
+    const getWeekData=await getStats("week")
+    const getYearData = await getStats("year");
+    const week = getWeekData.data;
+    const month=getYearData.data;
+    setDays(week);
+    setMonth(month)
+  }, []);
+
+
+  const weekData = [
+    days[0],
+    days[1],
+    days[2],
+    days[3],
+    days[4],
+    days[5],
+    days[6]
+  ];
+  const monthData = [
+    month[0],
+    month[1],
+    month[2],
+    month[3],
+    month[4],
+    month[5],
+    month[6]
+  ];
+
+  const weekLabel = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+  ];
+  
+  const monthLabel = [
+    	"January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+  ];
+  
+
+  const weekChartData = [
+    {name:weekLabel[0],transaction:weekData[0]},
+    {name:weekLabel[1],transaction:weekData[1]},
+    {name:weekLabel[2],transaction:weekData[2]},
+    {name:weekLabel[3],transaction:weekData[3]},
+    {name:weekLabel[4],transaction:weekData[4]},
+    {name:weekLabel[5],transaction:weekData[5]},
+    {name:weekLabel[6],transaction:weekData[6]},
+  ]
+
+  const monthChartData = [
+    {name:monthLabel[0],transaction:monthData[0]},
+    {name:monthLabel[1],transaction:monthData[1]},
+    {name:monthLabel[2],transaction:monthData[2]},
+    {name:monthLabel[3],transaction:monthData[3]},
+    {name:monthLabel[4],transaction:monthData[4]},
+    {name:monthLabel[5],transaction:monthData[5]},
+    {name:monthLabel[6],transaction:monthData[6]},
+  ]
+
+
+
+  const statRange =[{ value: 'Month', label: 'Monthly' },
+    { value: 'Week', label: 'Weekly' }
+  ]
+
+ const handleSelectChange = (value) => {
+
+		if (value.value==="Month") {
+      setRange("Month")
+      return;
+   }
+		if (value.value==="Week") {
+      setRange("Week");
+      return;
+   }
+	 
+ };
 
     return (
-      <div className="chartContainer">
-         <LineChart
+      
+        <div className="chartContainer">
+           <div className="form-group chartSelect">
+                  <Select
+									options={statRange}
+									onChange={handleSelectChange}
+									name="role"
+									required
+								/>
+                  </div>
+                  <div style={{padding:40}}>
+                     <LineChart
         width={1000}
         height={400}
-        data={data}
+        data={range==="Month"?monthChartData:weekChartData}
         margin={{
-          top: 5, right: 30, left: 20, bottom: 5,
+          top: 5, right: 30, left: 30, bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis datakey="transaction"/>
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="output" stroke="#ffffff" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="transaction"  stroke="#ffffff" activeDot={{ r: 8 }} />
       </LineChart>
+                    </div>
+        
+
         </div>
+        
+      
 
     );
 
