@@ -16,7 +16,6 @@ export const checkCode = async (url, data) => {
 };
 
 export const postCoupon = (data, auth) => {
-  console.log(auth)
   const url = " https://jarahub-staging.herokuapp.com/api/v1/coupon";
   const resp = axios({
     url,
@@ -25,8 +24,6 @@ export const postCoupon = (data, auth) => {
     method:"post"
   })
     .then(response => {
-
-      console.log(response);
       return response;
     })
     .catch(error => {
@@ -35,3 +32,19 @@ export const postCoupon = (data, auth) => {
 
   return resp;
 };
+
+export const getStats = (range) => {
+  const url =
+    `https://jarahub-staging.herokuapp.com/api/v1/stats/revenue?range=${range}`;
+
+  const res = axios({
+    url,
+    method: "GET"
+  }).then(stats => {
+    return stats.data.payload;
+  }).catch(error => {
+    return error;
+  });
+
+  return res;
+}
