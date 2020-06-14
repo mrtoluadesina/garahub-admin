@@ -198,7 +198,7 @@ export default (props) => {
   const dispatch = useDispatch();
 
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
 

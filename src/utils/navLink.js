@@ -6,7 +6,6 @@ import {
 	mdiGoogleAnalytics,
   mdiSale,
   mdiAccount,
-	mdiSettings,
 } from "@mdi/js";
 
 export default {

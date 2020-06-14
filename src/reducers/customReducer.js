@@ -44,13 +44,13 @@ export default (state=intialState, action)=>{
                 ...state,
                 customers: action.payload,
                 error: ''
-            }  
+            }
         case FETCH_ALL_CUSTOMERS_FAILED:
             return {
                 ...state,
                 customers: [],
                 error: action.payload
-            }      
+            }
         default:
             return state;
     }

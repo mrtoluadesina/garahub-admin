@@ -27,7 +27,7 @@ export const fetchTransactions = (query) => {
   return async dispatch => {
     try {
       dispatch(fetchTransactionStart(true));
-      
+
       const res = await request.get(`/api/v1/transaction?${query}`);
       dispatch(fetchTransactionSuccess(res.data.payload));
       dispatch(fetchTransactionEnd(false));
@@ -40,12 +40,8 @@ export const fetchTransactions = (query) => {
 };
 
 export const fetchTransaction = async (query)=> {
-  try {
     const res = await request.get(`/api/v1/transaction?${query}`);
-    return res.data.payload? res.data.payload: {
+    return res.data.payload? res.data.payload: ({
       data: [], total: 0
-    }
-    } catch (error) {
-    return error;
-  }
+    })
 }
