@@ -1,7 +1,6 @@
 import {
   FETCH_BRANDS,
   FETCH_CATEGORY_FAIL,
-  FETCH_CATEGORY_END,
 } from "../actions/types";
 
 const initialState = {

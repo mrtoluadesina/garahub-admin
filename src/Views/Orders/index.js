@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-//import useModal from 'use-react-modal';
 import { useModal } from "react-modal-hook";
-import { Button,Dialog, DialogActions, DialogTitle, DialogContent } from "@material-ui/core";
+import { Button,Dialog, DialogActions, DialogTitle} from "@material-ui/core";
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 import { fetchOrder, promoteOrder } from "../../actions/orderAction";
 import "./index.scss";
-import { useSelector, useDispatch } from "react-redux";
 import {formattedDate} from "../../utils/helperFunc";
 
 export default (props) => {
@@ -28,29 +26,33 @@ export default (props) => {
 
   const [tot, setTotal] = useState(0)
 
-  const [nextData, setNextData] = useState(false)
-  // const {
-  //   orders: { orders },
-  // } = useSelector((state) => state);
-  // const dispatch = useDispatch();
+  const [nextData, setNextData] = useState(false);
+
+  const [errorMsg, setErrorMsg] = useState("No Orders yet");
+
   let status;
 
   useEffect(() => {
     if (nextData) {
       fetchOrder(`limit=${query.limit}&skip=${query.skip}`)
-      .then((payload)=> {
-        // set order to state
-        let newOrder = [ ...orders, ...payload.data ];
-        setOrders(()=> newOrder);
-        setTotal(payload.total);
-        let upper = page.upper;
-        let lower =  page.lower
-        setPage(() => ({
-          upper: ++upper, lower: ++lower
-        }));
-    })
+				.then((payload) => {
+					// set order to state
+					let newOrder = [...orders, ...payload.data];
+					setOrders(() => newOrder);
+					setTotal(payload.total);
+					let upper = page.upper;
+					let lower = page.lower;
+					setPage(() => ({
+						upper: ++upper,
+						lower: ++lower,
+					}));
+				})
+				.catch((err) => {
+					console.log("error occured");
+					setErrorMsg("Error loading order, try again.");
+				});
     }
-  }, [query.skip]);
+  }, [query.skip,nextData, orders, page.lower, page.upper, query.limit]);
 
   useEffect(() => {
     let upper = page.upper;
@@ -66,17 +68,21 @@ export default (props) => {
 
   useEffect(() => {
     fetchOrder(`limit=${query.limit}&skip=${query.skip}`)
-    .then((payload)=> {
-      // set order to state
-        let newOrder = [ ...orders, ...payload.data ];
-        setOrders(()=> newOrder);
-        setTotal(payload.total);
-        let upper = page.upper;
-      setPage(() => ({
-       ...page, upper: ++upper
-      }));
-
-    })
+			.then((payload) => {
+				// set order to state
+				let newOrder = [...orders, ...payload.data];
+				setOrders(() => newOrder);
+				setTotal(payload.total);
+				let upper = page.upper;
+				setPage(() => ({
+					...page,
+					upper: ++upper,
+				}));
+			})
+			.catch((err) => {
+				console.log("error occured");
+				setErrorMsg("Error loading orders, try again.");
+			});
   }, []);
 
   const next = () => {
@@ -146,12 +152,7 @@ export default (props) => {
         <DialogActions>
           <Button onClick={hideModal}>Close</Button>
           <Button onClick={() => {
-            promoteOrder()
-            // axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`, auth).then(()=>{
-            //   window.location.reload();
-            // });
-        // dispatch(deleteUser(userId))
-        //     console.log(users.filter((user) => user._id === userId));
+            promoteOrder();
             hideModal();
          }
           }>Update</Button>
@@ -179,34 +180,6 @@ export default (props) => {
 
         </ul>
         <Card className="order-card">
-          {/* <div className="filter">
-            <FilterBar
-              placeholder="Filter Orders"
-              className="allorder-filterbar"
-            ></FilterBar>
-            <div className="status">
-              <Dropdown>
-                <option>Status</option>
-              </Dropdown>
-            </div>
-            <div className="status">
-              <Dropdown>
-                <option>Payment Status</option>
-              </Dropdown>
-            </div>
-            <div className="status">
-              <Dropdown>
-                <option>Fulfilment Status</option>
-              </Dropdown>
-            </div>
-            <div className="status status-radius">
-              <Dropdown>
-                <option>More Filters</option>
-              </Dropdown>
-            </div>
-            <Button value="Saved" className="savebtn"></Button>
-            <Button value="Sort" className="sortbtn"></Button>
-          </div> */}
           <div>
             <Table>
               <thead className="th-color">
@@ -284,7 +257,7 @@ export default (props) => {
                   ))
                 ) : (
                   <tr>
-                    <td>No Orders Yet</td>
+                      <td>{errorMsg}</td>
                   </tr>
                 )}
               </tbody>

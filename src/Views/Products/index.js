@@ -33,7 +33,7 @@ export default props => {
 
   useEffect(()=>{
     dispatch(fetchProducts())
-  },[])  
+  },[dispatch])
 
   const auth = {
     headers: {
@@ -42,32 +42,6 @@ export default props => {
   }
 
   const handleEdit = id => {console.log(id)}
-
-  const handleDelete = async id => {
-    console.log(id)
-    await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${id}`, auth);
-    window.location.reload();
-  }
-
-  // use modal hooks
-  // const { isOpen, openModal, closeModal, Modal } = useModal({
-  //   background: 'rgba(0, 0, 0, 0.5)', // sets the color of the backdrop, if nothing is set, there will be no backdrop
-  //   closeOnOutsideClick: true,
-  //   closeOnEsc: true,
-  //   isOpen: false,
-  //   // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
-  //   // with the additional `portal` and `targetEl` added to it as seen in the examples below
-  //   onOpen: (event) => {
-  //     // can access: event.portal, event.targetEl, event.event, event.target, etc.
-  //   },
-  //   // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
-  //   onClose({ targetEl, event, portal }) {},
-  //   // `targetEl` is the element that you either are attaching a `ref` to
-  //   // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
-  
-  //   // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
-  //   onClick({ targetEl, event, portal }) {} 
-  // })
 
   const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
     <Dialog open={open} onExited={onExited} onClose={hideModal}>
@@ -81,8 +55,6 @@ export default props => {
           axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`, auth).then(()=>{
             window.location.reload();
           });
-      // dispatch(deleteUser(userId))
-      //     console.log(users.filter((user) => user._id === userId));
           hideModal();
        }
         }>yes</Button>
@@ -92,7 +64,7 @@ export default props => {
   ));
 
 
-  
+
   return (
     <div className='product-row'>
       <div className='container'>
@@ -100,29 +72,10 @@ export default props => {
           <h4 className='product'>Products</h4>
           <div className='productbtn'>{/* <OrderButton value="Export" /> */}</div>
         </div>
-        {/* <ul className="product-ul">
-          <li className="export">Export</li>
-          <li className="export">Import</li>
-          <li>
-            <Dropdown>
-              <option>More Actions</option>
-              <option>Open</option>
-            </Dropdown>
-          </li>
-        </ul> */}
         <Card className='product-card'>
           <div className='all-product'>
             <ProductTab />
           </div>
-          {/* <div className="filter">
-            <div className="filter-status">
-              <Dropdown>
-                <option>Filter</option>
-              </Dropdown>
-            </div>
-            <Input placeholder="Search products"
-              className="product-filterbar" />
-          </div> */}
           <Table>
             <thead className='th-color'>
               <tr>
@@ -162,26 +115,7 @@ export default props => {
                     }}>
                       delete
                     </td>
-                    {/* {isOpen && (
-                      <Modal>
-                        <div style={{
-                          backgroundColor: 'white',
-                          height: 200,
 
-                        }}>
-                          <p>
-                            Whatever you put here will be centered to the middle of the screen.
-                          </p>
-                          <div style={{
-                            display: 'flex',
-                            width: '100%',
-                          }}> 
-                            <button onClick={closeModal}>close</button>
-                            <button onClick={() => handleDelete(item._id)} >Yes, Delete</button>
-                          </div>
-                        </div>
-                      </Modal>
-                    )} */}
                   </tr>
                 ))}
             </tbody>

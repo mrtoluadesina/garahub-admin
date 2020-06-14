@@ -1,35 +1,33 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import Card from "../../Components/Card";
 import Table from "../../Components/Table";
 
 import "./styles.scss";
 
-import { useSelector, useDispatch } from "react-redux";
-import { fetchAllCustomers } from "../../actions/customerActions";
+import { useSelector} from "react-redux";
 
 export default props => {
-  const {customer: {customers}} = useSelector(state => state);
-  const dispatch = useDispatch()
+  const {customer: {customers,loading}} = useSelector(state => state);
 
-  useEffect(()=>{
-    const data = dispatch(fetchAllCustomers())
-    console.log(data)
-  },[])  
 
-  return (
+  const loadingtext = (
+    <>
+    {loading ===true && <p>loading...</p>}
+    </>
+  )
+
+    return (
     <div className="customer-row">
       <div className="container">
         <div className="customer-header">
           <h4 className="customer">Customers</h4>
-          <div className="customerbtn">
-            {/* <OrderButton value="Add customer" /> */}
-          </div>
         </div>
         <Card className="customer-card">
           <div className="all-customer">
             <span>Showing {customers.length} customers</span>
-          </div>
+            </div>
+            {loadingtext}
           <Table>
               <thead className="th-color">
                 <tr>
@@ -40,7 +38,8 @@ export default props => {
                   <th scope="col">Status</th>
                 </tr>
               </thead>
-              <tbody>
+            <tbody>
+
                 {customers.map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>

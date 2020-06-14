@@ -8,7 +8,6 @@ import {formattedDate} from "../../utils/helperFunc";
 import "./index.scss";
 
 import { fetchTransaction } from "../../actions/transactionAction";
-import { useSelector, useDispatch } from "react-redux";
 
 export default (props) => {
 
@@ -19,7 +18,7 @@ export default (props) => {
   const [transact, setTransaction] =  useState([])
   const [query, setQuery] = useState({
     limit: 100, skip: 1
-  }) 
+  })
   const [page, setPage] = useState({
     lower: 0,
     upper: 0
@@ -28,22 +27,51 @@ export default (props) => {
 
   const [tot, setTotal] = useState(0)
 
-  const [nextData, setNextData] = useState(false)
+  const [nextData, setNextData] = useState(false);
+
+  const [errorMsg, setErrorMsg] = useState('No Transaction yet');
+
+  useEffect(() => {
+		fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
+			.then((payload) => {
+				// set transaction to state
+				let newTransact = [...transact, ...payload.data];
+				setTransaction(() => newTransact);
+				setTotal(payload.total);
+				let upper = page.upper;
+				setPage(() => ({
+					...page,
+					upper: ++upper,
+				}));
+			})
+			.catch((err) => {
+				setErrorMsg("Error loading transactions, try again.");
+			});
+	}, []);
 
 
   useEffect(() => {
     if (nextData) {
       fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
-      .then((payload)=> {
-        // set transaction to state
-          let newTransact = [ ...transact, ...payload.data ];
-          setTransaction(()=> newTransact);
-          setTotal(payload.total);
-          let upper = page.upper;
-          let lower =  page.lower
-          setPage(() => ({
-            upper: ++upper, lower: ++lower
-          }));
+        .then((payload) => {
+          if (payload.data) {
+            // set transaction to state
+            console.log('error', payload)
+            let newTransact = [...transact, ...payload.data];
+            setTransaction(() => newTransact);
+            setTotal(payload.total);
+            let upper = page.upper;
+            let lower = page.lower
+            setPage(() => ({
+              upper: ++upper, lower: ++lower
+            }));
+          } else {
+
+          }
+      }).catch((err) => {
+        console.log('error occured')
+        setErrorMsg("Error loading transactions, try again.")
+
     })
     }
   }, [query.skip]);
@@ -52,27 +80,13 @@ export default (props) => {
     let upper = page.upper;
     let lower =  page.lower
     let transacts = transact.filter((trans, index) => {
-      return(index >= lower*limit && index < upper*limit) 
+      return(index >= lower*limit && index < upper*limit)
     })
     setTrans(()=>({
       ...trans, transacts: transacts
     }))
   }, [page.upper])
 
-  useEffect( () => {
-    fetchTransaction(`limit=${query.limit}&skip=${query.skip}`)
-      .then((payload)=> {
-        // set transaction to state
-          let newTransact = [ ...transact, ...payload.data ];
-          setTransaction(()=> newTransact);
-          setTotal(payload.total);
-          let upper = page.upper;
-        setPage(() => ({
-         ...page, upper: ++upper
-        }));
-    
-      })
-  }, []);
 
 
 
@@ -96,7 +110,7 @@ export default (props) => {
     setTrans(()=>({
       ...trans, page: trans.page +1
     }))
-    
+
   }
 
   const prev = () => {
@@ -149,7 +163,7 @@ export default (props) => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6"><p>No Transactions Yet</p></td>
+                    <td colSpan="6"><p>{errorMsg}</p></td>
                   </tr>
                 )}
               </tbody>
