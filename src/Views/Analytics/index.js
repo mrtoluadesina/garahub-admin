@@ -40,12 +40,11 @@ export default (props) => {
 														useEffect(() => {
 															setProductNumber(products.products.length);
 															setDiscountNumber(discounts.discounts.length);
-                              setCustomerNumber(customers.customers.length);
-                              dispatch(fetchAllOrders())
-                              console.log(orders.total);
-														}, []);
+															setCustomerNumber(customers.customers.length);
+															dispatch(fetchAllOrders());
+														},[products.products.length, discounts.discounts.length, customers.customers.length, dispatch]);
 
-														
+
 
 														return (
 															<div className="admin-row">
@@ -65,7 +64,7 @@ export default (props) => {
 																						<p>Products</p>
 																					</div>
 																					<div className="viewImage">
-																						<img src={Product} />
+																						<img src={Product} alt="Product"/>
 																					</div>
 																				</div>
 																			</div>
@@ -79,7 +78,7 @@ export default (props) => {
 																						<p>Orders</p>
 																					</div>
 																					<div className="viewImage">
-																						<img src={Order} />
+																						<img src={Order} alt="Order" />
 																					</div>
 																				</div>
 																			</div>
@@ -96,7 +95,7 @@ export default (props) => {
 																						<p>Discounts</p>
 																					</div>
 																					<div className="viewImage">
-																						<img src={Discount} />
+																						<img src={Discount} alt="discount" />
 																					</div>
 																				</div>
 																			</div>
@@ -109,7 +108,7 @@ export default (props) => {
 																						<p>Customers</p>
 																					</div>
 																					<div className="viewImage">
-																						<img src={Customer} />
+																						<img src={Customer} alt="Customer" />
 																					</div>
 																				</div>
 																			</div>

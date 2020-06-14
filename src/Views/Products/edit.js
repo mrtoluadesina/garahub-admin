@@ -8,14 +8,14 @@ export default function Edit(props) {
     const {id} = useParams();
     const  {products: {productObj}} = useSelector(state=>state)
     const dispatch = useDispatch()
-    
+
     useEffect(()=>{
         dispatch(fetchProduct(id))
-        
-    },[id])
 
-    
-    
+    },[id,dispatch])
+
+
+
     return (
         <div>
             <Add method="edit" object={productObj}/>

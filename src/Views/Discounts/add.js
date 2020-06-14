@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-
-import OrderButton from "../../Components/GenerateButton/index";
 import Dropdown from "../../Components/DiscountDropdown/index";
 import Card from "../../Components/Card";
 import Input from "../../Components/Input";
@@ -43,7 +41,6 @@ const Discount = ({ data, ...props }) => {
   const handleChange = e => {
     let name = e.target.name;
     let value = e.target.value;
-    console.log(formFields)
     if (name === "unit" && value === "NAIRA") {
       setField(() => ({ ...formFields, [name]: value, maxDis: 0 }));
     } else {
@@ -86,49 +83,6 @@ const Discount = ({ data, ...props }) => {
 
   };
 
-  const warning = () => {
-    let id = "button-warning";
-    let fu = '[id="' + id.toString() + '"]';
-    iziToast.show({
-      message: "Please make sure all fields are filled",
-      messageColor: "black",
-      zindex: 20,
-      timeout: 1000,
-      closeOnEscape: true,
-      closeOnClick: true,
-      position: "topRight",
-      transitionIn: "fadeInUp",
-      transitionOut: "fadeOut",
-      transitionInMobile: "fadeInUp",
-      transitionOutMobile: "fadeOutDown",
-      target: fu
-    });
-  };
-
-  function formFilled() {
-    const {
-      disCode: a,
-      discount: b,
-      unit: c,
-      from: d,
-      till: e,
-      minOrder: f,
-      maxDis: g,
-      desc: h
-    } = formFields;
-
-    let result =
-      a &&
-      b &&
-      c &&
-      d &&
-      e &&
-      (f === 0 || f) &&
-      ((c === "PERCENTAGE" && (g === 0 || g)) || c === "NAIRA") &&
-      h;
-
-    return result;
-  }
 
   return (
     <div className="customer-row">
@@ -170,9 +124,6 @@ const Discount = ({ data, ...props }) => {
                 style={{ marginRight: "2rem" }}
               />
               <Dropdown name={"unit"} onChange={handleChange} required>
-                <option selected disabled>
-                  Select Unit
-                </option>
                 <option value="NAIRA">Naira</option>
                 <option value="PERCENTAGE">Percent (%)</option>
               </Dropdown>

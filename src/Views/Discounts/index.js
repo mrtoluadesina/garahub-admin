@@ -1,6 +1,4 @@
 import React, { useEffect} from "react";
-
-import OrderButton from "../../Components/OrderButton/index";
 import Table from "../../Components/Table";
 import Card from "../../Components/Card";
 import {Link} from "react-router-dom"
@@ -14,110 +12,13 @@ import { useSelector, useDispatch } from "react-redux";
 export default (props) => {
 
   const {
-    discounts: { discounts,discountSuccess },
+    discounts: { discounts},
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDiscounts());
-    console.log(discounts.payload);
-    console.log(discountSuccess);
   }, []);
-  // const [discountPage, setDiscountPage] = useState({
-  //   order: [],
-  //   page: 1
-  // })
-  // //const [discounts, setDiscounts] =  useState([])
-  // const [query, setQuery] = useState({
-  //   limit: 100, skip: 1
-  // })
-  // const [page, setPage] = useState({
-  //   lower: 0,
-  //   upper: 0
-  // })
-  // const [limit, setLimit] = useState(20)
-
-  // const [tot, setTotal] = useState(0)
-
-  // const [nextData, setNextData] = useState(false)
-
-  // useEffect(() => {
-  //   if (nextData) {
-  //     fetchDiscount(`limit=${query.limit}&skip=${query.skip}`)
-  //     .then((payload)=> {
-  //       // set order to state
-  //       let newOrder = [ ...discounts, ...payload.data ];
-  //       setDiscounts(()=> newOrder);
-  //       setTotal(payload.total);
-  //       let upper = page.upper;
-  //       let lower =  page.lower
-  //       setPage(() => ({
-  //         upper: ++upper, lower: ++lower
-  //       }));
-  //   })
-  //   }
-  // }, [query.skip]);
-
-  // useEffect(() => {
-  //   let upper = page.upper;
-  //   let lower =  page.lower
-  //   let order = discounts.filter((trans, index) => {
-  //     return(index >= lower*limit && index < upper*limit)
-  //   })
-  //   setDiscountPage(()=>({
-  //     ...discountPage, order: order
-  //   }))
-  // }, [page.upper])
-
-
-  // useEffect(() => {
-  //   fetchDiscount(`limit=${query.limit}&skip=${query.skip}`)
-  //   .then((payload)=> {
-  //     // set discount to state
-  //       let newOrder = [ ...discounts, ...payload.data ];
-  //       setDiscounts(()=> newOrder);
-  //       setTotal(payload.total);
-  //       let upper = page.upper;
-  //     setPage(() => ({
-  //      ...page, upper: ++upper
-  //     }));
-
-  //   })
-  // }, []);
-
-  // const next = () => {
-  //   if ( page.upper*limit >= discounts.length - 1) {
-  //     // make call to fetch the next set
-  //     if (query.skip * limit < tot) {
-  //       setNextData(true)
-  //       setQuery(()=> ({
-  //         ...query, skip: query.skip + 1
-  //       }))
-  //     }
-  //   } else {
-  //     let upper = page.upper;
-  //     let lower =  page.lower
-  //     setPage(() => ({
-  //       upper: ++upper, lower: ++lower
-  //     }));
-  //   }
-  //   setDiscountPage(()=>({
-  //     ...discountPage, page: discountPage.page +1
-  //   }))
-
-  // }
-
-  // const prev = () => {
-  //   let upper = page.upper;
-  //   let lower =  page.lower
-  //   setPage(() => ({
-  //     upper: --upper, lower: --lower
-  //   }));
-  //   setDiscountPage(()=>({
-  //     ...discountPage, page: discountPage.page - 1
-  //   }))
-
-  // }
 
   return (
 		<div className="order-row">
