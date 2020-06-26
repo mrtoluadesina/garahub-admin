@@ -54,32 +54,35 @@ export const fetchACustomer = data =>{
           dispatch(fetchStart(true))
         const res =  await request.get(`/api/v1/user/${data}`)
         const _id = JSON.parse(res.request.response).payload._id
-        
-        
+
+
         let address =[]
         try{
              const addressGet = await request.get(`/api/v1/address/${_id}`)
              //Destructured response to create new properties value and label for React-Select
              address = JSON.parse(addressGet.request.response).payload.map(addr=>{
-                return {...addr, value:addr._id,label:addr.address1}
+               return {
+                 ...addr, value: addr._id, label: addr.address1
+               }
             })
         }
         catch(err){
             address=err.response.data.payload
         }
         finally{
-        
-        dispatch(fetchACustomerSuccess({...JSON.parse(res.request.response).payload,address})) 
-        dispatch(fetchEnd(false)) 
+
+        dispatch(fetchACustomerSuccess({...JSON.parse(res.request.response).payload,address}))
+        dispatch(fetchEnd(false))
         return;
         }
         }
         catch(error){
-            
-            
+
+
             dispatch(fetchACustomerFail(retrieveMessage(error)))
-            dispatch(fetchEnd(false)) 
+            dispatch(fetchEnd(false))
         }
-        
-    }
+
+ 
+   }
 }
