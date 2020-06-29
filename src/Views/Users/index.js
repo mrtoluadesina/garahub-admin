@@ -202,7 +202,7 @@ export default (props) => {
     dispatch(fetchAllUsers());
   }, []);
 
-
+ const adminsDetails = JSON.parse(localStorage.getItem("adminsData"));
 
 	return (
 		<div className="customer-row">
@@ -230,7 +230,8 @@ export default (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{users.map((item, index) => (
+              {adminsDetails.filter(items=>items.isDeleted===false)
+                .map((item, index) => (
 								<tr key={item._id}>
 									<td>{index + 1}</td>
 									<td>

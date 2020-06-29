@@ -124,8 +124,7 @@ export default (props) => {
     }))
 
   }
-
-
+  const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
 
   return (
     <div className="order-row">
