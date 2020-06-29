@@ -32,7 +32,7 @@ export default (props) => {
   const dispatch = useDispatch();
   const {
     category: { categories },
-    products: { success, error, productObj, fetching, updated },
+    products: { success, error, productObj, updated },
     brands: { brands },
   } = useSelector((state) => state);
 

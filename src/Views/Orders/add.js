@@ -17,8 +17,7 @@ export default (props) => {
     customer: { customer, error, loading },
     orders: { orderError, orderSuccess },
   } = useSelector((state) => state);
-  const [uploadSuccess, setSuccess] = useState(false);
-  const [uploadError, setUploadError] = useState(false);
+
   const dispatch = useDispatch();
 
   const [order, createOrder] = useState({
@@ -100,8 +99,7 @@ export default (props) => {
     };
 
     dispatch(createOrders(postOrder));
-    setSuccess(orderError);
-    setUploadError(orderSuccess);
+
     if (orderSuccess) {
       izitoast.show({
         messageColor: "white",
@@ -110,7 +108,6 @@ export default (props) => {
         titleColor: "white",
         timeout: 5000,
         message: `order created Successfully`,
-        onClosed: () => setSuccess(false),
       });
     } else if (orderError) {
       izitoast.show({
@@ -120,7 +117,6 @@ export default (props) => {
         titleColor: "white",
         timeout: 5000,
         message: error,
-        onClosed: () => setUploadError(false),
       });
     }
   };
@@ -137,7 +133,7 @@ export default (props) => {
     let cost = 0;
     order.cartItems.map((element) => {
       cost += element.cost;
-      return;
+      return cost;
     });
     setTotalCost(cost);
     return;

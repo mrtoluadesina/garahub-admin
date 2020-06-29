@@ -35,7 +35,7 @@ export default (props) => {
 	}, []);
 
 
-  const {couponCount, adminCount, orderCount, productCount, customerCount} = dashboardData;
+  const {couponCount,orderCount, productCount, customerCount} = dashboardData;
 
 	return (
 		<div className="admin-row">

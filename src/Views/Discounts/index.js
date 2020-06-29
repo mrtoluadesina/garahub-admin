@@ -7,18 +7,16 @@ import {formattedDate} from "../../utils/helperFunc";
 import "./styles.scss";
 
 import { fetchDiscounts } from "../../actions/discountAction";
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 
 export default (props) => {
 
-  const {
-    discounts: { discounts},
-  } = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDiscounts());
-  }, []);
+  }, [dispatch]);
  const discountDetails = JSON.parse(localStorage.getItem("couponsData"));
   return (
 		<div className="order-row">

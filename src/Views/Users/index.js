@@ -200,7 +200,7 @@ export default (props) => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
+  }, [dispatch]);
 
  const adminsDetails = JSON.parse(localStorage.getItem("adminsData"));
 

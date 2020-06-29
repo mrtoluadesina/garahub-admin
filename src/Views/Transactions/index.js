@@ -5,14 +5,6 @@ import Card from "../../Components/Card";
 import { formattedDate } from "../../utils/helperFunc";
 import "./index.scss";
 import { fetchTransaction } from "../../actions/transactionAction";
-import { useModal } from "react-modal-hook";
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogTitle,
-	DialogContent,
-} from "@material-ui/core";
 import "./modal.scss";
 
 export default (props) => {
@@ -132,22 +124,11 @@ export default (props) => {
 	};
 
 	const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
-	// console.log(transactDetails);
-	const [currentTransact, setCurrentTransact] = useState(0);
+
 	const [transactzz, setTransactzz] = useState([{}]);
 
-	// console.log(transactzz)
-	const [showTransaction, hideTransaction] = useModal(
-		({ in: open, onExited }) => (
-			<Dialog open={open} onExited={onExited} onClose={hideTransaction}>
-				<DialogTitle>Transaction Details </DialogTitle>
-				<DialogContent>{getTransaction.status}</DialogContent>
-				<DialogActions>
-					<Button onClick={hideTransaction}>Close</Button>
-				</DialogActions>
-			</Dialog>
-		)
-	);
+
+
 
 	return (
 		<div className="order-row">
@@ -179,8 +160,6 @@ export default (props) => {
 											<td
 												className="order-item"
 												onClick={() => {
-													console.log("Clicked");
-													setCurrentTransact(item._id);
 													getTransaction = transactDetails.filter(
 														(tras) => tras._id === item._id
 													);
@@ -212,8 +191,8 @@ export default (props) => {
 								)}
 							</tbody>
 						</Table>
-						{transactzz.map((item) => (
-							<div className="modal" id="modal">
+						{transactzz.map((item,index) => (
+							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Transaction Details</h2>
 									<div

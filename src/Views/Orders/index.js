@@ -56,14 +56,14 @@ export default (props) => {
 
   useEffect(() => {
     let upper = page.upper;
-    let lower =  page.lower
+    let lower = page.lower
     let order = orders.filter((trans, index) => {
-      return(index >= lower*limit && index < upper*limit)
+      return (index >= lower * limit && index < upper * limit)
     })
-    setOrderPage(()=>({
+    setOrderPage(() => ({
       ...orderPage, order: order
     }))
-  }, [page.upper])
+  }, [page.upper, limit, orderPage, orders, page.lower]);
 
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default (props) => {
 				console.log("error occured");
 				setErrorMsg("Error loading orders, try again.");
 			});
-  }, []);
+  }, [orders, page,query.limit,query.skip] );
 
   const next = () => {
     if ( page.upper*limit >= orders.length - 1) {
@@ -120,25 +120,6 @@ export default (props) => {
 
   }
 
-    // use modal hooks
-    const { isOpen, openModal, closeModal, Modal } = useModal({
-      background: 'rgba(0, 0, 0, 0.5)', // sets the color of the backdrop, if nothing is set, there will be no backdrop
-      closeOnOutsideClick: true,
-      closeOnEsc: true,
-      isOpen: false,
-      // `event` has all the fields that a normal `event` would have such as `event.target.value`, etc.
-      // with the additional `portal` and `targetEl` added to it as seen in the examples below
-      onOpen: (event) => {
-        // can access: event.portal, event.targetEl, event.event, event.target, etc.
-      },
-      // `onClose` will not have an `event` unless you pass an `event` to `closePortal`
-      onClose({ targetEl, event, portal }) {},
-      // `targetEl` is the element that you either are attaching a `ref` to
-      // or that you are putting `openPortal` or `togglePortal` or `closePortal` on
-
-      // in addition, any event handler such as onClick, onMouseOver, etc will be handled the same
-      onClick({ targetEl, event, portal }) {}
-    })
 
     const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
       <Dialog open={open} onExited={onExited} onClose={hideModal}>

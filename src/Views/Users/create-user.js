@@ -10,11 +10,9 @@ import Select from "react-select";
 export default (props) => {
 
   const {
-    user: { userError, userSuccess }
+    user: {userSuccess }
   } = useSelector((state) => state);
 
-
-  const [error, setError] = useState(false);
 
   const [profile, updateProfile] = useState({
     firstName: "",
@@ -34,7 +32,6 @@ export default (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(createUser(profile));
-    setError(userError);
 
     if (userSuccess === true) {
       izitoast.show({
