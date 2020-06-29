@@ -30,6 +30,7 @@ export default props => {
   const storage = localStorage.getItem("persist:garahub");
   const data = JSON.parse(storage);
   const user = JSON.parse(data.LoginReducer);
+  const prod = JSON.parse(localStorage.getItem("productsData"));
 
   useEffect(()=>{
     dispatch(fetchProducts())
@@ -91,7 +92,7 @@ export default props => {
               </tr>
             </thead>
             <tbody>
-              {products
+              {prod
                 .filter(list => list.isDeleted === false)
                 .map((item, index) => (
                   <tr key={index}>

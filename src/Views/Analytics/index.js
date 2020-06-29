@@ -15,18 +15,21 @@ export default (props) => {
     adminCount: 0,
     orderCount: 0,
     productCount: 0,
-    customerCount: 0 
+    customerCount: 0
   });
 
 	useEffect(() => {
     axios.get(process.env.REACT_APP_BASE_URL + `/api/v1/stats/dashboard`)
       .then(res => {
         const dist = res.data.payload;
-        const {coupons, admins,orders,products:prod,customers:custom} = dist;
+        const {coupons,admins,orders,products:prod,customers:custom,transactions} = dist;
         localStorage.setItem('couponsData', JSON.stringify(coupons));
         localStorage.setItem('productsData', JSON.stringify(prod));
         localStorage.setItem('customersData', JSON.stringify(custom));
         localStorage.setItem('ordersData', JSON.stringify(orders));
+        localStorage.setItem('transactionsData', JSON.stringify(transactions));
+        localStorage.setItem('adminsData', JSON.stringify(admins));
+
         setDashboardData({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
       })
 	}, []);

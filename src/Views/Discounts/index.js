@@ -19,7 +19,7 @@ export default (props) => {
   useEffect(() => {
     dispatch(fetchDiscounts());
   }, []);
-
+ const discountDetails = JSON.parse(localStorage.getItem("couponsData"));
   return (
 		<div className="order-row">
 			<div className="container">
@@ -48,8 +48,8 @@ export default (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{discounts.length > 0 ? (
-									discounts.map((item, index) => (
+								{discountDetails.length > 0 ? (
+									discountDetails.map((item, index) => (
 										<tr key={index}>
 											<td className="color-lgray">{index + 1}</td>
 											<td className="order-item">{item.code}</td>

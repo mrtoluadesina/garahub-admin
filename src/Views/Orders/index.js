@@ -161,6 +161,7 @@ export default (props) => {
       </Dialog>
     ));
 
+  const ordersDetails = JSON.parse(localStorage.getItem("ordersData"));
 
   return (
     <div className="order-row">
@@ -194,7 +195,7 @@ export default (props) => {
                 </tr>
               </thead>
               <tbody>
-                {orders.length > 0 ? (
+                {ordersDetails.length > 0 ? (
                   orderPage.order.map((item, index) => (
                     <tr key={item._id}>
                       <td className="checkbox">{index + 1}</td>

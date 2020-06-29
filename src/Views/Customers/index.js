@@ -17,6 +17,8 @@ export default props => {
     </>
   )
 
+ const customDetails = JSON.parse(localStorage.getItem("customersData"));
+
     return (
     <div className="customer-row">
       <div className="container">
@@ -25,7 +27,7 @@ export default props => {
         </div>
         <Card className="customer-card">
           <div className="all-customer">
-            <span>Showing {customers.length} customers</span>
+            <span>Showing {customDetails.length} customers</span>
             </div>
             {loadingtext}
           <Table>
@@ -39,15 +41,13 @@ export default props => {
                 </tr>
               </thead>
             <tbody>
-
-                {customers.map((item, index) => (
+                {customDetails.map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>
                       <span className="color-dgray customer-padding">{item.firstName} {item.lastName}</span>
                     </td>
                     <td>
-
                       <span className="color-lgray"> {item.email}</span>
                     </td>
                     <td className="color-lgray">{item.phone}</td>
