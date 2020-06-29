@@ -20,109 +20,174 @@ import { Link } from "react-router-dom";
 let itemId;
 
 export default props => {
-  const {
-    products: {products }
-  } = useSelector(state => state);
-  const dispatch = useDispatch();
+													const {
+														products: { products },
+													} = useSelector((state) => state);
+													const dispatch = useDispatch();
 
-  products.filter(item => console.log(item.isDeleted === false));
+													products.filter((item) =>
+														console.log(item.isDeleted === false)
+													);
 
-  const storage = localStorage.getItem("persist:garahub");
-  const data = JSON.parse(storage);
-  const user = JSON.parse(data.LoginReducer);
-  const prod = JSON.parse(localStorage.getItem("productsData"));
+													const storage = localStorage.getItem(
+														"persist:garahub"
+													);
+													const data = JSON.parse(storage);
+													const user = JSON.parse(data.LoginReducer);
+													const prod = JSON.parse(
+														localStorage.getItem("productsData")
+													);
 
-  useEffect(()=>{
-    dispatch(fetchProducts())
-  },[dispatch])
+													// Sort Array by desc Order
+													const sortProd = prod.sort(function (
+														a,
+														b
+													) {
+														let dateA = new Date(a.createdAt);
+														let dateB = new Date(b.createdAt);
+														return dateB - dateA;
+													});
 
-  const auth = {
-    headers: {
-      Authorization: `Bearer ${user.info.token}`
-    }
-  }
+													useEffect(() => {
+														dispatch(fetchProducts());
+													}, [dispatch]);
 
-  const handleEdit = id => {console.log(id)}
+													const auth = {
+														headers: {
+															Authorization: `Bearer ${user.info.token}`,
+														},
+													};
 
-  const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
-    <Dialog open={open} onExited={onExited} onClose={hideModal}>
-      <DialogTitle>Delete User</DialogTitle>
-      <DialogContent>
-        Are you Sure you want to delete this Product?
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={hideModal}>Close</Button>
-        <Button onClick={() => {
-          axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`, auth).then(()=>{
-            window.location.reload();
-          });
-          hideModal();
-       }
-        }>yes</Button>
+													const handleEdit = (id) => {
+														console.log(id);
+													};
 
-      </DialogActions>
-    </Dialog>
-  ));
+													const [showDeleteModal, hideModal] = useModal(
+														({ in: open, onExited }) => (
+															<Dialog
+																open={open}
+																onExited={onExited}
+																onClose={hideModal}
+															>
+																<DialogTitle>Delete User</DialogTitle>
+																<DialogContent>
+																	Are you Sure you want to delete this Product?
+																</DialogContent>
+																<DialogActions>
+																	<Button onClick={hideModal}>Close</Button>
+																	<Button
+																		onClick={() => {
+																			axios
+																				.delete(
+																					`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`,
+																					auth
+																				)
+																				.then(() => {
+																					window.location.reload();
+																				});
+																			hideModal();
+																		}}
+																	>
+																		yes
+																	</Button>
+																</DialogActions>
+															</Dialog>
+														)
+													);
 
-
-
-  return (
-    <div className='product-row'>
-      <div className='container'>
-        <div className='product-header'>
-          <h4 className='product'>Products</h4>
-          <div className='productbtn'>{/* <OrderButton value="Export" /> */}</div>
-        </div>
-        <Card className='product-card'>
-          <div className='all-product'>
-            <ProductTab />
-          </div>
-          <Table>
-            <thead className='th-color'>
-              <tr>
-                <th scope='col'></th>
-                <th scope='col' className='product-chevron'>
-                  Product
-                </th>
-                <th scope='col'>Inventory</th>
-                <th scope='col'>Brand</th>
-                <th scope='col'>Date</th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-              </tr>
-            </thead>
-            <tbody>
-              {prod
-                .filter(list => list.isDeleted === false)
-                .map((item, index) => (
-                  <tr key={index}>
-                    <td className='md-5'>
-                      <div className='product-image'>{item.images ? <img src={item.images[0]} alt='product' /> : <Icon path={item.images[0]} className='product-icon'></Icon>}</div>
-                    </td>
-                    <td className='order-item'>
-                      <Link to={`/dashboard/products/edit/${item._id}`}>{item.name}</Link>{' '}
-                    </td>
-                    <td>
-                      <span className='color-orange'>{item.quantity} </span>
-                    </td>
-                    <td className='color-dgray'>{item.brandName}</td>
-                    <td className='color-dgray date-md'>{formattedDate(item.createdAt)}</td>
-                    <td className='crud edit' onClick={() => handleEdit(item._id)}>
-                      edit
-                    </td>
-                    <td className='crud del' onClick={() =>{
-                      itemId = item._id;
-                      showDeleteModal();
-                    }}>
-                      delete
-                    </td>
-
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        </Card>
-      </div>
-    </div>
-  );
-};
+													return (
+														<div className="product-row">
+															<div className="container">
+																<div className="product-header">
+																	<h4 className="product">Products</h4>
+																	<div className="productbtn">
+																		{/* <OrderButton value="Export" /> */}
+																	</div>
+																</div>
+																<Card className="product-card">
+																	<div className="all-product">
+																		<ProductTab />
+																	</div>
+																	<Table>
+																		<thead className="th-color">
+																			<tr>
+																				<th scope="col"></th>
+																				<th
+																					scope="col"
+																					className="product-chevron"
+																				>
+																					Product
+																				</th>
+																				<th scope="col">Inventory</th>
+																				<th scope="col">Brand</th>
+																				<th scope="col">Date</th>
+																				<th scope="col"></th>
+																				<th scope="col"></th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			{sortProd
+																				.filter(
+																					(list) => list.isDeleted === false
+																				)
+																				.map((item, index) => (
+																					<tr key={index}>
+																						<td className="md-5">
+																							<div className="product-image">
+																								{item.images ? (
+																									<img
+																										src={item.images[0]}
+																										alt="product"
+																									/>
+																								) : (
+																									<Icon
+																										path={item.images[0]}
+																										className="product-icon"
+																									></Icon>
+																								)}
+																							</div>
+																						</td>
+																						<td className="order-item">
+																							<Link
+																								to={`/dashboard/products/edit/${item._id}`}
+																							>
+																								{item.name}
+																							</Link>{" "}
+																						</td>
+																						<td>
+																							<span className="color-orange">
+																								{item.quantity}{" "}
+																							</span>
+																						</td>
+																						<td className="color-dgray">
+																							{item.brandName}
+																						</td>
+																						<td className="color-dgray date-md">
+																							{formattedDate(item.createdAt)}
+																						</td>
+																						<td
+																							className="crud edit"
+																							onClick={() =>
+																								handleEdit(item._id)
+																							}
+																						>
+																							edit
+																						</td>
+																						<td
+																							className="crud del"
+																							onClick={() => {
+																								itemId = item._id;
+																								showDeleteModal();
+																							}}
+																						>
+																							delete
+																						</td>
+																					</tr>
+																				))}
+																		</tbody>
+																	</Table>
+																</Card>
+															</div>
+														</div>
+													);
+												};

@@ -5,14 +5,6 @@ import Card from "../../Components/Card";
 import { formattedDate } from "../../utils/helperFunc";
 import "./index.scss";
 import { fetchTransaction } from "../../actions/transactionAction";
-import { useModal } from "react-modal-hook";
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogTitle,
-	DialogContent,
-} from "@material-ui/core";
 import "./modal.scss";
 
 export default (props) => {
@@ -131,23 +123,16 @@ export default (props) => {
 		}));
 	};
 
-	const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
-	// console.log(transactDetails);
-	const [currentTransact, setCurrentTransact] = useState(0);
-	const [transactzz, setTransactzz] = useState([{}]);
+  const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
 
-	// console.log(transactzz)
-	const [showTransaction, hideTransaction] = useModal(
-		({ in: open, onExited }) => (
-			<Dialog open={open} onExited={onExited} onClose={hideTransaction}>
-				<DialogTitle>Transaction Details </DialogTitle>
-				<DialogContent>{getTransaction.status}</DialogContent>
-				<DialogActions>
-					<Button onClick={hideTransaction}>Close</Button>
-				</DialogActions>
-			</Dialog>
-		)
-	);
+// Sort Array by desc Order
+	const sortTrans = transactDetails.sort(function (a, b) {
+    let dateA = new Date(a.createdAt);
+		let dateB = new Date(b.createdAt);
+		return dateB - dateA;
+	});
+
+	const [transactzz, setTransactzz] = useState([{}]);
 
 	return (
 		<div className="order-row">
@@ -172,15 +157,13 @@ export default (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{transactDetails.length > 0 ? (
-									transactDetails.map((item, index) => (
+								{sortTrans.length > 0 ? (
+									sortTrans.map((item, index) => (
 										<tr key={index}>
 											<td className="checkbox">{index + 1}</td>
 											<td
 												className="order-item"
 												onClick={() => {
-													console.log("Clicked");
-													setCurrentTransact(item._id);
 													getTransaction = transactDetails.filter(
 														(tras) => tras._id === item._id
 													);
@@ -212,8 +195,8 @@ export default (props) => {
 								)}
 							</tbody>
 						</Table>
-						{transactzz.map((item) => (
-							<div className="modal" id="modal">
+						{transactzz.map((item, index) => (
+							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Transaction Details</h2>
 									<div

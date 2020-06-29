@@ -8,7 +8,7 @@ import "./styles.scss";
 import { useSelector} from "react-redux";
 
 export default props => {
-  const {customer: {customers,loading}} = useSelector(state => state);
+  const {customer: {loading}} = useSelector(state => state);
 
 
   const loadingtext = (
