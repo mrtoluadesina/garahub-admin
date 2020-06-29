@@ -123,12 +123,16 @@ export default (props) => {
 		}));
 	};
 
-	const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
+  const transactDetails = JSON.parse(localStorage.getItem("transactionsData"));
+
+// Sort Array by desc Order
+	const sortTrans = transactDetails.sort(function (a, b) {
+    let dateA = new Date(a.createdAt);
+		let dateB = new Date(b.createdAt);
+		return dateB - dateA;
+	});
 
 	const [transactzz, setTransactzz] = useState([{}]);
-
-
-
 
 	return (
 		<div className="order-row">
@@ -153,8 +157,8 @@ export default (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{transactDetails.length > 0 ? (
-									transactDetails.map((item, index) => (
+								{sortTrans.length > 0 ? (
+									sortTrans.map((item, index) => (
 										<tr key={index}>
 											<td className="checkbox">{index + 1}</td>
 											<td
@@ -191,7 +195,7 @@ export default (props) => {
 								)}
 							</tbody>
 						</Table>
-						{transactzz.map((item,index) => (
+						{transactzz.map((item, index) => (
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Transaction Details</h2>
