@@ -47,13 +47,13 @@ export default function Index(props) {
       })
       .catch((error) => {
         dispatch(authFail(retrieveMessage(error)));
-        izitoast.show({
-          messageColor: "white",
-          backgroundColor: "red",
-          titleColor: "white",
-          timeout: 5000,
-          message: error.response && error.response.data.message,
-        });
+        // izitoast.show({
+        //   messageColor: "white",
+        //   backgroundColor: "red",
+        //   titleColor: "white",
+        //   timeout: 5000,
+        //   message: error.response && error.response.data.message,
+        // });
       })
       .finally(() => {
         dispatch(authEnd(false));
