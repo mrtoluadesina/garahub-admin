@@ -6,6 +6,7 @@ import Card from '../../Components/Card';
 import Table from '../../Components/Table';
 import { fetchOrder, promoteOrder } from '../../actions/orderAction';
 import './index.scss';
+import "./orderModal.scss";
 import { formattedDate } from '../../utils/helperFunc';
 
 export default props => {
@@ -161,98 +162,161 @@ export default props => {
   });
 
   return (
-    <div className='order-row'>
-      <div className='container'>
-        <div className='order-header'>
-          <h4 className='order'>Orders</h4>
-          <div className='orderBtn'>
-            <Link
-              to='/dashboard/orders/create-order'
-              className='redSolidBtn'
-              style={{
-                height: 100,
-                width: 50,
-                padding: 10,
-                borderRadius: 3,
-              }}
-            >
-              Create Order
-            </Link>
-          </div>
-        </div>
-        <ul className='order-ul'></ul>
-        <Card className='order-card'>
-          <div>
-            <Table>
-              <thead className='th-color'>
-                <tr>
-                  <th scope='col'>S/N</th>
-                  <th scope='col'>Date</th>
-                  <th scope='col'>Customer</th>
-                  <th scope='col'>Payment</th>
-                  <th scope='col'>Fulfilment</th>
-                  <th scope='col'>Total</th>
-                  <th scope='col'>State</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortOrder.length > 0 ? (
-                  sortOrder.map((item, index) => (
-                    <tr key={item._id}>
-                      <td className='checkbox'>{index + 1}</td>
-                      <td className='color-lgray'>{formattedDate(item.createdAt)}</td>
-                      <td className='color-lgray'>{item.userId ? item.userId.firstName + ' ' + item.userId.lastName : 'User'}</td>
-                      <td className='Payment'>
-                        {item.payment === 'Paid' ? (
-                          <div className='paid'>
-                            <div className='paid-circle'></div>
-                            Paid
-                          </div>
-                        ) : (
-                          <div className='pending'>
-                            <div className='pending-circle'></div>
-                            Pending
-                          </div>
-                        )}
-                      </td>
-                      <td className='Fulfilment'>
-                        {item.fulfilment === 'Fulfilled' ? (
-                          <div className='fulfilled'>
-                            <div className='fulfilled-circle'></div>
-                            Fulfilled
-                          </div>
-                        ) : (
-                          <div className='unfulfilled'>
-                            <div className='unfulfilled-circle'></div>
-                            Unfulfilled
-                          </div>
-                        )}
-                      </td>
-                      <td className='color-dgray'>{item.amount / 100}</td>
-                      <td className='action' onClick={showDeleteModal}>
-                        {item.status}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td>{errorMsg}</td>
-                  </tr>
-                )}
-              </tbody>
-            </Table>
-            <div>
-              <button className='paginate' onClick={prev} disabled={orderPage.page < 2}>
-                {'<'}
-              </button>
-              <span>{orderPage.page}</span>
-              <button className='paginate' onClick={next} disabled={orderPage.page * limit >= tot}>
-                {'>'}
-              </button>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </div>
-  );
+		<div className="order-row">
+			<div className="container">
+				<div className="order-header">
+					<h4 className="order">Orders</h4>
+					<div className="orderBtn">
+						<Link
+							to="/dashboard/orders/create-order"
+							className="redSolidBtn"
+							style={{
+								height: 100,
+								width: 50,
+								padding: 10,
+								borderRadius: 3,
+							}}
+						>
+							Create Order
+						</Link>
+					</div>
+				</div>
+				<ul className="order-ul"></ul>
+				<Card className="order-card">
+					<div>
+						<Table>
+							<thead className="th-color">
+								<tr>
+									<th scope="col">S/N</th>
+									<th scope="col">ID</th>
+									<th scope="col">Date</th>
+									<th scope="col">Customer</th>
+									<th scope="col">Payment</th>
+									<th scope="col">Fulfilment</th>
+									<th scope="col">Total</th>
+									<th scope="col">State</th>
+								</tr>
+							</thead>
+							<tbody>
+								{sortOrder.length > 0 ? (
+									sortOrder.map((item, index) => (
+										<tr key={item._id}>
+											<td className="checkbox">{index + 1}</td>
+											<td className="color-lgray">
+												<a href="#modal" style={{ color: "blue" }}>
+													{item._id}
+												</a>
+											</td>
+											<td className="color-lgray">
+												{formattedDate(item.createdAt)}
+											</td>
+											<td className="color-lgray">
+												{item.userId
+													? item.userId.firstName + " " + item.userId.lastName
+													: "User"}
+											</td>
+											<td className="Payment">
+												{item.payment === "Paid" ? (
+													<div className="paid">
+														<div className="paid-circle"></div>
+														Paid
+													</div>
+												) : (
+													<div className="pending">
+														<div className="pending-circle"></div>
+														Pending
+													</div>
+												)}
+											</td>
+											<td className="Fulfilment">
+												{item.fulfilment === "Fulfilled" ? (
+													<div className="fulfilled">
+														<div className="fulfilled-circle"></div>
+														Fulfilled
+													</div>
+												) : (
+													<div className="unfulfilled">
+														<div className="unfulfilled-circle"></div>
+														Unfulfilled
+													</div>
+												)}
+											</td>
+											<td className="color-dgray">{item.amount / 100}</td>
+											<td className="action" onClick={showDeleteModal}>
+												{item.status}
+											</td>
+										</tr>
+									))
+								) : (
+									<tr>
+										<td>{errorMsg}</td>
+									</tr>
+								)}
+							</tbody>
+						</Table>{" "}
+						
+
+						<div>
+							<button
+								className="paginate"
+								onClick={prev}
+								disabled={orderPage.page < 2}
+							>
+								{"<"}
+							</button>
+							<span>{orderPage.page}</span>
+							<button
+								className="paginate"
+								onClick={next}
+								disabled={orderPage.page * limit >= tot}
+							>
+								{">"}
+							</button>
+						</div>
+					</div>
+				</Card>
+        {sortOrder.map((item, index) => (
+							<div key={index} className="modal" id="modal">
+								<div className="modal-container">
+									<h2>Orders Details</h2>
+									<div
+										style={{
+											marginTop: "2rem",
+										}}
+									>
+										<p style={{ lineHeight: "2rem" }}>
+											 Id: {item._id}
+										</p>
+                    	<p style={{ lineHeight: "2rem" }}>
+											Created At: {item && formattedDate(item.createdAt)}
+                    </p>
+										<p style={{ lineHeight: "2rem" }}>
+											Updated At: {item && formattedDate(item.updatedAt)}
+                    </p>
+
+										<p style={{ lineHeight: "2rem" }}>Status:{item.status}</p>
+										<p style={{ lineHeight: "2rem" }}>
+											Quantity:{item.quantity || "null"}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											Amount: {item.amount}
+										</p>
+										
+									</div>
+
+									<div
+										style={{
+											marginTop: "2rem",
+											color: "red",
+											textDecoration: "underline",
+										}}
+									>
+										<a href="#modal-close">Close</a>
+									</div>
+								</div>
+							</div>
+						))}
+			</div>
+		</div>
+	);
 };
