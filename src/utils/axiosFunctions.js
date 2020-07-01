@@ -32,6 +32,24 @@ export const postCoupon = (data, auth) => {
 
   return resp;
 };
+export const updateCoupon = (data, auth) => {
+  const url = " https://jarahub-staging.herokuapp.com/api/v1/coupon";
+  const resp = axios({
+    url,
+    data,
+    headers: { Authorization: `Bearer ${auth}` },
+    method:"put"
+  })
+    .then(response => {
+      
+      return response;
+    })
+    .catch(error => {
+      return error;
+    });
+
+  return resp;
+};
 
 export const getStats = (range) => {
   const url =
