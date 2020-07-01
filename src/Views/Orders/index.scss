@@ -136,7 +136,7 @@
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
     }
-    
+
       .savebtn {
         border: 1px solid #ccc;
         margin-left: 1rem;
@@ -153,6 +153,22 @@
       }
     }
 
-    
+
   }
 }
+
+.statusBtn{
+  height:2rem;
+  width:5rem;
+  padding:0.2rem;
+  color:white;
+  background:#00315E;
+  border:none;
+  border-radius:5px;
+
+  img{
+    width:auto;
+    height:100%;
+  }
+}
+
