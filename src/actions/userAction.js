@@ -7,9 +7,9 @@ import {
 	CREATE_USER_FAIL,
 	CREATE_USER_START,
   CREATE_USER_SUCCESS,
-  EDIT_USER_SUCCESS,
+  // EDIT_USER_SUCCESS,
   EDIT_USER_FAIL,
-  DELETE_USER_SUCCESS,
+  // DELETE_USER_SUCCESS,
   DELETE_USER_FAIL
 } from "./types";
 import request from "../request";
@@ -47,10 +47,10 @@ const createUserFail = (payload) => ({
 	type: CREATE_USER_FAIL,
 	payload,
 });
-const editUserSuccess = (payload) => ({
-  type: EDIT_USER_SUCCESS,
-  payload,
-});
+// const editUserSuccess = (payload) => ({
+//   type: EDIT_USER_SUCCESS,
+//   payload,
+// });
 const editUserFail = (payload) => ({
 	type: EDIT_USER_FAIL,
 	payload,
@@ -59,10 +59,10 @@ const deleteUserFail = (payload) => ({
 	type: DELETE_USER_FAIL,
 	payload,
 });
-const deleteUserSuccess = (payload) => ({
-	type: DELETE_USER_SUCCESS,
-	payload,
-});
+// const deleteUserSuccess = (payload) => ({
+// 	type: DELETE_USER_SUCCESS,
+// 	payload,
+// });
 
 
 
@@ -113,8 +113,13 @@ export const editUser = (data,id) => {
 export const deleteUser = (id) => {
 	return async (dispatch) => {
 		try {
-      const res = await request.delete(`/api/v1/admin/${id}`);
-			dispatch(deleteUserSuccess(res.data.payload));
+			const res = await request.delete(`/api/v1/admin/${id}`);
+			// get users data from localstorage
+			const value = JSON.parse(localStorage.getItem('adminsData')).filter(user => user._id !== res.data.payload._id);
+			// save back to localstorage
+			localStorage.setItem('adminsData', JSON.stringify(value))
+			//update redux
+			dispatch(fetchUsersSuccess(value));
 		} catch (err) {
 			dispatch(deleteUserFail(retrieveMessage(err)));
 		}
