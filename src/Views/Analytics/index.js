@@ -11,11 +11,11 @@ import axios from "axios";
 
 export default (props) => {
   const [dashboardData, setDashboardData] = useState({
-    couponCount: 	JSON.parse(localStorage.getItem('couponsData')).length || 0,
-    adminCount: JSON.parse(localStorage.getItem('adminsData')).length || 0,
-    orderCount: JSON.parse(localStorage.getItem('ordersData')).length || 0,
-    productCount: JSON.parse(localStorage.getItem('productsData')).length || 0,
-    customerCount: JSON.parse(localStorage.getItem('customersData')).length || 0
+    couponCount: 	JSON.parse(localStorage.getItem('couponsData'))? JSON.parse(localStorage.getItem('couponsData')).length : 0,
+    adminCount: JSON.parse(localStorage.getItem('adminsData'))? JSON.parse(localStorage.getItem('adminsData')).length : 0,
+    orderCount: JSON.parse(localStorage.getItem('ordersData'))? JSON.parse(localStorage.getItem('ordersData')).length : 0,
+    productCount: JSON.parse(localStorage.getItem('productsData'))? JSON.parse(localStorage.getItem('productsData')).length : 0,
+    customerCount: JSON.parse(localStorage.getItem('customersData'))? JSON.parse(localStorage.getItem('customersData')).length : 0
 	});
 
 	useEffect(() => {
