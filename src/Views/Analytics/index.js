@@ -11,31 +11,35 @@ import axios from "axios";
 
 export default (props) => {
   const [dashboardData, setDashboardData] = useState({
-    couponCount: 0,
-    adminCount: 0,
-    orderCount: 0,
-    productCount: 0,
-    customerCount: 0
-  });
+    couponCount: 	JSON.parse(localStorage.getItem('couponsData')).length || 0,
+    adminCount: JSON.parse(localStorage.getItem('adminsData')).length || 0,
+    orderCount: JSON.parse(localStorage.getItem('ordersData')).length || 0,
+    productCount: JSON.parse(localStorage.getItem('productsData')).length || 0,
+    customerCount: JSON.parse(localStorage.getItem('customersData')).length || 0
+	});
 
 	useEffect(() => {
-    axios.get(process.env.REACT_APP_BASE_URL + `/api/v1/stats/dashboard`)
-      .then(res => {
-        const dist = res.data.payload;
-        const {coupons,admins,orders,products:prod,customers:custom,transactions} = dist;
-        localStorage.setItem('couponsData', JSON.stringify(coupons));
-        localStorage.setItem('productsData', JSON.stringify(prod));
-        localStorage.setItem('customersData', JSON.stringify(custom));
-        localStorage.setItem('ordersData', JSON.stringify(orders));
-        localStorage.setItem('transactionsData', JSON.stringify(transactions));
-        localStorage.setItem('adminsData', JSON.stringify(admins));
-
-        setDashboardData({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
-      })
+		axios.get(process.env.REACT_APP_BASE_URL + `/api/v1/stats/dashboard`)
+				 .then(res => {
+					 const dist = res.data.payload;
+					 const {coupons,admins,orders,products:prod,customers:custom,transactions} = dist;
+					 localStorage.setItem('couponsData', JSON.stringify(coupons));
+					 localStorage.setItem('productsData', JSON.stringify(prod));
+					 localStorage.setItem('customersData', JSON.stringify(custom));
+					 localStorage.setItem('ordersData', JSON.stringify(orders));
+					 localStorage.setItem('transactionsData', JSON.stringify(transactions));
+					 localStorage.setItem('adminsData', JSON.stringify(admins));
+					 console.log({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
+	 
+					 setDashboardData({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
+				 })
+   
 	}, []);
 
 
-  const {couponCount,orderCount, productCount, customerCount} = dashboardData;
+	const {couponCount,orderCount, productCount, customerCount} = dashboardData;
+	
+	console.log(dashboardData)
 
 	return (
 		<div className="admin-row">

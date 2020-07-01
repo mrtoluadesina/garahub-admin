@@ -213,6 +213,37 @@ export default (props) => {
 										</p>
 										<p style={{ lineHeight: "2rem" }}>
 											Amount Paid: {item.paidAmount}
+                    </p>
+                    <p style={{ lineHeight: "2rem" }}>
+										Charged Amount : {item.user && item.user.chargedAmount}
+                    </p>
+										<p style={{ lineHeight: "2rem" }}>
+											Customer ID: {item.user && item.user._id}
+                    </p>
+										<p style={{ lineHeight: "2rem" }}>
+											Created At: {item.user && formattedDate(item.user.createdAt)}
+                    </p>
+										<p style={{ lineHeight: "2rem" }}>
+											Updated At: {item.user && formattedDate(item.user.updatedAt)}
+                    </p>
+										<p style={{ lineHeight: "2rem" }}>
+											FirstName: {item.user && item.user.firstName}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											LastName: {item.user && item.user.lastName}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											Domain: {(item.user && item.user.domain) || "null"}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											isActive: {(item.user && item.user.isActive.toString() ) || "null"}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											isVerified:{" "}
+											{(item.user && item.user.isVerified.toString() ) || "null"}
+										</p>
+										<p style={{ lineHeight: "2rem" }}>
+											isGuest: {(item.user && item.user.isGuest.toString() ) || "null"}
 										</p>
 									</div>
 

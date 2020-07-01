@@ -257,7 +257,6 @@ export default (props) => {
                           backgroundColor: "Red",
                           titleColor: "white",
                           timeout: 3000,
-                          position: "center",
                           message: "Super Admin Cannot be Edited ",
                         });
                         return;
@@ -276,7 +275,6 @@ export default (props) => {
 													backgroundColor: "Red",
 													titleColor: "white",
 													timeout: 3000,
-													position: "center",
 													message: "Super Admin Cannot be Deleted ",
 												});
                         return;
