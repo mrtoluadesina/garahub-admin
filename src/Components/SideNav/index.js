@@ -64,7 +64,9 @@ export default function ({ props }) {
 							{item.subNav.length > 0 && (
 								<ul
                   style={{
-                    color:"white",
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize:'20px',
 										marginTop: "0.5rem",
 										paddingLeft: "1.3rem",
 									}}
