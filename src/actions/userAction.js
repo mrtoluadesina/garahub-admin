@@ -98,7 +98,12 @@ export const editUser = (data,id) => {
 	return async (dispatch) => {
 		try {
 			const res = await request.put(`/api/v1/admin/${id}`,data);
-			dispatch(editUserSuccess(res.data.payload));
+			// get users data from localstorage
+			const value = JSON.parse(localStorage.getItem('adminsData')).map(user => user._id === res.data.payload._id?  res.data.payload : user);
+			// save back to localstorage
+			localStorage.setItem('adminsData', JSON.stringify(value))
+			//update redux
+			dispatch(fetchUsersSuccess(value));
 		} catch (err) {
 			dispatch(editUserFail(retrieveMessage(err)));
 		}
