@@ -1,6 +1,5 @@
 import axios from "axios"
 export const retrieveMessage = err => {
-  console.log({'inside': err.message})
   if (err.response && err.response.data) {
     return err.response.data.message || err.response.data.error;
   } else if (err.message) {
