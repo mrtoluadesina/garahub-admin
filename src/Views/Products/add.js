@@ -254,7 +254,7 @@ export default (props) => {
         </div>
         <div className="form-group">
           <label htmlFor={`price${index}`}>Price</label>
-          <Input
+          <Input 
             type="number"
             name={`price${index}`}
             onChange={handleEditPricingChange}
@@ -299,6 +299,8 @@ export default (props) => {
               required
             />
           </div>
+            {/* shows only on added price tags */}
+          {index> 0 && <span onClick={removePriceFunc}>Remove</span>} 
         </div>
       );
     }
@@ -309,6 +311,10 @@ export default (props) => {
   const addPriceFunc = (e) => {
     e.preventDefault();
     setPricingCount((previousValue) => (previousValue += 1));
+  };
+  const removePriceFunc = (e) => {
+    e.preventDefault();
+    setPricingCount((previousValue) => (previousValue -= 1));
   };
 
   return (
