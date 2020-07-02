@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "@mdi/react";
 // import useModal from 'use-react-modal'
 import { useModal } from "react-modal-hook";
@@ -18,6 +18,7 @@ import { fetchProducts } from "../../actions/productAction";
 import { Link } from "react-router-dom";
 
 let itemId;
+let productName;
 
 export default props => {
 													const {
@@ -39,7 +40,7 @@ export default props => {
 													);
 
 													// Sort Array by desc Order
-													const sortProd = prod.sort(function (
+													let sortProd = prod.sort(function (
 														a,
 														b
 													) {
@@ -48,6 +49,7 @@ export default props => {
 														return dateB - dateA;
 													});
 
+													const [prods, setProds] = useState(sortProd);
 													useEffect(() => {
 														dispatch(fetchProducts());
 													}, [dispatch]);
@@ -69,9 +71,9 @@ export default props => {
 																onExited={onExited}
 																onClose={hideModal}
 															>
-																<DialogTitle>Delete User</DialogTitle>
+																<DialogTitle>Delete Product</DialogTitle>
 																<DialogContent>
-																	Are you Sure you want to delete this Product?
+																	Are you Sure you want to delete this { productName }?
 																</DialogContent>
 																<DialogActions>
 																	<Button onClick={hideModal}>Close</Button>
@@ -82,10 +84,21 @@ export default props => {
 																					`${process.env.REACT_APP_BASE_URL}/api/v1/product/${itemId}`,
 																					auth
 																				)
-																				.then(() => {
-																					window.location.reload();
+																				.then(({data}) => {
+																					// get product data from localstorage
+																					const value = JSON.parse(localStorage.getItem('productsData')).filter(product => product._id !== data.payload._id);
+																					// save back to localstorage
+																					localStorage.setItem('productsData', JSON.stringify(value));
+																					sortProd = value.sort(function (a,b) {
+																						let dateA = new Date(a.createdAt);
+																						let dateB = new Date(b.createdAt);
+																						return dateB - dateA;
+																					});
+																					setProds(()=> sortProd)
+
 																				});
 																			hideModal();
+
 																		}}
 																	>
 																		yes
@@ -126,7 +139,7 @@ export default props => {
 																			</tr>
 																		</thead>
 																		<tbody>
-																			{sortProd
+																			{prods
 																				.filter(
 																					(list) => list.isDeleted === false
 																				)
@@ -177,6 +190,7 @@ export default props => {
 																							className="crud del"
 																							onClick={() => {
 																								itemId = item._id;
+																								productName = item.name
 																								showDeleteModal();
 																							}}
 																						>
