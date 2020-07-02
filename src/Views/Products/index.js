@@ -85,7 +85,7 @@ export default props => {
 																					auth
 																				)
 																				.then(({data}) => {
-																					// get users data from localstorage
+																					// get product data from localstorage
 																					const value = JSON.parse(localStorage.getItem('productsData')).filter(product => product._id !== data.payload._id);
 																					// save back to localstorage
 																					localStorage.setItem('productsData', JSON.stringify(value));
