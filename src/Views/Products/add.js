@@ -104,7 +104,7 @@ export default (props) => {
       const editImages = imagesPrepared(object.images);
       createImages({ ...images, ...editImages });
     }
-  }, [categories, dispatch, images, method, object.categoryId, object.description, object.images, object.name, object.price, object.quantity, object.sku, product]);
+  }, []);
 
   const handlePricingChange = ({ target }) => {
     let name = target.name;
