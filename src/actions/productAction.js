@@ -4,10 +4,10 @@ import {
   FETCH_PRODUCT_START,
   FETCH_PRODUCT_SUCCESS,
   FETCH_A_PRODUCT_SUCCESS,
-  CREATE_PRODUCT_END,
-  CREATE_PRODUCT_FAIL,
-  CREATE_PRODUCT_START,
-  CREATE_PRODUCT_SUCCESS,
+  // CREATE_PRODUCT_END,
+  // CREATE_PRODUCT_FAIL,
+  // CREATE_PRODUCT_START,
+  // CREATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_END,
   UPDATE_PRODUCT_FAIL,
   UPDATE_PRODUCT_START,
@@ -20,9 +20,10 @@ const fetchStart = payload => ({
   type: FETCH_PRODUCT_START,
   payload
 });
-const fetchSuccess = payload => ({
+const fetchSuccess = (payload, payload1) => ({
   type: FETCH_PRODUCT_SUCCESS,
-  payload
+  payload,
+  payload1
 });
 const fetchASuccess = payload => ({
   type: FETCH_A_PRODUCT_SUCCESS,
@@ -37,22 +38,22 @@ const fetchEnd = payload => ({
   payload
 });
 
-const createProductStart = payload =>({
-    type: CREATE_PRODUCT_START,
-    payload
-})
-const createProductEnd = payload =>({
-    type: CREATE_PRODUCT_END,
-    payload
-})
-const createProductSuccess = payload =>({
-    type: CREATE_PRODUCT_SUCCESS,
-    payload
-})
-const createProductFail = payload =>({
-    type: CREATE_PRODUCT_FAIL,
-    payload
-})
+// const createProductStart = payload =>({
+//     type: CREATE_PRODUCT_START,
+//     payload
+// })
+// const createProductEnd = payload =>({
+//     type: CREATE_PRODUCT_END,
+//     payload
+// })
+// const createProductSuccess = payload =>({
+//     type: CREATE_PRODUCT_SUCCESS,
+//     payload
+// })
+// const createProductFail = payload =>({
+//     type: CREATE_PRODUCT_FAIL,
+//     payload
+// })
 const updateProductStart = payload =>({
   type: UPDATE_PRODUCT_START,
   payload
@@ -99,20 +100,31 @@ export const fetchProduct = id => {
 };
 
 
-export const createPoductActions = data => {
-  return async dispatch => {
-    try{
-      dispatch(createProductStart(true))
-      const res = await request.post("/api/v1/product",data)      
-      dispatch(createProductSuccess(res.data.payload))
-      dispatch(createProductEnd(false))
-    }
-    catch(err){
-      dispatch(createProductFail(retrieveMessage(err)));
-      dispatch(createProductEnd(false));
-    }
+export const createPoductActions = async data => {
+      // dispatch(createProductStart(true))
+      const res = await request.post("/api/v1/product",data)  
+      if (res.data.statusCode >= 400) {
+        throw new Error(res.data.message)
+      }
+			// get users data from localstorage
+      const value = JSON.parse(localStorage.getItem('productsData'))
+      value.push(res.data.payload);
+      console.log(res.data)
+			// save back to localstorage
+      localStorage.setItem('productsData', JSON.stringify(value))
+      
+      return res.data.payload;
+      //update redux
+      // dispatch(fetchSuccess(value, res.data.payload));
+      // dispatch(createProductSuccess(res.data.payload))
+      // dispatch(createProductEnd(false))
+    // }
+    // catch(err){
+    //   // dispatch(fetchFail(retrieveMessage(err)));
+    //   // dispatch(createProductEnd(false));
+    // }
 
-  };
+  
 };
 
 export const updatePoductActions = (id,data) => {

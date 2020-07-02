@@ -39,19 +39,22 @@ export default function products(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
+        productObj: action.payload1,
         error: ""
       };
     case FETCH_A_PRODUCT_SUCCESS:
       return {
         ...state,
         productObj: action.payload,
-        error: ""
+        error: "",
+        success: true
       };
     case FETCH_PRODUCT_FAIL:
       return {
         ...state,
         error: action.payload,
-        products: []
+        products: [],
+
       };
     case CREATE_PRODUCT_END:
       return {
