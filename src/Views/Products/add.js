@@ -25,14 +25,14 @@ import { fetchAllBrands } from "../../actions/brandsAction";
 
 export default (props) => {
   const { method, object = { categoryId: [] } } = props;
-  const [uploadSuccess, setSuccess] = useState(false);
-  const [updateError, setUpdateError] = useState(false);
+  // const [uploadSuccess, setSuccess] = useState(false);
+  // const [updateError, setUpdateError] = useState(false);
   const [btnLoading, setBtnloading] = useState(false);
 
   const dispatch = useDispatch();
   const {
     category: { categories },
-    products: { success, error, productObj, updated },
+    // products: { success, error, productObj, updated },
     brands: { brands },
   } = useSelector((state) => state);
 
@@ -42,7 +42,7 @@ export default (props) => {
 
   let [pricingCount, setPricingCount] = useState(1);
 
-  let [listOfPrices] = useState(
+  let [listOfPrices, setPriceList] = useState(
     method === "edit" ? priceArray(object.price) : []
   );
 
@@ -87,6 +87,7 @@ export default (props) => {
             //setListOfArray(()=> [ ...listOfArray,categories[index]])
             return index;
           }
+          return null;
         });
         return cate;
       });
@@ -103,7 +104,7 @@ export default (props) => {
       const editImages = imagesPrepared(object.images);
       createImages({ ...images, ...editImages });
     }
-  }, [success]);
+  }, [categories, dispatch, images, method, object.categoryId, object.description, object.images, object.name, object.price, object.quantity, object.sku, product]);
 
   const handlePricingChange = ({ target }) => {
     let name = target.name;
@@ -154,12 +155,8 @@ export default (props) => {
       );
       imagesArray = await uploadImage(Object.values(refinedList));
       editPricing = pricePrepared(listOfPrices);
-      setSuccess(updated);
-      setUpdateError(error);
     } else {
       imagesArray = await uploadImage(Object.values(images));
-      setSuccess(success);
-      setUpdateError(error);
     }
 
     let categoryId = product.categories.map((category) => category.value);
@@ -180,41 +177,62 @@ export default (props) => {
     };
     //
     if (method !== "edit") {
-      dispatch(createPoductActions(data));
+      createPoductActions(data).then((productObj)=>{
 
-      setSuccess(true);
-      // undo disable
-      docs.setAttribute("disabled", "false");
-      // set loading to false
-      setBtnloading(false);
+        // setSuccess(true);
+        // undo disable
+        // set loading to false
+        createProduct({
+          // ...product,
+          name: "",
+          description: "",
+          quantity: "",
+          categories: [],
+          price: 0,
+          sku: "",
+          slug: "",
+          brandId: ""
+        });
+        createImages({})
+        setPriceList([])
+          izitoast.show({
+            messageColor: "white",
+            title: method === "edit" ? "Product Updated" : "Product Added",
+            backgroundColor: "#00FF00",
+            titleColor: "white",
+            timeout: 5000,
+            message:
+              method === "edit"
+                ? `Product ${productObj.name} successfully Updated`
+                : `Product ${productObj.name} successfully Added`,
+            onClosed: () => {},
+          });
+  
+    
+      }).catch((error)=>{
+        if (error) {
+          izitoast.show({
+            messageColor: "white",
+            title: "product Save",
+            backgroundColor: "red",
+            titleColor: "white",
+            timeout: 5000,
+            message: error.message,
+            onClosed: () => {},
+          });
+        }
+      }).finally(()=>{
+        setBtnloading(false);
 
-      if (uploadSuccess) {
-        izitoast.show({
-          messageColor: "white",
-          title: method === "edit" ? "Product Updated" : "Product Added",
-          backgroundColor: "#00FF00",
-          titleColor: "white",
-          timeout: 5000,
-          message:
-            method === "edit"
-              ? `Product ${productObj.name} successfully Updated`
-              : `Product ${productObj.name} successfully Added`,
-          onClosed: () => setSuccess(false),
-        });
-      } else if (updateError) {
-        izitoast.show({
-          messageColor: "white",
-          title: "product Save",
-          backgroundColor: "red",
-          titleColor: "white",
-          timeout: 5000,
-          message: error,
-          onClosed: () => setUpdateError(false),
-        });
-      }
+      })
+
+
+
+
     } else {
       dispatch(updatePoductActions(object._id, data));
     }
+    docs.removeAttribute('disabled')
   };
   const handleEditPricingChange = ({ target }) => {
     let name = target.name;
