@@ -109,7 +109,6 @@ export const createPoductActions = async data => {
 			// get users data from localstorage
       const value = JSON.parse(localStorage.getItem('productsData'))
       value.push(res.data.payload);
-      console.log(res.data)
 			// save back to localstorage
       localStorage.setItem('productsData', JSON.stringify(value))
       
@@ -127,18 +126,17 @@ export const createPoductActions = async data => {
   
 };
 
-export const updatePoductActions = (id,data) => {
-  return async dispatch => {
-    try{
-      dispatch(updateProductStart(true))
-      const res = await request.put(`/api/v1/product/${id}`,data)      
-      dispatch(updateProductSuccess(res.data.payload))
-      dispatch(updateProductEnd(false))
-    }
-    catch(err){
-      dispatch(updateProductFail(retrieveMessage(err)));
-      dispatch(updateProductEnd(false));
-    }
+export const updatePoductActions = async (id,data) => {
+      const res = await request.put(`/api/v1/product/${id}`,data)  
+      if (res.data.statusCode >= 400) {
+        throw new Error(res.data.message)
+      }
+			// get users data from localstorage
+      const value = JSON.parse(localStorage.getItem('productsData')).map(item => item._id === res.data.payload._id ? res.data.payload: item)
+			// save back to localstorage
+      localStorage.setItem('productsData', JSON.stringify(value))
+      
+      return res.data.payload;
 
-  };
+
 };
