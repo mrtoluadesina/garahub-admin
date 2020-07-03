@@ -17,6 +17,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../actions/productAction";
 import { Link } from "react-router-dom";
 
+import Add from "./add"
+
+
 let itemId;
 let productName;
 
@@ -49,10 +52,11 @@ export default props => {
 														return dateB - dateA;
 													});
 
+													const [update, setUpdate] = useState(false)
 													const [prods, setProds] = useState(sortProd);
 													useEffect(() => {
-														dispatch(fetchProducts());
-													}, [dispatch]);
+														
+													}, [prods]);
 
 													const auth = {
 														headers: {
@@ -107,6 +111,20 @@ export default props => {
 															</Dialog>
 														)
 													);
+
+													// edit discount
+	const [showEditModal, hideEditModal] = useModal(({ in: open, onExited }) => (
+		<Dialog open={open} onExited={onExited} onClose={hideEditModal}>
+			<DialogTitle>Edit Product</DialogTitle>
+			<DialogContent>
+				<Add method="edit" object={prods.find(prod => prod._id === itemId)} closeModal={hideEditModal} updater={[update,setUpdate]}/>
+				 {/* <EditForm discounts={discountDetails.find(discount => discount._id === discountId)}/> */}
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={hideEditModal}>Close</Button>
+			</DialogActions>
+		</Dialog>
+ ));
 
 													return (
 														<div className="product-row">
@@ -180,8 +198,10 @@ export default props => {
 																						</td>
 																						<td
 																							className="crud edit"
-																							onClick={() =>
-																								handleEdit(item._id)
+																							onClick={() =>{
+																								itemId = item._id;
+																								showEditModal()
+																							}
 																							}
 																						>
 																							edit

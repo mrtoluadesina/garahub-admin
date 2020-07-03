@@ -24,7 +24,7 @@ import izitoast from "izitoast";
 import { fetchAllBrands } from "../../actions/brandsAction";
 
 export default (props) => {
-  const { method, object = { categoryId: [] } } = props;
+  const { method, object = { categoryId: [] }, closeModal } = props;
   // const [uploadSuccess, setSuccess] = useState(false);
   // const [updateError, setUpdateError] = useState(false);
   const [btnLoading, setBtnloading] = useState(false);
@@ -179,9 +179,6 @@ export default (props) => {
     if (method !== "edit") {
       createPoductActions(data).then((productObj)=>{
 
-        // setSuccess(true);
-        // undo disable
-        // set loading to false
         createProduct({
           // ...product,
           name: "",
@@ -223,14 +220,37 @@ export default (props) => {
         }
       }).finally(()=>{
         setBtnloading(false);
-
       })
 
 
 
 
     } else {
-      dispatch(updatePoductActions(object._id, data));
+      updatePoductActions(object._id, data).then(productObj => {
+        izitoast.show({
+          messageColor: "white",
+          title: method === "edit" ? "Product Updated" : "Product Added",
+          backgroundColor: "#00FF00",
+          titleColor: "white",
+          timeout: 5000,
+          message: `Product ${productObj.name} successfully Updated`,
+          onClosed: () => {},
+        });
+        closeModal()
+        window.location.reload()
+      }).catch((error) => {
+          izitoast.show({
+            messageColor: "white",
+            title: "product Save",
+            backgroundColor: "red",
+            titleColor: "white",
+            timeout: 5000,
+            message: error.message,
+            onClosed: () => {},
+          });
+      }).finally(()=> {
+        setBtnloading(false);
+      })
     }
     docs.removeAttribute('disabled')
   };
@@ -379,7 +399,7 @@ export default (props) => {
 								<div className="form-group">
 									<h3>Images</h3>
 									<div className="d-flex between">
-										{object.images !== undefined ? (
+										{object.images && object.images[0] !== undefined ? (
 											<span className="flex-1">
 												<img
 													className="img-fluid"
@@ -393,11 +413,11 @@ export default (props) => {
 											name="firstImage"
 											onChange={handleFileUpload}
 											className="flex-4"
-											required
+											required={object.images && object.images[0]? false: true}
 										/>
 									</div>
 									<div className="d-flex between">
-										{object.images !== undefined ? (
+										{object.images && object.images[1] !== undefined ? (
 											<span className="flex-1">
 												<img
 													className="img-fluid"
@@ -414,7 +434,7 @@ export default (props) => {
 										/>
 									</div>
 									<div className="d-flex between">
-										{object.images !== undefined ? (
+										{object.images && object.images[2] !== undefined ? (
 											<span className="flex-1">
 												<img
 													className="img-fluid"
@@ -431,7 +451,7 @@ export default (props) => {
 										/>
 									</div>
 									<div className="d-flex between">
-										{object.images !== undefined ? (
+										{object.images && object.images[3] !== undefined ? (
 											<span className="flex-1">
 												<img
 													className="img-fluid"
@@ -448,7 +468,7 @@ export default (props) => {
 										/>
 									</div>
 									<div className="d-flex between">
-										{object.images !== undefined ? (
+										{object.images && object.images[4] !== undefined ? (
 											<span className="flex-1">
 												<img
 													className="img-fluid"
