@@ -201,7 +201,7 @@ export default (props) => {
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Transaction Details</h2>
-									<div
+									{item._id? <div
 										style={{
 											marginTop: "2rem",
 											maxHeight: "400px",
@@ -269,7 +269,7 @@ export default (props) => {
 											</div>))}
 										</div>} 
 
-									</div>
+									</div>: <div>No Data available</div>}
 
 
 									<div
