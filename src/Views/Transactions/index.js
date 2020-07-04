@@ -195,57 +195,82 @@ export default (props) => {
 								)}
 							</tbody>
 						</Table>
-						{transactzz.map((item, index) => (
+						{transactzz.map((item, index) => {
+							const [more, setMore] = useState(false)
+							return (
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Transaction Details</h2>
 									<div
 										style={{
 											marginTop: "2rem",
+											maxHeight: "400px",
+											overflow: "scroll"
+											
 										}}
 									>
 										<p style={{ lineHeight: "2rem" }}>
 											Transaction Id: {item._id}
 										</p>
-										<p style={{ lineHeight: "2rem" }}>Status:{item.status}</p>
+										<p style={{ lineHeight: "2rem" }}>Status: {item.status}</p>
+
 										<p style={{ lineHeight: "2rem" }}>
-											Actual Amount:{item.actualAmount}
+											Actual Amount: {item.actualAmount/100}
 										</p>
 										<p style={{ lineHeight: "2rem" }}>
-											Amount Paid: {item.paidAmount}
-                    </p>
-                    <p style={{ lineHeight: "2rem" }}>
-										Charged Amount : {item.user && item.user.chargedAmount}
-                    </p>
+											Amount Paid: {item.paidAmount/100}
+										</p>
 										<p style={{ lineHeight: "2rem" }}>
-											Customer ID: {item.user && item.user._id}
-                    </p>
-										<p style={{ lineHeight: "2rem" }}>
+										Charged Amount : {item.chargedAmount/100}
+										</p>
+										
+										<h4>Customer Details</h4>
+										{/* <p style={{ lineHeight: "2rem" }}>
 											Created At: {item.user && formattedDate(item.user.createdAt)}
                     </p>
 										<p style={{ lineHeight: "2rem" }}>
 											Updated At: {item.user && formattedDate(item.user.updatedAt)}
-                    </p>
+                    </p> */}
 										<p style={{ lineHeight: "2rem" }}>
 											FirstName: {item.user && item.user.firstName}
 										</p>
 										<p style={{ lineHeight: "2rem" }}>
 											LastName: {item.user && item.user.lastName}
 										</p>
-										<p style={{ lineHeight: "2rem" }}>
-											Domain: {(item.user && item.user.domain) || "null"}
-										</p>
-										<p style={{ lineHeight: "2rem" }}>
-											isActive: {(item.user && item.user.isActive.toString() ) || "null"}
-										</p>
-										<p style={{ lineHeight: "2rem" }}>
-											isVerified:{" "}
-											{(item.user && item.user.isVerified.toString() ) || "null"}
-										</p>
-										<p style={{ lineHeight: "2rem" }}>
-											isGuest: {(item.user && item.user.isGuest.toString() ) || "null"}
-										</p>
+
+										<h4>Items</h4>
+										<table>
+												<tbody>
+													{item.items && item.items.map((ite)=>(<tr>
+														<td>
+															{ite.productDetailsId.name}
+														</td>
+														<td>
+															: {ite.quantity}
+														</td>
+													</tr>))}
+													<tr>
+														<td>Total Quantity</td>
+														<td>: {item.items && item.items.reduce((acc, val)=> acc + val.quantity, 0)}</td>
+													</tr>
+												</tbody>
+											</table>
+
+										<button onClick={()=>{setMore(!more)}}>More Records</button>
+										{more && <div>
+											<h4>Remarks</h4>
+											{item.remarks.map(data => (<div>
+												<p>{data.remark}</p>
+												<p>Time: {data.time.split("T").map((data, index)=>{
+													if (index === 0) { return data; };
+													return data.split(".")[0]
+												}).join(" ")}</p>
+												<hr/>
+											</div>))}
+										</div>} 
+
 									</div>
+
 
 									<div
 										style={{
@@ -258,7 +283,7 @@ export default (props) => {
 									</div>
 								</div>
 							</div>
-						))}
+						)})}
 
 						<div>
 							<button
