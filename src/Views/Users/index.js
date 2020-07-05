@@ -159,7 +159,7 @@ const handleChange = ({ target }) => {
 
 
 export default (props) => {
-
+	const adminsDetails = JSON.parse(localStorage.getItem("adminsData")).filter(items=>items.isDeleted===false);
   const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
     <Dialog open={open} onExited={onExited} onClose={hideModal}>
       <DialogTitle>Delete User</DialogTitle>
@@ -183,7 +183,7 @@ export default (props) => {
 		<Dialog open={open} onExited={onExited} onClose={hideEditModal}>
 			<DialogTitle>Edit User</DialogTitle>
 			<DialogContent>
-				 <EditForm user={users.find((user) => user._id === userId)}/>
+				 <EditForm user={adminsDetails.find((user) => user._id === userId)}/>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={hideEditModal}>Close</Button>
@@ -202,7 +202,6 @@ export default (props) => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
- const adminsDetails = JSON.parse(localStorage.getItem("adminsData"));
 
 	return (
 		<div className="customer-row">
@@ -230,7 +229,7 @@ export default (props) => {
 							</tr>
 						</thead>
 						<tbody>
-              {adminsDetails.filter(items=>items.isDeleted===false)
+              {adminsDetails
                 .map((item, index) => (
 								<tr key={item._id}>
 									<td>{index + 1}</td>
@@ -257,6 +256,7 @@ export default (props) => {
                           backgroundColor: "Red",
                           titleColor: "white",
                           timeout: 3000,
+                          position: "center",
                           message: "Super Admin Cannot be Edited ",
                         });
                         return;
@@ -275,6 +275,7 @@ export default (props) => {
 													backgroundColor: "Red",
 													titleColor: "white",
 													timeout: 3000,
+													position: "center",
 													message: "Super Admin Cannot be Deleted ",
 												});
                         return;

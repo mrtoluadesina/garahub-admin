@@ -260,7 +260,7 @@ const {
 
 export default (props) => {
 	
-	const discountDetails = JSON.parse(localStorage.getItem("couponsData"));
+	const discountDetails = JSON.parse(localStorage.getItem("couponsData")).filter(item => !item.isDeleted);
 // edit discount
 	const [showEditModal, hideEditModal] = useModal(({ in: open, onExited }) => (
 		<Dialog open={open} onExited={onExited} onClose={hideEditModal}>
@@ -329,7 +329,7 @@ const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
 							</thead>
 							<tbody>
 								{discountDetails.length > 0 ? (
-									discountDetails.filter(item => !item.isDeleted).map((item, index) => (
+									discountDetails.map((item, index) => (
 										<tr key={index}>
 											<td className="color-lgray">{index + 1}</td>
 											<td className="order-item" title="Click to view more">{item.code}</td>
