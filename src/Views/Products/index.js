@@ -14,7 +14,6 @@ import {formattedDate} from "../../utils/helperFunc";
 
 import "./styles.scss";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import Add from "./add"
 
@@ -177,11 +176,9 @@ export default props => {
 																							</div>
 																						</td>
 																						<td className="order-item">
-																							<Link
-																								to={`/dashboard/products/edit/${item._id}`}
-																							>
+																							
 																								{item.name}
-																							</Link>{" "}
+																						{" "}
 																						</td>
 																						<td>
 																							<span className="color-orange">
