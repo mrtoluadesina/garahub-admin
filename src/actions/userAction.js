@@ -6,7 +6,7 @@ import {
 	CREATE_USER_END,
 	CREATE_USER_FAIL,
 	CREATE_USER_START,
-  CREATE_USER_SUCCESS,
+  // CREATE_USER_SUCCESS,
   // EDIT_USER_SUCCESS,
   EDIT_USER_FAIL,
   // DELETE_USER_SUCCESS,
@@ -39,10 +39,10 @@ const createUserEnd = (payload) => ({
 	type: CREATE_USER_END,
 	payload,
 });
-const createUserSuccess = (payload) => ({
-	type: CREATE_USER_SUCCESS,
-	payload,
-});
+// const createUserSuccess = (payload) => ({
+// 	type: CREATE_USER_SUCCESS,
+// 	payload,
+// });
 const createUserFail = (payload) => ({
 	type: CREATE_USER_FAIL,
 	payload,
@@ -84,8 +84,15 @@ export const createUser = (data) => {
 	return async (dispatch) => {
 		try {
 			dispatch(createUserStart(true));
-      const res = await request.post("/api/v1/admin", data);
-			dispatch(createUserSuccess(res.data.payload));
+			const res = await request.post("/api/v1/admin", data);
+			// get users data from localstorage
+			const value = JSON.parse(localStorage.getItem('adminsData'))
+			value.push(res.data.payload);
+			// save back to localstorage
+			localStorage.setItem('adminsData', JSON.stringify(value))
+			//update redux
+			dispatch(fetchUsersSuccess(value));
+
 			dispatch(createUserEnd(false));
 		} catch (err) {
 			dispatch(createUserFail(retrieveMessage(err)));

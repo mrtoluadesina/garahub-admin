@@ -296,6 +296,7 @@ export default (props) => {
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
 									<h2>Orders Details</h2>
+									{item._id ? <div>
 									<div className="updateStatus" style={{ marginTop: "1rem" }}>
 										<div style={{ display: "flex" }}>
 											<div>
@@ -332,7 +333,6 @@ export default (props) => {
 											marginTop: "2rem",
 										}}
 									>
-										<p style={{ lineHeight: "2rem" }}>Id: {item._id}</p>
 										<p style={{ lineHeight: "2rem" }}>
 											Created At: {item && formattedDate(item.createdAt)}
 										</p>
@@ -341,14 +341,43 @@ export default (props) => {
 										</p>
 
 										<p style={{ lineHeight: "2rem" }}>
-											Status:{itemStatus ? itemStatus : item.status}
+											{ item && <table>
+												<thead>
+													<th>Item(s)</th>
+													<th></th>
+												</thead>
+												<tbody>
+													{item.orderItems && item.orderItems.map((ite)=>(<tr>
+														<td>
+															{ite.productDetailsId.name}
+														</td>
+														<td>
+															: {ite.quantity}
+														</td>
+													</tr>))}
+													<tr>
+														<td>Total Quantity</td>
+														<td>: {item.orderItems && item.orderItems.reduce((acc, val)=> acc + val.quantity, 0)}</td>
+													</tr>
+												</tbody>
+											</table>}
 										</p>
-										<p style={{ lineHeight: "2rem" }}>
-											Quantity:{item.quantity || "null"}
-										</p>
-										<p style={{ lineHeight: "2rem" }}>Amount: {item.amount}</p>
-									</div>
+										<p style={{ lineHeight: "2rem" }}>Amount: {item.amount/100}</p>
 
+										<div>
+											<h3>Destination Details</h3>
+											<p>
+												<span><bold>To : </bold>{item.addressId && `${item.addressId.firstName} ${item.addressId.lastName}`}</span>
+											</p>
+											<p>
+												<span><bold>Location : </bold>{item.addressId && `${item.addressId.address1}, ${item.addressId.city}, ${item.addressId.country}`}</span>
+											</p>
+											<p>
+												<span><bold>Phone : </bold>{item.addressId && `${item.addressId.phone}`}</span>
+											</p>
+										</div>
+									</div>
+									</div>: <div>No Item to display</div>}
 									<div
 										style={{
 											marginTop: "2rem",

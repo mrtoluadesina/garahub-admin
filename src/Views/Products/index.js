@@ -13,9 +13,7 @@ import ProductTab from "../../Components/AbandonedTab";
 import {formattedDate} from "../../utils/helperFunc";
 
 import "./styles.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../actions/productAction";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Add from "./add"
 
@@ -27,7 +25,6 @@ export default props => {
 													const {
 														products: { products },
 													} = useSelector((state) => state);
-													const dispatch = useDispatch();
 
 													products.filter((item) =>
 														console.log(item.isDeleted === false)
@@ -179,11 +176,9 @@ export default props => {
 																							</div>
 																						</td>
 																						<td className="order-item">
-																							<Link
-																								to={`/dashboard/products/edit/${item._id}`}
-																							>
+																							
 																								{item.name}
-																							</Link>{" "}
+																						{" "}
 																						</td>
 																						<td>
 																							<span className="color-orange">
