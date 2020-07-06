@@ -259,6 +259,33 @@ const {
 }
 
 export default (props) => {
+	const [page, setPage] = useState({start: 0, stop:20})
+
+	const previousPage = () => {
+		if (page.start <= 0){
+			return;
+		}
+		let newStart = page.start - 20 < 20 ? 0: page.start - 20
+		let newStop = newStart + 20
+		let newPage = {
+			start: newStart,
+			stop: newStop
+		}
+		setPage(()=>newPage)
+	}
+
+	const nextPage = () => {
+		if (page.stop >= discountDetails.length -1){
+			return;
+		}
+		let newStop = page.stop + 20
+		let newStart = page.start + 20
+		let newPage = {
+			start: newStart,
+			stop: newStop
+		}
+		setPage(()=>newPage)
+	}
 	
 	const discountDetails = JSON.parse(localStorage.getItem("couponsData")).filter(item => !item.isDeleted);
 // edit discount
@@ -324,19 +351,21 @@ const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
 									<th scope="col">Discount Unit</th>
                   <th scope="col">Valid From</th>
 									<th scope="col">Valid Until</th>
+									<th scope="col">Status</th>
 									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
 								{discountDetails.length > 0 ? (
-									discountDetails.map((item, index) => (
-										<tr key={index}>
-											<td className="color-lgray">{index + 1}</td>
+									discountDetails.slice(page.start, page.stop).map((item, index) => (
+										<tr key={index} >
+											<td className="color-lgray">{page.start + index + 1}</td>
 											<td className="order-item" title="Click to view more">{item.code}</td>
 											<td className="color-dgray">{item.discountValue}</td>
 											<td className="color-lgray">{item.discountUnit}</td>
                       <td className="color-dgray">{formattedDate(item.validFrom)}</td>
 											<td className="color-dgray">{formattedDate(item.validUntil)}</td>
+											<td className="color-dgray">{Date.now() > new Date(item.validUntil) ? "Inactive": "Active"}</td>
 											<td>
 												<button onClick={() => {
                       discountId = item._id;
@@ -349,11 +378,17 @@ const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
 											</td>
 										</tr>
 									))
+									
 								) : (
 									<tr>
 										<p>No Discounts Yet</p>
 									</tr>
 								)}
+								<tr><button onClick={
+									previousPage
+								} disabled={page.start <= 0}>{"<"}</button>{Math.ceil(page.stop/20)}<button onClick={
+									nextPage
+								} disabled={page.stop >= discountDetails.length}>{">"}</button></tr>
 							</tbody>
 						</Table>
 					</div>
