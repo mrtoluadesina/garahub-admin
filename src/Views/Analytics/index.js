@@ -11,11 +11,11 @@ import axios from "axios";
 
 export default (props) => {
   const [dashboardData, setDashboardData] = useState({
-    couponCount: 	JSON.parse(localStorage.getItem('couponsData'))? JSON.parse(localStorage.getItem('couponsData')).length : 0,
-    adminCount: JSON.parse(localStorage.getItem('adminsData'))? JSON.parse(localStorage.getItem('adminsData')).length : 0,
-    orderCount: JSON.parse(localStorage.getItem('ordersData'))? JSON.parse(localStorage.getItem('ordersData')).length : 0,
-    productCount: JSON.parse(localStorage.getItem('productsData'))? JSON.parse(localStorage.getItem('productsData')).length : 0,
-    customerCount: JSON.parse(localStorage.getItem('customersData'))? JSON.parse(localStorage.getItem('customersData')).length : 0
+    couponCount: 	JSON.parse(localStorage.getItem('couponsData'))? JSON.parse(localStorage.getItem('couponsData')).filter(data => !data.isDeleted).length : 0,
+    adminCount: JSON.parse(localStorage.getItem('adminsData'))? JSON.parse(localStorage.getItem('adminsData')).filter(data => !data.isDeleted).length : 0,
+    orderCount: JSON.parse(localStorage.getItem('ordersData'))? JSON.parse(localStorage.getItem('ordersData')).filter(data => !data.isDeleted).length : 0,
+    productCount: JSON.parse(localStorage.getItem('productsData'))? JSON.parse(localStorage.getItem('productsData')).filter(data => !data.isDeleted).length : 0,
+    customerCount: JSON.parse(localStorage.getItem('customersData'))? JSON.parse(localStorage.getItem('customersData')).filter(data => !data.isDeleted).length : 0
 	});
 
 	useEffect(() => {
@@ -29,9 +29,14 @@ export default (props) => {
 					 localStorage.setItem('ordersData', JSON.stringify(orders));
 					 localStorage.setItem('transactionsData', JSON.stringify(transactions));
 					 localStorage.setItem('adminsData', JSON.stringify(admins));
-					 console.log({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
 	 
-					 setDashboardData({couponCount: coupons.length, adminCount: admins.length, orderCount: orders.length, productCount: prod.length, customerCount: custom.length})
+					 setDashboardData({
+						 couponCount: coupons.filter(data => !data.isDeleted).length, 
+						 adminCount: admins.filter(data => !data.isDeleted).length, 
+						 orderCount: orders.filter(data => !data.isDeleted).length, 
+						 productCount: prod.filter(data => !data.isDeleted).length, 
+						 customerCount: custom.filter(data => !data.isDeleted).length
+						})
 				 })
    
 	}, []);
@@ -39,8 +44,6 @@ export default (props) => {
 
 	const {couponCount,orderCount, productCount, customerCount} = dashboardData;
 	
-	console.log(dashboardData)
-
 	return (
 		<div className="admin-row">
 			<div className="container">
