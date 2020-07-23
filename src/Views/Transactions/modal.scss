@@ -35,11 +35,15 @@ p {
 }
 
 .modal:target .modal-container {
-  top: 20%;
-
+  overflow: scroll;
+  top: 5%;
+  bottom: 5%;
+  max-height: 500px;
   -webkit-transform: translate(-50%, 0%);
   -ms-transform: translate(-50%, 0%);
   transform: translate(-50%, 0%);
 }
+
+
 
 #modal-close {}

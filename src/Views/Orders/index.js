@@ -295,8 +295,28 @@ export default (props) => {
 						{orderzz.map((item, index) => (
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
+								<div
+										style={{
+											marginTop: "2rem",
+											color: "red",
+											textDecoration: "underline",
+											float: "right"
+										}}
+									>
+										<a href="#modal-close">Close</a>
+									</div>
+
 									<h2>Orders Details</h2>
-									{item._id ? <div>
+									{item._id ? <div 
+										style={{
+											marginTop: "2rem",
+											maxHeight: "80%",
+											overflow: "scroll",
+											paddingBottom: "20px"
+											
+										}}
+
+									>
 									<div className="updateStatus" style={{ marginTop: "1rem" }}>
 										<div style={{ display: "flex" }}>
 											<div>
@@ -378,15 +398,7 @@ export default (props) => {
 										</div>
 									</div>
 									</div>: <div>No Item to display</div>}
-									<div
-										style={{
-											marginTop: "2rem",
-											color: "red",
-											textDecoration: "underline",
-										}}
-									>
-										<a href="#modal-close">Close</a>
-									</div>
+
 								</div>
 							</div>
 						))}
