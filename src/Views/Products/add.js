@@ -214,7 +214,7 @@ export default (props) => {
             backgroundColor: "red",
             titleColor: "white",
             timeout: 5000,
-            message: error.message,
+            message: error.response? error.response.data.message: error.message,
             onClosed: () => {},
           });
         }
