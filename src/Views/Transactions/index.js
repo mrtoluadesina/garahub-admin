@@ -200,12 +200,25 @@ export default (props) => {
 							return (
 							<div key={index} className="modal" id="modal">
 								<div className="modal-container">
+
+								<div
+										style={{
+											marginTop: "2rem",
+											color: "red",
+											textDecoration: "underline",
+											float: "right"
+										}}
+									>
+									<a href="#modal-close">Close</a>
+									</div>
+
 									<h2>Transaction Details</h2>
 									{item._id? <div
 										style={{
 											marginTop: "2rem",
-											maxHeight: "400px",
-											overflow: "scroll"
+											maxHeight: "80%",
+											overflow: "scroll",
+											paddingBottom: "20px"
 											
 										}}
 									>
@@ -272,15 +285,6 @@ export default (props) => {
 									</div>: <div>No Data available</div>}
 
 
-									<div
-										style={{
-											marginTop: "2rem",
-											color: "red",
-											textDecoration: "underline",
-										}}
-									>
-										<a href="#modal-close">Close</a>
-									</div>
 								</div>
 							</div>
 						)})}
