@@ -6,6 +6,7 @@ import Product from "../../assets/images/product.png";
 import Order from "../../assets/images/orders.png";
 import Discount from "../../assets/images/discount.png";
 import RevenueChart from "../../Components/Chart";
+import { BeatLoader } from "react-spinners";
 import axios from "axios";
 
 
@@ -53,7 +54,7 @@ export default (props) => {
 						<div className="col-lg overviewBox">
 							<div className="viewContainer">
 								<div className="overviewText">
-									<h3>{productCount ? productCount : 0}</h3>
+									<h3>{productCount ? productCount : <BeatLoader color="#00315E" size={5} />}</h3>
 									<p>Products</p>
 								</div>
 								<div className="viewImage">
@@ -67,7 +68,7 @@ export default (props) => {
 						<div className="lg-col overviewBox">
 							<div className="viewContainer">
 								<div className="overviewText">
-									<h3>{orderCount ? orderCount : 0}</h3>
+									<h3>{orderCount ? orderCount : <BeatLoader color="#00315E" size={5} />}</h3>
 									<p>Orders</p>
 								</div>
 								<div className="viewImage">
@@ -80,7 +81,7 @@ export default (props) => {
 						<div className="lg-col overviewBox">
 							<div className="viewContainer">
 								<div className="overviewText">
-									<h3>{couponCount ? couponCount : 0}</h3>
+									<h3>{couponCount ? couponCount : <BeatLoader color="#00315E" size={5} />}</h3>
 									<p>Discounts</p>
 								</div>
 								<div className="viewImage">
@@ -93,7 +94,7 @@ export default (props) => {
 						<div className="lg-col overviewBox">
 							<div className="viewContainer">
 								<div className="overviewText">
-									<h3>{customerCount ? customerCount : 0}</h3>
+									<h3>{customerCount ? customerCount : <BeatLoader color="#00315E" size={5} />}</h3>
 									<p>Customers</p>
 								</div>
 								<div className="viewImage">
