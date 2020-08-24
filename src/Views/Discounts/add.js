@@ -57,7 +57,8 @@ const Discount = ({ data, ...props }) => {
       validFrom: formFields.from,
       validUntil: formFields.till,
       code: formFields.disCode,
-      maximumDiscount: formFields.maxDis
+      maximumDiscount: formFields.maxDis,
+      description: formFields.desc
     };
     if (body.discountUnit === "PERCENTAGE") {
       body.maximumDiscount = formFields.maxDis;
