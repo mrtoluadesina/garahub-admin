@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { LoginContainer, LoginBox, LoginForm } from "./style";
-import Input from "../../Components/Input";
-import Button from "../../Components/Button";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { LoginContainer, LoginBox, LoginForm } from './style';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   authSuccess,
   authUser,
   authStart,
   authEnd,
   authFail,
-} from "../../actions/loginActions";
-import axios from "axios";
-import izitoast from "izitoast";
-import { BeatLoader } from "react-spinners";
-import { retrieveMessage } from "../../utils/helperFunc";
+} from '../../actions/loginActions';
+import axios from 'axios';
+import izitoast from 'izitoast';
+import { BeatLoader } from 'react-spinners';
+import { retrieveMessage } from '../../utils/helperFunc';
 
 export default function Index(props) {
   const dispatch = useDispatch();
@@ -22,13 +22,14 @@ export default function Index(props) {
   } = useSelector((state) => state);
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
     e.preventDefault();
-    const value = e.target.name === 'email' ? e.target.value.toLowerCase() : e.target.value;
+    const value =
+      e.target.name === 'email' ? e.target.value.toLowerCase() : e.target.value;
     setFormData({
       ...formData,
       [e.target.name]: value,
@@ -43,7 +44,7 @@ export default function Index(props) {
       .then((res) => {
         dispatch(authUser(res.data.payload));
         dispatch(authSuccess(res.data));
-        props.history.push("/dashboard");
+        props.history.push('/dashboard');
       })
       .catch((error) => {
         dispatch(authFail(retrieveMessage(error)));
@@ -83,7 +84,7 @@ export default function Index(props) {
           />
           <Button
             className="login-button"
-            value={(loading && <BeatLoader color="#fff" size={5} />) || "Login"}
+            value={(loading && <BeatLoader color="#fff" size={5} />) || 'Login'}
             type="submit"
           />
         </LoginForm>

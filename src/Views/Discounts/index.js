@@ -135,7 +135,7 @@ const {
 						onChange={handleChange}
 						required
 					/>
-								<span id="msg">Coupon Code Available</span>{" "}
+					<span id="msg">Coupon Code Available</span>{" "}
           <span id="msgna">Not Available</span>
 				</div>
 				<div className="input">
@@ -247,7 +247,7 @@ const {
           borderRadius:5
 
         }}
-          onClick={generate} id="button" >Generate</button>
+          onClick={generate} id="button" >Re-Generate</button>
         </div>
 			</Card>
 
@@ -292,11 +292,11 @@ export default (props) => {
 	const [showEditModal, hideEditModal] = useModal(({ in: open, onExited }) => (
 		<Dialog open={open} onExited={onExited} onClose={hideEditModal}>
 			<DialogTitle>Edit User</DialogTitle>
+				<Button onClick={hideEditModal}>Close</Button>
 			<DialogContent>
-				 <EditForm discounts={discountDetails.find(discount => discount._id === discountId)}/>
+				 <EditForm method={"edit"} discounts={discountDetails.find(discount => discount._id === discountId)}/>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={hideEditModal}>Close</Button>
 			</DialogActions>
 		</Dialog>
  ));
@@ -350,7 +350,7 @@ const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
 									<th scope="col">Discount</th>
 									<th scope="col">Discount Unit</th>
                   <th scope="col">Valid From</th>
-									<th scope="col">Valid Until</th>
+									{/* <th scope="col">Valid Until</th> */}
 									<th scope="col">Status</th>
 									<th scope="col"></th>
 								</tr>
@@ -360,11 +360,11 @@ const [showDeleteModal, hideModal] = useModal(({ in: open, onExited }) => (
 									discountDetails.slice(page.start, page.stop).map((item, index) => (
 										<tr key={index} >
 											<td className="color-lgray">{page.start + index + 1}</td>
-											<td className="order-item" title="Click to view more">{item.code}</td>
+											<td className="order-item" title={item.description}>{item.code}</td>
 											<td className="color-dgray">{item.discountValue}</td>
 											<td className="color-lgray">{item.discountUnit}</td>
                       <td className="color-dgray">{formattedDate(item.validFrom)}</td>
-											<td className="color-dgray">{formattedDate(item.validUntil)}</td>
+											{/* <td className="color-dgray">{formattedDate(item.validUntil)}</td> */}
 											<td className="color-dgray">{Date.now() > new Date(item.validUntil) ? "Inactive": "Active"}</td>
 											<td>
 												<button onClick={() => {

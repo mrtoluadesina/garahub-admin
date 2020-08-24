@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import {useDispatch,useSelector } from "react-redux";
+// import {useDispatch,useSelector } from "react-redux";
 import Card from "../../Components/Card";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import { createUser } from "../../actions/userAction"
 import izitoast from "izitoast";
 import Select from "react-select";
+import { BeatLoader } from "react-spinners";
 
 export default (props) => {
 
-  const {
-    user: {userSuccess }
-  } = useSelector((state) => state);
+  // const {
+  //   user: {userSuccess }
+	// } = useSelector((state) => state);
+	
+	const [btnLoading, setBtnLoading] = useState(false)
 
 
   const [profile, updateProfile] = useState({
@@ -24,27 +27,63 @@ export default (props) => {
     role:3
   });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleChange = ({ target }) => {
     updateProfile({ ...profile, [target.name]: target.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(createUser(profile));
-
-    if (userSuccess === true) {
-      izitoast.show({
+		e.preventDefault();
+		setBtnLoading(true)
+		const docs = document.activeElement;
+    docs.setAttribute("disabled", "true");
+    createUser(profile).then(()=>{
+			izitoast.show({
         messageColor: "white",
         backgroundColor: "green",
         titleColor: "white",
         timeout: 5000,
-        position: "center",
+        position: "bottomRight",
         message: "User Created Successfully "
       });
 
-      updateProfile({ ...profile, firstName: "", lastName: "", email: "", phone: "", DOB: "", password: "" });
-    }
+      updateProfile(()=>({ ...profile, firstName: "", lastName: "", email: "", phone: "", DOB: "", password: "" }));
+		}).catch((err)=>{
+      izitoast.show({
+        messageColor: "white",
+        backgroundColor: "red",
+        titleColor: "white",
+        timeout: 5000,
+        position: "bottomRight",
+        message: `${err.response? err.response.data.message: err.message}`
+      });
+
+		}).finally(()=>{
+			docs.removeAttribute('disabled')
+			setBtnLoading(false)
+		})
+
+    // if (userSuccess === true) {
+    //   izitoast.show({
+    //     messageColor: "white",
+    //     backgroundColor: "green",
+    //     titleColor: "white",
+    //     timeout: 5000,
+    //     position: "bottomRight",
+    //     message: "User Created Successfully "
+    //   });
+
+    //   updateProfile({ ...profile, firstName: "", lastName: "", email: "", phone: "", DOB: "", password: "" });
+    // } else {
+    //   izitoast.show({
+    //     messageColor: "white",
+    //     backgroundColor: "red",
+    //     titleColor: "white",
+    //     timeout: 5000,
+    //     position: "bottomRight",
+    //     message: "User Created Successfully "
+    //   });
+		// }
   }
 
   const roles =[{ value: 'admin', label: 'Admin' },
@@ -148,7 +187,7 @@ export default (props) => {
 						</div>
 					</div>
 					<div className="row">
-						<Button className="btn redSolidBtn" value="Create User" />
+						<Button className="btn redSolidBtn" value={btnLoading? <BeatLoader color="#fff" size={5} />:"Create User"} />
 					</div>
 				</form>
 			</div>

@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Card from "../../Components/Card";
+import React, { useState, useEffect, useRef } from 'react';
+import Card from '../../Components/Card';
 
-import "./styles.scss";
-import Input from "../../Components/Input";
-import TextArea from "../../Components/TextArea";
-import Button from "../../Components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../actions/categoryActions";
-import Select from "react-select";
+import './styles.scss';
+import Input from '../../Components/Input';
+import TextArea from '../../Components/TextArea';
+import Button from '../../Components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../actions/categoryActions';
+import Select from 'react-select';
 import {
   uploadImage,
   priceArray,
   imagesPrepared,
   pricePrepared,
   checkValidSlug,
-} from "../../utils/helperFunc";
+} from '../../utils/helperFunc';
 import {
   createPoductActions,
   updatePoductActions,
-} from "../../actions/productAction";
-import { BeatLoader } from "react-spinners";
-import izitoast from "izitoast";
-import { fetchAllBrands } from "../../actions/brandsAction";
+} from '../../actions/productAction';
+import { BeatLoader } from 'react-spinners';
+import izitoast from 'izitoast';
+import { fetchAllBrands } from '../../actions/brandsAction';
+import WYSIWYGEditor from '../../Components/WYSIWYGEditor';
 
 export default (props) => {
   const { method, object = { categoryId: [] }, closeModal } = props;
@@ -36,14 +37,16 @@ export default (props) => {
     brands: { brands },
   } = useSelector((state) => state);
 
-  const latestBrands = brands ? brands.map((brand) => {
-    return { ...brand, label: brand.name, value: brand._id };
-  }) : [];
+  const latestBrands = brands
+    ? brands.map((brand) => {
+        return { ...brand, label: brand.name, value: brand._id };
+      })
+    : [];
 
   let [pricingCount, setPricingCount] = useState(1);
 
   let [listOfPrices, setPriceList] = useState(
-    method === "edit" ? priceArray(object.price) : []
+    method === 'edit' ? priceArray(object.price) : [],
   );
 
   let [pricingList, setPricingList] = useState([]);
@@ -52,12 +55,12 @@ export default (props) => {
     from: 0,
     to: 0,
   });
-  const generateSku = () => "sku" + Date.now();
+  const generateSku = () => 'sku' + Date.now();
 
   let [product, createProduct] = useState({
-    name: "",
-    slug: "",
-    description: "",
+    name: '',
+    slug: '',
+    description: '',
     quantity: 0,
     categories: object
       ? [
@@ -69,16 +72,24 @@ export default (props) => {
     sku: generateSku(),
   });
 
+  const wysiwygEditorRef = useRef(null);
+
   const handleChange = ({ target }) => {
     createProduct({ ...product, [target.name]: target.value });
   };
+
+  function eidtorChange() {
+    //Get editor content
+    let description = wysiwygEditorRef.current.innerHTML;
+    createProduct((previousState) => ({ ...previousState, description }));
+  }
 
   let [images, createImages] = useState({});
 
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchAllBrands());
-    if (method === "edit") {
+    if (method === 'edit') {
       let array = [];
       object.categoryId.map((element, index) => {
         const cate = categories.filter((category, index) => {
@@ -101,6 +112,7 @@ export default (props) => {
         sku: object.sku,
       });
       setPricingCount(Object.keys(object.price).length);
+      wysiwygEditorRef.current.innerHTML = object && object.description;
       const editImages = imagesPrepared(object.images);
       createImages({ ...images, ...editImages });
     }
@@ -110,14 +122,14 @@ export default (props) => {
     let name = target.name;
     let index = name[name.length - 1];
 
-    let key = range[`from${index}`] + "-" + range[`to${index}`];
-    if (name.slice(0, name.length - 1) === "from") {
+    let key = range[`from${index}`] + '-' + range[`to${index}`];
+    if (name.slice(0, name.length - 1) === 'from') {
       setRange({ ...range, [name]: target.value });
     }
-    if (name.slice(0, name.length - 1) === "to") {
+    if (name.slice(0, name.length - 1) === 'to') {
       setRange({ ...range, [name]: target.value });
     }
-    if (name.slice(0, name.length - 1) === "price") {
+    if (name.slice(0, name.length - 1) === 'price') {
       setPricingList({ ...pricingList, [key]: target.value });
     }
   };
@@ -145,13 +157,13 @@ export default (props) => {
     setBtnloading(true);
     // disable the button
     const docs = document.activeElement;
-    docs.setAttribute("disabled", "true");
+    docs.setAttribute('disabled', 'true');
 
     let imagesArray = [];
     let editPricing = {};
-    if (method === "edit") {
+    if (method === 'edit') {
       const refinedList = Object.values(images).filter(
-        (element) => !object.images.includes(element)
+        (element) => !object.images.includes(element),
       );
       imagesArray = await uploadImage(Object.values(refinedList));
       editPricing = pricePrepared(listOfPrices);
@@ -176,102 +188,101 @@ export default (props) => {
       brandId: product.brandId,
     };
     //
-    if (method !== "edit") {
-      createPoductActions(data).then((productObj)=>{
-
-        createProduct({
-          // ...product,
-          name: "",
-          description: "",
-          quantity: "",
-          categories: [],
-          price: 0,
-          sku: "",
-          slug: "",
-          brandId: ""
-        });
-        createImages({})
-        setPriceList([])
+    if (method !== 'edit') {
+      createPoductActions(data)
+        .then((productObj) => {
+          createProduct({
+            // ...product,
+            name: '',
+            description: '',
+            quantity: '',
+            categories: [],
+            price: 0,
+            sku: '',
+            slug: '',
+            brandId: '',
+          });
+          createImages({});
+          setPriceList([]);
           izitoast.show({
-            messageColor: "white",
-            title: method === "edit" ? "Product Updated" : "Product Added",
-            backgroundColor: "#00FF00",
-            titleColor: "white",
+            messageColor: 'white',
+            title: method === 'edit' ? 'Product Updated' : 'Product Added',
+            backgroundColor: '#00FF00',
+            titleColor: 'white',
             timeout: 5000,
             message:
-              method === "edit"
+              method === 'edit'
                 ? `Product ${productObj.name} successfully Updated`
                 : `Product ${productObj.name} successfully Added`,
             onClosed: () => {},
           });
-  
-    
-      }).catch((error)=>{
-        if (error) {
+        })
+        .catch((error) => {
+          if (error) {
+            izitoast.show({
+              messageColor: 'white',
+              title: 'product Save',
+              backgroundColor: 'red',
+              titleColor: 'white',
+              timeout: 5000,
+              message: error.message,
+              onClosed: () => {},
+            });
+          }
+        })
+        .finally(() => {
+          setBtnloading(false);
+        });
+    } else {
+      updatePoductActions(object._id, data)
+        .then((productObj) => {
           izitoast.show({
-            messageColor: "white",
-            title: "product Save",
-            backgroundColor: "red",
-            titleColor: "white",
+            messageColor: 'white',
+            title: method === 'edit' ? 'Product Updated' : 'Product Added',
+            backgroundColor: '#00FF00',
+            titleColor: 'white',
             timeout: 5000,
-            message: error.response? error.response.data.message: error.message,
+            message: `Product ${productObj.name} successfully Updated`,
             onClosed: () => {},
           });
-        }
-      }).finally(()=>{
-        setBtnloading(false);
-      })
-
-
-
-
-    } else {
-      updatePoductActions(object._id, data).then(productObj => {
-        izitoast.show({
-          messageColor: "white",
-          title: method === "edit" ? "Product Updated" : "Product Added",
-          backgroundColor: "#00FF00",
-          titleColor: "white",
-          timeout: 5000,
-          message: `Product ${productObj.name} successfully Updated`,
-          onClosed: () => {},
-        });
-        closeModal()
-        window.location.reload()
-      }).catch((error) => {
+          closeModal();
+          window.location.reload();
+        })
+        .catch((error) => {
           izitoast.show({
-            messageColor: "white",
-            title: "product Save",
-            backgroundColor: "red",
-            titleColor: "white",
+            messageColor: 'white',
+            title: 'product Save',
+            backgroundColor: 'red',
+            titleColor: 'white',
             timeout: 5000,
             message: error.message,
             onClosed: () => {},
           });
-      }).finally(()=> {
-        setBtnloading(false);
-      })
+        })
+        .finally(() => {
+          setBtnloading(false);
+        });
     }
-    docs.removeAttribute('disabled')
+    docs.removeAttribute('disabled');
   };
   const handleEditPricingChange = ({ target }) => {
     let name = target.name;
     let index = name[name.length - 1];
     let key = name.slice(0, name.length - 1);
-    if (name.slice(0, name.length - 1) === "from") {
+    if (name.slice(0, name.length - 1) === 'from') {
       setRange({ ...range, [name]: target.value });
     }
-    if (name.slice(0, name.length - 1) === "to") {
+    if (name.slice(0, name.length - 1) === 'to') {
       setRange({ ...range, [name]: target.value });
     }
-    if (name.slice(0, name.length - 1) === "price") {
+    if (name.slice(0, name.length - 1) === 'price') {
       setRange({ ...range, [name]: target.value });
     }
     listOfPrices[index][key] = target.value;
   };
   const priceEditGenerator = () => {
     return listOfPrices.map((list, index) => (
-      <div className="d-flex">
+      <div className="d-flex" key={index}>
         <div className="form-group">
           <label htmlFor={`from${index}`}>From</label>
           <Input
@@ -292,7 +303,7 @@ export default (props) => {
         </div>
         <div className="form-group">
           <label htmlFor={`price${index}`}>Price</label>
-          <Input 
+          <Input
             type="number"
             name={`price${index}`}
             onChange={handleEditPricingChange}
@@ -337,9 +348,9 @@ export default (props) => {
               required
             />
           </div>
-            {/* shows only on added price tags */}
-          {index> 0 && <span onClick={removePriceFunc}>Remove</span>} 
-        </div>
+          {/* shows only on added price tags */}
+          {index > 0 && <span onClick={removePriceFunc}>Remove</span>}
+        </div>,
       );
     }
 
@@ -356,215 +367,215 @@ export default (props) => {
   };
 
   return (
-		<div className="add-product-section">
-			<div className="container">
-				<h2>Add products</h2>
-				<form className="form" onSubmit={handleSubmit}>
-					<div className="row">
-						<div className="col _big">
-							<Card>
-								<div className="form-group">
-									<h3>Product Name</h3>
-									<Input
-										type="text"
-										name="name"
-										onChange={handleChange}
-										placeholder="Product Name"
-										value={product.name}
-										required
-									/>
-								</div>
-								<div className="form-group">
-									<h3>Product slug</h3>
-									<Input
-										type="text"
-										name="slug"
-										onChange={handleChange}
-										placeholder="Product Slug (e.g. samsung-galaxy-s10-20)"
-										value={product.slug}
-									/>
-								</div>
-								<div className="form-group">
-									<h3>Description</h3>
-									<TextArea
-										name="description"
-										onChange={handleChange}
-										placeholder="Describe your product"
-										value={product.description}
-										required
-									/>
-								</div>
-							</Card>
-							<Card>
-								<div className="form-group">
-									<h3>Images</h3>
-									<div className="d-flex between">
-										{object.images && object.images[0] !== undefined ? (
-											<span className="flex-1">
-												<img
-													className="img-fluid"
-													src={object.images[0]}
-													alt="product1"
-												/>
-											</span>
-										) : null}
-										<Input
-											type="file"
-											name="firstImage"
-											onChange={handleFileUpload}
-											className="flex-4"
-											required={object.images && object.images[0]? false: true}
-										/>
-									</div>
-									<div className="d-flex between">
-										{object.images && object.images[1] !== undefined ? (
-											<span className="flex-1">
-												<img
-													className="img-fluid"
-													src={object.images[1]}
-													alt="product2"
-												/>
-											</span>
-										) : null}
-										<Input
-											type="file"
-											name="secondImage"
-											onChange={handleFileUpload}
-											className="flex-4"
-										/>
-									</div>
-									<div className="d-flex between">
-										{object.images && object.images[2] !== undefined ? (
-											<span className="flex-1">
-												<img
-													className="img-fluid"
-													src={object.images[2]}
-													alt="product3"
-												/>
-											</span>
-										) : null}
-										<Input
-											type="file"
-											name="thirdImage"
-											onChange={handleFileUpload}
-											className="flex-4"
-										/>
-									</div>
-									<div className="d-flex between">
-										{object.images && object.images[3] !== undefined ? (
-											<span className="flex-1">
-												<img
-													className="img-fluid"
-													src={object.images[3]}
-													alt="product4"
-												/>
-											</span>
-										) : null}
-										<Input
-											type="file"
-											name="fourthImage"
-											onChange={handleFileUpload}
-											className="flex-4"
-										/>
-									</div>
-									<div className="d-flex between">
-										{object.images && object.images[4] !== undefined ? (
-											<span className="flex-1">
-												<img
-													className="img-fluid"
-													src={object.images[4]}
-													alt="product5"
-												/>
-											</span>
-										) : null}
-										<Input
-											type="file"
-											name="fifthImage"
-											onChange={handleFileUpload}
-											className="flex-4"
-										/>
-									</div>
-								</div>
-							</Card>
-							<Card>
-								<h3>Pricing</h3>
-								<div className="form-group">
-									{method === "edit"
-										? priceEditGenerator()
-										: priceInputGenerator()}
-								</div>
-								{pricingCount < 2 ? (
-									<button
-										className="redSolidBtn"
+    <div className="add-product-section">
+      <div className="container">
+        <h2>Add products</h2>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col _big">
+              <Card>
+                <div className="form-group">
+                  <h3>Product Name</h3>
+                  <Input
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                    placeholder="Product Name"
+                    value={product.name}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <h3>Product slug</h3>
+                  <Input
+                    type="text"
+                    name="slug"
+                    onChange={handleChange}
+                    placeholder="Product Slug (e.g. samsung-galaxy-s10-20)"
+                    value={product.slug}
+                  />
+                </div>
+                <div className="form-group">
+                  <h3>Description</h3>
+                  <WYSIWYGEditor
+                    onChange={eidtorChange}
+                    value={product.description}
+                    editorRef={wysiwygEditorRef}
+                  />
+                </div>
+              </Card>
+              <Card>
+                <div className="form-group">
+                  <h3>Images</h3>
+                  <div className="d-flex between">
+                    {object.images && object.images[0] !== undefined ? (
+                      <span className="flex-1">
+                        <img
+                          className="img-fluid"
+                          src={object.images[0]}
+                          alt="product1"
+                        />
+                      </span>
+                    ) : null}
+                    <Input
+                      type="file"
+                      name="firstImage"
+                      onChange={handleFileUpload}
+                      className="flex-4"
+                      required={
+                        object.images && object.images[0] ? false : true
+                      }
+                    />
+                  </div>
+                  <div className="d-flex between">
+                    {object.images && object.images[1] !== undefined ? (
+                      <span className="flex-1">
+                        <img
+                          className="img-fluid"
+                          src={object.images[1]}
+                          alt="product2"
+                        />
+                      </span>
+                    ) : null}
+                    <Input
+                      type="file"
+                      name="secondImage"
+                      onChange={handleFileUpload}
+                      className="flex-4"
+                    />
+                  </div>
+                  <div className="d-flex between">
+                    {object.images && object.images[2] !== undefined ? (
+                      <span className="flex-1">
+                        <img
+                          className="img-fluid"
+                          src={object.images[2]}
+                          alt="product3"
+                        />
+                      </span>
+                    ) : null}
+                    <Input
+                      type="file"
+                      name="thirdImage"
+                      onChange={handleFileUpload}
+                      className="flex-4"
+                    />
+                  </div>
+                  <div className="d-flex between">
+                    {object.images && object.images[3] !== undefined ? (
+                      <span className="flex-1">
+                        <img
+                          className="img-fluid"
+                          src={object.images[3]}
+                          alt="product4"
+                        />
+                      </span>
+                    ) : null}
+                    <Input
+                      type="file"
+                      name="fourthImage"
+                      onChange={handleFileUpload}
+                      className="flex-4"
+                    />
+                  </div>
+                  <div className="d-flex between">
+                    {object.images && object.images[4] !== undefined ? (
+                      <span className="flex-1">
+                        <img
+                          className="img-fluid"
+                          src={object.images[4]}
+                          alt="product5"
+                        />
+                      </span>
+                    ) : null}
+                    <Input
+                      type="file"
+                      name="fifthImage"
+                      onChange={handleFileUpload}
+                      className="flex-4"
+                    />
+                  </div>
+                </div>
+              </Card>
+              <Card>
+                <h3>Pricing</h3>
+                <div className="form-group">
+                  {method === 'edit'
+                    ? priceEditGenerator()
+                    : priceInputGenerator()}
+                </div>
+                {pricingCount < 2 ? (
+                  <button
+                    className="redSolidBtn"
                     style={{
-                      background: "#00315E",
+                      background: '#00315E',
                       height: 50,
-                      width:100
+                      width: 100,
                     }}
-										onClick={addPriceFunc}
-									>
-										Add Price
-									</button>
-								) : null}
-							</Card>
-							<Card>
-								<h3>Inventory</h3>
-								<div className="form-group">
-									<label>Stock</label>
-									<Input
-										type="number"
-										name="quantity"
-										onChange={handleChange}
-										placeholder="0"
-										value={product.quantity}
-										required
-									/>
-								</div>
-							</Card>
-						</div>
-						<div className="col _small">
-							<Card>
-								<h4>Categories</h4>
-								<div className="form-group">
-									<label>select category</label>
-									{/* <Input type="text" placeholder="Enter Category" />
-									 */}
+                    onClick={addPriceFunc}
+                  >
+                    Add Price
+                  </button>
+                ) : null}
+              </Card>
+              <Card>
+                <h3>Inventory</h3>
+                <div className="form-group">
+                  <label>Stock</label>
+                  <Input
+                    type="number"
+                    name="quantity"
+                    onChange={handleChange}
+                    placeholder="0"
+                    value={product.quantity}
+                    required
+                  />
+                </div>
+              </Card>
+            </div>
+            <div className="col _small">
+              <Card>
+                <h4>Categories</h4>
+                <div className="form-group">
+                  <label>select category</label>
+                  {/* <Input type="text" placeholder="Enter Category" />
+                   */}
 
-									<Select
-										options={categories}
-										onChange={handleSelectChange}
-										name="category"
-										isMulti={true}
-										defaultValue={[...product.categories]}
-										required
-									/>
-								</div>
-							</Card>
-							<Card>
-								<h4>Brands</h4>
-								<div className="form-group">
-									<label>select brand</label>
-									{/* <Input type="text" placeholder="Enter Category" />
-									 */}
-									<Select
-										options={latestBrands}
-										onChange={handleBrandSelectChange}
-										name="brandId"
-										required
-									/>
-								</div>
-							</Card>
-						</div>
-						<div className="col _small"></div>
-					</div>
-					<div className="row">
-						<Button
-							className="btn redSolidBtn"
-							value={btnLoading ? <BeatLoader color="#fff" size={5} /> : "Save"}
-						/>
-					</div>
-				</form>
-			</div>
-		</div>
-	);
+                  <Select
+                    options={categories}
+                    onChange={handleSelectChange}
+                    name="category"
+                    isMulti={true}
+                    defaultValue={[...product.categories]}
+                    required
+                  />
+                </div>
+              </Card>
+              <Card>
+                <h4>Brands</h4>
+                <div className="form-group">
+                  <label>select brand</label>
+                  {/* <Input type="text" placeholder="Enter Category" />
+                   */}
+                  <Select
+                    options={latestBrands}
+                    onChange={handleBrandSelectChange}
+                    name="brandId"
+                    required
+                  />
+                </div>
+              </Card>
+            </div>
+            <div className="col _small"></div>
+          </div>
+          <div className="row">
+            <Button
+              className="btn redSolidBtn"
+              value={btnLoading ? <BeatLoader color="#fff" size={5} /> : 'Save'}
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
